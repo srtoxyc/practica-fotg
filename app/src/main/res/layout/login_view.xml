@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:id="@+id/lytLogin"
+        android:layout_width="411dp"
+        android:layout_height="391dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLytUser"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            app:boxStrokeColor="@drawable/inputstroke"
+            app:counterEnabled="false"
+            app:counterMaxLength="22"
+            app:cursorColor="@color/golden_dark"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/golden_dark"
+            android:fontFamily="@font/cinzel"
+            app:hintTextColor="@color/golden_light">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/account"
+
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/cinzel"
+                android:hint="USER"
+
+                android:textColor="@color/white"
+                tools:layout_editor_absolutY="100dp"
+                tools:layout_editor_absoluteX="89dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLytEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+
+            android:enabled="false"
+
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:boxStrokeColor="@drawable/inputstroke"
+            app:counterEnabled="false"
+            app:counterMaxLength="22"
+            app:cursorColor="@color/golden_dark"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/golden_dark"
+            android:fontFamily="@font/cinzel"
+            app:hintTextColor="@color/golden_light"
+            tools:ignore="DuplicateIds,ExtraText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:drawableStart="@drawable/email"
+
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/cinzel"
+
+                android:hint="EMAIL"
+                android:textColor="@color/white"
+                tools:layout_editor_absolutY="100dp"
+                tools:layout_editor_absoluteX="89dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLytPass"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:boxStrokeColor="@drawable/inputstroke"
+            app:counterEnabled="false"
+            app:counterMaxLength="22"
+            app:cursorColor="@color/golden_dark"
+            android:fontFamily="@font/cinzel"
+            app:hintTextColor="@color/golden_light"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@drawable/inputstroke"
+            tools:ignore="DuplicateIds,ExtraText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:drawableStart="@drawable/password"
+
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/cinzel"
+                android:hint="PASSWORD"
+
+                android:textColor="@color/white"
+                tools:layout_editor_absolutY="100dp"
+                tools:layout_editor_absoluteX="89dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cinzel"
+            android:text="Login"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblChangeState"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cinzel"
+            android:text="Sign up"
+            android:textAlignment="center"
+            android:textColor="@color/golden_light"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081"
+        app:srcCompat="@drawable/logo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

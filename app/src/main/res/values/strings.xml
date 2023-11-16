@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Fall of the Gods</string>
+    <string name="title_home">Profile</string>
+    <string name="title_dashboard">Team</string>
+    <string name="title_notifications">Characters</string>
+</resources>
