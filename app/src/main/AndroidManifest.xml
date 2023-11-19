@@ -13,7 +13,7 @@
         android:theme="@style/Theme.PracticaFOTG"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -22,9 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
+            <!-- <nav-graph android:value="@navigation/mobile_navigation" /> -->
         </activity>
         <meta-data
             android:name="preloaded_fonts"
