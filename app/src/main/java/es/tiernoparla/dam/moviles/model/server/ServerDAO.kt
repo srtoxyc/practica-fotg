@@ -8,4 +8,6 @@ interface ServerDAO {
     suspend fun checkLogin(username: String, pass: String): Boolean
     suspend fun checkLogin(email: Email, pass: String): Boolean
     suspend fun signUp(username: String, email: Email, pass: String): SignUpState
+    suspend fun getSession(username: String, pass: String): User?
+    suspend fun getSession(email: Email, pass: String): User?
 }

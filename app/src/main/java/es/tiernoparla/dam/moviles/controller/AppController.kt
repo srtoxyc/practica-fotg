@@ -18,6 +18,10 @@ class AppController(private var context: Context) : Controller {
     var dbDAO: DBDAO?           = null
     var serverDAO: ServerDAO?   = null
 
+    companion object {
+        var session: User? = null
+    }
+
     init {
         dbDAO       = DBFactory.getDAO(DBFactory.MODE_SQLITE, context)
         serverDAO   = ServerFactory.getDAO(ServerFactory.MODE_SERVER)
@@ -25,7 +29,12 @@ class AppController(private var context: Context) : Controller {
 
     override suspend fun checkLogin(username: String, pass: String): Boolean {
         try {
-            return serverDAO!!.checkLogin(username, pass)
+            return if(serverDAO!!.checkLogin(username, pass)) {
+                session = serverDAO!!.getSession(username, pass)
+                true
+            } else {
+                false
+            }
         } catch(e: Exception) {
             throw e
         }
@@ -33,7 +42,12 @@ class AppController(private var context: Context) : Controller {
 
     override suspend fun checkLogin(email: Email, pass: String): Boolean {
         try {
-            return serverDAO!!.checkLogin(email, pass)
+            return if(serverDAO!!.checkLogin(email, pass)) {
+                session = serverDAO!!.getSession(email, pass)
+                true
+            } else {
+                false
+            }
         } catch(e: Exception) {
             throw e
         }

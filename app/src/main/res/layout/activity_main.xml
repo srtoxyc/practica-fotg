@@ -13,7 +13,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,13 +34,13 @@
         <LinearLayout
             android:id="@+id/lytUser"
             android:layout_width="351dp"
-            android:layout_height="60dp"
+            android:layout_height="85dp"
             android:gravity="start|center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imgUser"
-                android:layout_width="140dp"
+                android:layout_width="161dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
                 android:src="@drawable/account" />
@@ -75,20 +75,152 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
+                <TextView
+                    android:id="@+id/lblRole"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center|start"
+                    android:text="USER"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/lblRole"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/lytUserModify"
+            android:layout_width="362dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/cinzel"
-            android:gravity="center|start"
-            android:text="USER"
-            android:textAlignment="textStart"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnModifyUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/cinzel"
+                android:text="Change username"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnModifyEmail"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/cinzel"
+                android:text="Change Email"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnModifyPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/cinzel"
+                android:text="Change password"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lytUserTeamProfile"
+            android:layout_width="match_parent"
+            android:layout_height="278dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblUserTeamTitleProfile"
+                android:layout_width="169dp"
+                android:layout_height="32dp"
+                android:fontFamily="@font/cinzel"
+                android:gravity="center"
+                android:text="User's team"
+                android:textAlignment="center"
+                android:textColor="@color/golden_light"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/tableTeamProfile"
+                android:layout_width="354dp"
+                android:layout_height="178dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start">
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile1"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile2"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile3"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile4"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile5"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile6"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile7"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile8"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -99,7 +231,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +248,124 @@
             android:textAlignment="center"
             android:textColor="@color/golden_light"
             android:textSize="43sp" />
+
+        <TableLayout
+            android:id="@+id/tableTeam"
+            android:layout_width="354dp"
+            android:layout_height="178dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start">
+
+                <ImageView
+                    android:id="@+id/imgTeam1"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imgTeam2"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imgTeam3"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imgTeam4"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imgTeam5"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imgTeam6"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imgTeam7"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imgTeam8"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/lytSelectCharacters"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblSelectCharacters"
+                android:layout_width="169dp"
+                android:layout_height="32dp"
+                android:fontFamily="@font/cinzel"
+                android:gravity="center"
+                android:text="Select your team"
+                android:textAlignment="center"
+                android:textColor="@color/golden_light"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/tableSelectCharacters"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </TableLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
