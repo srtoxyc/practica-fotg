@@ -13,7 +13,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +32,105 @@
             android:textSize="43sp" />
 
         <LinearLayout
+            android:id="@+id/lytUserTeamProfile"
+            android:layout_width="match_parent"
+            android:layout_height="214dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblUserTeamTitleProfile"
+                android:layout_width="169dp"
+                android:layout_height="32dp"
+                android:fontFamily="@font/cinzel"
+                android:gravity="center"
+                android:text="User's team"
+                android:textAlignment="center"
+                android:textColor="@color/golden_light"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/tableTeamProfile"
+                android:layout_width="354dp"
+                android:layout_height="178dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start">
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile1"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile2"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile3"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile4"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile5"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile6"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile7"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ImageView
+                        android:id="@+id/imgTeamProfile8"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/lytUser"
             android:layout_width="351dp"
             android:layout_height="85dp"
+            android:layout_marginTop="60dp"
             android:gravity="start|center_vertical"
             android:orientation="horizontal">
 
@@ -127,100 +223,12 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/lytUserTeamProfile"
-            android:layout_width="match_parent"
-            android:layout_height="278dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/lblUserTeamTitleProfile"
-                android:layout_width="169dp"
-                android:layout_height="32dp"
-                android:fontFamily="@font/cinzel"
-                android:gravity="center"
-                android:text="User's team"
-                android:textAlignment="center"
-                android:textColor="@color/golden_light"
-                android:textStyle="bold" />
-
-            <TableLayout
-                android:id="@+id/tableTeamProfile"
-                android:layout_width="354dp"
-                android:layout_height="178dp">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="start">
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile1"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile2"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile3"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile4"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile5"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile6"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile7"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/imgTeamProfile8"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
-                </TableRow>
-
-            </TableLayout>
-        </LinearLayout>
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Log out" />
 
     </LinearLayout>
 
@@ -231,7 +239,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -349,18 +357,7 @@
                 android:layout_height="match_parent">
 
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <TableRow
+                    android:id="@+id/charactersRowTeams1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </TableLayout>
