@@ -14,7 +14,7 @@ import java.io.IOException
 class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_VERSION  = 1
-        private const val DATABASE_NAME     = "fallofthegods.db"
+        private const val DATABASE_NAME     = "fallofthegods_database.db"
     }
 
     private val assets: AssetManager
