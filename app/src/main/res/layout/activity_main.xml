@@ -13,7 +13,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,41 +60,73 @@
                     android:layout_height="match_parent"
                     android:gravity="start">
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile1"
+                    <FrameLayout
                         android:layout_width="79dp"
                         android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        android:layout_margin="5dp">
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile2"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        <ImageView
+                            android:id="@+id/imgTeamProfile1"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile3"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile4"
+                    <FrameLayout
                         android:layout_width="79dp"
                         android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        android:layout_margin="5dp">
+
+                        <ImageView
+                            android:id="@+id/imgTeamProfile2"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
+
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp">
+
+                        <ImageView
+                            android:id="@+id/imgTeamProfile3"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
+
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp">
+
+                        <ImageView
+                            android:id="@+id/imgTeamProfile4"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
+
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
 
                 </TableRow>
 
@@ -102,41 +134,73 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile5"
+                    <FrameLayout
                         android:layout_width="79dp"
                         android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        android:layout_margin="5dp">
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile6"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        <ImageView
+                            android:id="@+id/imgTeamProfile5"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile7"
-                        android:layout_width="79dp"
-                        android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
 
-                    <ImageView
-                        android:id="@+id/imgTeamProfile8"
+                    <FrameLayout
                         android:layout_width="79dp"
                         android:layout_height="79dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/image_border"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/logo" />
+                        android:layout_margin="5dp">
+
+                        <ImageView
+                            android:id="@+id/imgTeamProfile6"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
+
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp">
+
+                        <ImageView
+                            android:id="@+id/imgTeamProfile7"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
+
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:layout_margin="5dp">
+
+                        <ImageView
+                            android:id="@+id/imgTeamProfile8"
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:src="@drawable/none" />
+
+                        <View
+                            android:layout_width="79dp"
+                            android:layout_height="79dp"
+                            android:background="@drawable/image_border" />
+                    </FrameLayout>
                 </TableRow>
 
             </TableLayout>
@@ -255,7 +319,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -283,41 +347,73 @@
                 android:layout_height="match_parent"
                 android:gravity="start">
 
-                <ImageView
-                    android:id="@+id/imgTeam1"
+                <FrameLayout
                     android:layout_width="79dp"
                     android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    android:layout_margin="5dp">
 
-                <ImageView
-                    android:id="@+id/imgTeam2"
-                    android:layout_width="79dp"
-                    android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    <ImageView
+                        android:id="@+id/imgTeam1"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
 
-                <ImageView
-                    android:id="@+id/imgTeam3"
-                    android:layout_width="79dp"
-                    android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
 
-                <ImageView
-                    android:id="@+id/imgTeam4"
+                <FrameLayout
                     android:layout_width="79dp"
                     android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:id="@+id/imgTeam2"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
+
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:id="@+id/imgTeam3"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
+
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:id="@+id/imgTeam4"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
+
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
 
             </TableRow>
 
@@ -325,41 +421,73 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imgTeam5"
+                <FrameLayout
                     android:layout_width="79dp"
                     android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    android:layout_margin="5dp">
 
-                <ImageView
-                    android:id="@+id/imgTeam6"
-                    android:layout_width="79dp"
-                    android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    <ImageView
+                        android:id="@+id/imgTeam5"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
 
-                <ImageView
-                    android:id="@+id/imgTeam7"
-                    android:layout_width="79dp"
-                    android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
 
-                <ImageView
-                    android:id="@+id/imgTeam8"
+                <FrameLayout
                     android:layout_width="79dp"
                     android:layout_height="79dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/image_border"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:id="@+id/imgTeam6"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
+
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:id="@+id/imgTeam7"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
+
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:layout_margin="5dp">
+
+                    <ImageView
+                        android:id="@+id/imgTeam8"
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:src="@drawable/none" />
+
+                    <View
+                        android:layout_width="79dp"
+                        android:layout_height="79dp"
+                        android:background="@drawable/image_border" />
+                </FrameLayout>
             </TableRow>
 
         </TableLayout>

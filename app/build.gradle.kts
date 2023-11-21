@@ -53,6 +53,9 @@ dependencies {
     implementation("io.ktor:ktor-client-core:1.6.7")
     implementation("io.ktor:ktor-client-cio:1.6.7")
     implementation(libs.androidx.gridlayout)
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.ext.junit)

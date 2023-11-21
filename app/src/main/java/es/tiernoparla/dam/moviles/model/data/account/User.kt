@@ -10,16 +10,20 @@ data class User (
 ) : Exportable {
     companion object {
         public val DEFAULT_ROLE: String     = "USER"
-        private val TEAM_INIT_SIZE: Int     = 8
+        public val TEAM_MAX_SIZE: Int     = 8
 
         private var teamCounter: Int        = 0
+
+        public fun getTeamElementsCount(): Int {
+            return teamCounter
+        }
     }
 
     private var pass: ByteArray? = null
     private var salt: ByteArray? = null
     private var role: String     = DEFAULT_ROLE
 
-    private var team: MutableList<GameCharacter> = ArrayList<GameCharacter>(TEAM_INIT_SIZE)
+    private var team: MutableList<GameCharacter> = ArrayList<GameCharacter>(TEAM_MAX_SIZE)
 
     fun getUsername(): String {
         return this.username
@@ -54,10 +58,6 @@ data class User (
     }
     fun setRole(role: String) {
         this.role = role
-    }
-
-    fun getTeamElementsCount(): Int {
-        return teamCounter
     }
 
     fun getTeam(): MutableList<GameCharacter> {
