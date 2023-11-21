@@ -9,8 +9,10 @@ data class User (
     private var email: Email,
 ) : Exportable {
     companion object {
-        public val DEFAULT_ROLE: String = "USER"
-        private val TEAM_INIT_SIZE: Int = 8
+        public val DEFAULT_ROLE: String     = "USER"
+        private val TEAM_INIT_SIZE: Int     = 8
+
+        private var teamCounter: Int        = 0
     }
 
     private var pass: ByteArray? = null
@@ -54,11 +56,16 @@ data class User (
         this.role = role
     }
 
+    fun getTeamElementsCount(): Int {
+        return teamCounter
+    }
+
     fun getTeam(): MutableList<GameCharacter> {
         return this.team
     }
     fun addToTeam(character: GameCharacter) {
         this.team.add(character)
+        teamCounter++
     }
     fun getFromTeam(index: Int): GameCharacter {
         return this.team.get(index)

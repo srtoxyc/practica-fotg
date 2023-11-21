@@ -1,8 +1,10 @@
 package es.tiernoparla.dam.moviles.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,86 +17,115 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import es.tiernoparla.dam.moviles.R
 import es.tiernoparla.dam.moviles.controller.AppController
 import es.tiernoparla.dam.moviles.controller.Controller
 import es.tiernoparla.dam.moviles.databinding.ActivityMainBinding
+import es.tiernoparla.dam.moviles.model.data.Email
+import es.tiernoparla.dam.moviles.model.data.account.ServerState
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var appController: Controller? = null
 
-    private fun createCharactersRow(): TableRow {
-        var tableRow = TableRow(this)
+    private fun fillCharactersLayout(layout: LinearLayout, character: GameCharacter) {
+        val imgCharacter        = ImageView(this)
+        val nameCharacter       = TextView(this)
 
-        // TableRow attributes.
-        tableRow.setLayoutParams(
-            TableLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+        val imageSize           = 135
+        val textSize            = 16
+
+        // CHARACTER'S IMAGE ATTRIBUTES
+        imgCharacter.layoutParams = LinearLayout.LayoutParams(
+            imageSize,
+            imageSize
         )
+        imgCharacter.setImageResource(R.drawable.logo)
+        imgCharacter.setBackgroundResource(R.drawable.image_border)
+        imgCharacter.scaleType = ImageView.ScaleType.CENTER_CROP
 
-        return tableRow
+        imgCharacter.setImageResource(resources.getIdentifier(character.getIMG(), "drawable", packageName))
+
+        // CHARACTER'S NAME ATTRIBUTES
+        var characterNameParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        characterNameParams.setMargins(0, 2, 0, 0)
+        nameCharacter.layoutParams = characterNameParams
+        nameCharacter.setTextColor(ContextCompat.getColor(this, R.color.golden_light))
+        nameCharacter.textSize = textSize.toFloat()
+        nameCharacter.typeface = ResourcesCompat.getFont(this, R.font.cinzel)
+        nameCharacter.text = character.getName()
+        nameCharacter.gravity = Gravity.CENTER
+
+        layout.addView(imgCharacter)
+        layout.addView(nameCharacter)
     }
 
-    private fun createCharactersLayout(character: GameCharacter): LinearLayout {
-        var layout = LinearLayout(this)
+    private fun generateChararactesGrid() {
+        val tableTeam: TableLayout = findViewById(R.id.tableSelectCharacters)
 
-        // LinearLayout attributes.
-        layout.setLayoutParams(
-            TableRow.LayoutParams(
+        val ITEMS_PER_ROW: Int = 4
+        var countItemsRow: Int = 0
+
+        var tableRow: TableRow? = null
+
+        for (character in appController!!.listCharacters()) {
+
+            // NEW ROW EACH TIME ONE GETS FILLED.
+            if (countItemsRow == 0 || countItemsRow == ITEMS_PER_ROW) {
+                tableRow = TableRow(this)
+                tableRow.layoutParams = TableLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                tableRow.gravity = Gravity.CENTER
+
+                tableTeam.addView(tableRow)
+                countItemsRow = 0
+            }
+
+            // LAYOUT OF EACH CHARACTER
+            val charactersLayout = LinearLayout(this)
+            var charactersLayoutParams = TableRow.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-        )
-        layout.setOrientation(LinearLayout.HORIZONTAL)
-        layout.setGravity(Gravity.CENTER)
-        layout.setBackgroundColor(Color.parseColor("#EDEDED"))
+            charactersLayoutParams.setMargins(5, 5, 5, 5)
+            charactersLayout.layoutParams = charactersLayoutParams
+            charactersLayout.orientation = LinearLayout.VERTICAL  // Cambiado a vertical
+            charactersLayout.gravity = Gravity.CENTER
 
-        fillCharactersLayout(layout, character)
+            charactersLayout.setOnClickListener {
+                AppController.session!!.addToTeam(character)
 
-        return layout
-    }
+                findViewById<ImageView>(R.id.imgTeam1).setImageResource(resources.getIdentifier(character.getIMG(), "drawable", packageName))
+                findViewById<ImageView>(R.id.imgTeamProfile1).setImageResource(resources.getIdentifier(character.getIMG(), "drawable", packageName))
+            }
 
-    private fun fillCharactersLayout(layout: LinearLayout, character: GameCharacter) {
-        var imgCharacter: ImageView = ImageView(this)
-        var nameCharacter: TextView = TextView(this)
+            fillCharactersLayout(charactersLayout, character)
 
-        imgCharacter.setLayoutParams(
-            LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        )
-        imgCharacter.setImageResource(R.drawable.ic_launcher_background)    // CAMBIAR.
-
-        nameCharacter.setLayoutParams(
-            LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        )
-        nameCharacter.setText(character.getName())
-        nameCharacter.setGravity(Gravity.CENTER)
+            tableRow?.addView(charactersLayout)
+            countItemsRow++
+        }
     }
 
     fun alertFormPassword(context: Context) {
         val inflater            = LayoutInflater.from(context)
         val dialogView: View    = inflater.inflate(R.layout.dialog_password_view, null)
 
-        val lblTitle            = dialogView.findViewById<TextView>(R.id.lblTitle)
         val inputOldPass        = dialogView.findViewById<TextInputEditText>(R.id.inputOldPass)
         val inputNewPass        = dialogView.findViewById<TextInputEditText>(R.id.inputNewPass)
         val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
         val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
-
-        val builder = AlertDialog.Builder(context)
-        builder.setView(dialogView)
-        builder.setCancelable(false)
 
         val alertDialog = AlertDialog.Builder(context)
             .setView(dialogView)
@@ -109,7 +140,30 @@ class MainActivity : AppCompatActivity() {
             val oldPassword = inputOldPass.getText().toString()
             val newPassword = inputNewPass.getText().toString()
 
-            // appController!!.modifyPass()
+            lifecycleScope.launch {
+                    when(appController!!.modifyPassword(AppController.session!!.getUsername(), oldPassword, newPassword)) {
+                        ServerState.STATE_ERROR_USERNAME -> {
+                            alertDialog.dismiss()
+                            appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                        }
+                        ServerState.STATE_ERROR_EMAIL -> {
+                            alertDialog.dismiss()
+                            appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
+                        }
+                        ServerState.STATE_ERROR_DATABASE -> {
+                            alertDialog.dismiss()
+                            appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                        }
+                        ServerState.STATE_ERROR_PASSWORD -> {
+                            alertDialog.dismiss()
+                            appController!!.alertConfirm(this@MainActivity, "Error", "La anterior contraseña no es correcta.").show()
+                        }
+                        ServerState.STATE_SUCCESS -> {
+                            alertDialog.dismiss()
+                            appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Contraseña cambiada correctamente.").show()
+                        }
+                    }
+            }
 
             alertDialog.dismiss()
         }
@@ -117,7 +171,111 @@ class MainActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    /* fun alertFormEmail(context: Context) {
+        val inflater            = LayoutInflater.from(context)
+        val dialogView: View    = inflater.inflate(R.layout.dialog_email_view, null)
 
+        val inputPass           = dialogView.findViewById<TextInputEditText>(R.id.inputPass)
+        val inputNewEmail       = dialogView.findViewById<TextInputEditText>(R.id.inputNewEmail)
+        val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
+
+        val alertDialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        btnCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnConfirm.setOnClickListener {
+            val password = inputPass.getText().toString()
+            val newEmail = inputNewEmail.getText().toString()
+
+            lifecycleScope.launch {
+                when(appController!!.modifyEmail(AppController.session!!.getUsername(), Email(newEmail), password)) {
+                    ServerState.STATE_ERROR_USERNAME -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                    }
+                    ServerState.STATE_ERROR_EMAIL -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
+                    }
+                    ServerState.STATE_ERROR_DATABASE -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                    }
+                    ServerState.STATE_ERROR_PASSWORD -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
+                    }
+                    ServerState.STATE_SUCCESS -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Email cambiado correctamente.").show()
+                    }
+                }
+            }
+
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }*/
+
+    /*fun alertFormUser(context: Context) {
+        val inflater            = LayoutInflater.from(context)
+        val dialogView: View    = inflater.inflate(R.layout.dialog_user_view, null)
+
+        val inputPass           = dialogView.findViewById<TextInputEditText>(R.id.inputPass)
+        val inputNewUser        = dialogView.findViewById<TextInputEditText>(R.id.inputNewUser)
+        val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
+
+        val alertDialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        btnCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnConfirm.setOnClickListener {
+            val password = inputPass.getText().toString()
+            val newUser = inputNewUser.getText().toString()
+
+            lifecycleScope.launch {
+                when(appController!!.modifyUser(AppController.session!!.getUsername(), newUser, password)) {
+                    ServerState.STATE_ERROR_USERNAME -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                    }
+                    ServerState.STATE_ERROR_EMAIL -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
+                    }
+                    ServerState.STATE_ERROR_DATABASE -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                    }
+                    ServerState.STATE_ERROR_PASSWORD -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
+                    }
+                    ServerState.STATE_SUCCESS -> {
+                        alertDialog.dismiss()
+                        appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Nombre de usuario cambiado correctamente.").show()
+                    }
+                }
+            }
+
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }*/
 
     /* ============# MAIN VIEW #============ */
 
@@ -183,11 +341,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnModifyEmail.setOnClickListener {
-            //alertFormEmail(this)
+            // alertFormEmail(this)
         }
 
         btnModifyUser.setOnClickListener {
-            //alertFormUser(this)
+            // alertFormUser(this)
         }
 
         btnLogOut.setOnClickListener {
@@ -199,23 +357,7 @@ class MainActivity : AppCompatActivity() {
 
         /* ==========# TEAM LAYOUT #========== */
 
-        val tableTeam: TableLayout  = findViewById(R.id.tableTeam)
-        val ITEMS_PER_ROW: Int      = 2
-
-        var countItemsRow: Int      = 0
-
-        for(character in appController!!.listCharacters()) {
-            var tableRow: TableRow?             = findViewById(R.id.charactersRowTeams1)
-            var lytCharacter: LinearLayout      = this.createCharactersLayout(character)
-
-            if(countItemsRow == ITEMS_PER_ROW) {
-                tableRow = this.createCharactersRow()
-                countItemsRow = 0
-            }
-
-            tableRow?.addView(lytCharacter)
-            countItemsRow++
-        }
+        generateChararactesGrid()
 
 
 

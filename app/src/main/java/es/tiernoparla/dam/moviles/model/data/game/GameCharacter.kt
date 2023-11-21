@@ -13,7 +13,6 @@ data class GameCharacter (
     private var ether: Int?,
     private var movement: Int?,
     private var movementType: Int?,
-    private var type: String?,
     private var img: String?,
     private var splash: String?,
 ) : Exportable {
@@ -87,13 +86,6 @@ data class GameCharacter (
         this.movementType = movementType
     }
 
-    fun getType(): String {
-        return this.type!!
-    }
-    fun setType(type: String) {
-        this.type = type
-    }
-
     fun getIMG(): String {
         return this.img!!
     }
@@ -125,11 +117,10 @@ data class GameCharacter (
                 "[ether: %d]\n" +
                 "[movement: %d]\n" +
                 "[movementType: %d]\n\n" +
-                "[type: %s]\n" +
                 "[img: %s]\n" +
                 "[splash: %s]\n"
 
-        return String.format(TXT_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.type, this.img, this.splash)
+        return String.format(TXT_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.img, this.splash)
     }
 
     override fun toXML(): String {
@@ -144,12 +135,11 @@ data class GameCharacter (
                 "<ether>%d</ether>\n\t" +
                 "<movement>%d</movement>\n\t" +
                 "<movementType>%d</movementType>\n\t" +
-                "<type>%s</type>\n\t" +
                 "<img>%s</img>\n\t" +
                 "<splash>%s</splash>\n" +
                 "</gameItem>"
 
-        return String.format(XML_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.type, this.img, this.splash)
+        return String.format(XML_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.img, this.splash)
     }
 
     override fun toJSON(): String {
@@ -165,11 +155,10 @@ data class GameCharacter (
                 "ether: \"%d\",\n\t" +
                 "movement: \"%d\",\n\t" +
                 "movementType: \"%d\",\n\n\t" +
-                "type: \"%s\",\n\t" +
                 "img: \"%s\",\n\t" +
                 "splash: \"%s\"\n" +
                 "}"
 
-        return String.format(JSON_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.type, this.img, this.splash)
+        return String.format(JSON_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.img, this.splash)
     }
 }

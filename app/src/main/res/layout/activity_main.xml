@@ -13,7 +13,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,28 +65,36 @@
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
 
                     <ImageView
                         android:id="@+id/imgTeamProfile2"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
 
                     <ImageView
                         android:id="@+id/imgTeamProfile3"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
 
                     <ImageView
                         android:id="@+id/imgTeamProfile4"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
 
                 </TableRow>
 
@@ -99,28 +107,36 @@
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
 
                     <ImageView
                         android:id="@+id/imgTeamProfile6"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
 
                     <ImageView
                         android:id="@+id/imgTeamProfile7"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
 
                     <ImageView
                         android:id="@+id/imgTeamProfile8"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:layout_margin="5dp"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:background="@drawable/image_border"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/logo" />
                 </TableRow>
 
             </TableLayout>
@@ -239,7 +255,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -272,28 +288,36 @@
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
 
                 <ImageView
                     android:id="@+id/imgTeam2"
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
 
                 <ImageView
                     android:id="@+id/imgTeam3"
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
 
                 <ImageView
                     android:id="@+id/imgTeam4"
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
 
             </TableRow>
 
@@ -306,28 +330,36 @@
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
 
                 <ImageView
                     android:id="@+id/imgTeam6"
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
 
                 <ImageView
                     android:id="@+id/imgTeam7"
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
 
                 <ImageView
                     android:id="@+id/imgTeam8"
                     android:layout_width="79dp"
                     android:layout_height="79dp"
                     android:layout_margin="5dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:background="@drawable/image_border"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo" />
             </TableRow>
 
         </TableLayout>
@@ -335,9 +367,9 @@
         <LinearLayout
             android:id="@+id/lytSelectCharacters"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="540dp"
             android:layout_marginTop="30dp"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -351,16 +383,19 @@
                 android:textColor="@color/golden_light"
                 android:textStyle="bold" />
 
-            <TableLayout
-                android:id="@+id/tableSelectCharacters"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="507dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/app_name">
 
-                <TableRow
-                    android:id="@+id/charactersRowTeams1"
+                <TableLayout
+                    android:id="@+id/tableSelectCharacters"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </TableLayout>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal" />
+            </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>

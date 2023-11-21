@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import es.tiernoparla.dam.moviles.model.data.game.GameAbility
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
 import java.io.File
@@ -105,18 +106,17 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
                 val characterId             = cursor.getInt(cursor.getColumnIndex("id"))
                 val characterName           = cursor.getString(cursor.getColumnIndex("name"))
                 val characterDesc           = cursor.getString(cursor.getColumnIndex("description"))
-                val characterStatAttack     = cursor.getInt(cursor.getColumnIndex("statsAttack"))
-                val characterStatDefense    = cursor.getInt(cursor.getColumnIndex("statsDefense"))
-                val characterStatAccuracy   = cursor.getInt(cursor.getColumnIndex("statsAccuracy"))
-                val characterStatLife       = cursor.getInt(cursor.getColumnIndex("statsLife"))
-                val characterStatEther      = cursor.getInt(cursor.getColumnIndex("statsEther"))
-                val characterStatMovement   = cursor.getInt(cursor.getColumnIndex("statsMovement"))
+                val characterStatAttack     = cursor.getInt(cursor.getColumnIndex("attack"))
+                val characterStatDefense    = cursor.getInt(cursor.getColumnIndex("defense"))
+                val characterStatAccuracy   = cursor.getInt(cursor.getColumnIndex("accuracy"))
+                val characterStatLife       = cursor.getInt(cursor.getColumnIndex("life"))
+                val characterStatEther      = cursor.getInt(cursor.getColumnIndex("ether"))
+                val characterStatMovement   = cursor.getInt(cursor.getColumnIndex("movement"))
                 val characterMovementType   = cursor.getInt(cursor.getColumnIndex("movementType"))
-                val characterType           = cursor.getString(cursor.getColumnIndex("type"))
                 val characterImage          = cursor.getString(cursor.getColumnIndex("image"))
                 val characterSplash         = cursor.getString(cursor.getColumnIndex("splash"))
 
-                GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterType, characterImage, characterSplash)
+                GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash)
             } else {
                 null
             }
@@ -174,18 +174,19 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
                 val characterId             = cursor.getInt(cursor.getColumnIndex("id"))
                 val characterName           = cursor.getString(cursor.getColumnIndex("name"))
                 val characterDesc           = cursor.getString(cursor.getColumnIndex("description"))
-                val characterStatAttack     = cursor.getInt(cursor.getColumnIndex("statsAttack"))
-                val characterStatDefense    = cursor.getInt(cursor.getColumnIndex("statsDefense"))
-                val characterStatAccuracy   = cursor.getInt(cursor.getColumnIndex("statsAccuracy"))
-                val characterStatLife       = cursor.getInt(cursor.getColumnIndex("statsLife"))
-                val characterStatEther      = cursor.getInt(cursor.getColumnIndex("statsEther"))
-                val characterStatMovement   = cursor.getInt(cursor.getColumnIndex("statsMovement"))
+                val characterStatAttack     = cursor.getInt(cursor.getColumnIndex("attack"))
+                val characterStatDefense    = cursor.getInt(cursor.getColumnIndex("defense"))
+                val characterStatAccuracy   = cursor.getInt(cursor.getColumnIndex("accuracy"))
+                val characterStatLife       = cursor.getInt(cursor.getColumnIndex("life"))
+                val characterStatEther      = cursor.getInt(cursor.getColumnIndex("ether"))
+                val characterStatMovement   = cursor.getInt(cursor.getColumnIndex("movement"))
                 val characterMovementType   = cursor.getInt(cursor.getColumnIndex("movementType"))
-                val characterType           = cursor.getString(cursor.getColumnIndex("type"))
                 val characterImage          = cursor.getString(cursor.getColumnIndex("image"))
                 val characterSplash         = cursor.getString(cursor.getColumnIndex("splash"))
 
-                characters.add(GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterType, characterImage, characterSplash))
+                Log.i("eeeeeee", "${characterImage}")
+
+                characters.add(GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash))
             }
         } finally {
             cursor.close()

@@ -12,7 +12,7 @@ import es.tiernoparla.dam.moviles.R
 import es.tiernoparla.dam.moviles.controller.AppController
 import es.tiernoparla.dam.moviles.controller.Controller
 import es.tiernoparla.dam.moviles.model.data.Email
-import es.tiernoparla.dam.moviles.model.data.account.SignUpState
+import es.tiernoparla.dam.moviles.model.data.account.ServerState
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -41,28 +41,23 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             lifecycleScope.launch {
                 if(viewState) {
-                    /*when(appController.signUp(inputUser.text.toString(), Email(inputEmail.text.toString()), inputPass.text.toString())) {
-                        SignUpState.STATE_ERROR_USERNAME -> {
-                            Log.e("SIGNUP ERROR", "Username is not correct.")
+                    when(appController.signUp(inputUser.text.toString(), Email(inputEmail.text.toString()), inputPass.text.toString())) {
+                        ServerState.STATE_ERROR_USERNAME -> {
                             appController.alertConfirm(this@LoginActivity, "Error", "El nombre de usuario no es correcto.").show()
                         }
-                        SignUpState.STATE_ERROR_EMAIL -> {
-                            Log.e("SIGNUP ERROR", "Email is not correct.")
+                        ServerState.STATE_ERROR_EMAIL -> {
                             appController.alertConfirm(this@LoginActivity, "Error", "El email no es correcto.").show()
                         }
-                        SignUpState.STATE_ERROR_DATABASE -> {
-                            Log.e("SIGNUP ERROR", "The database connection has failed.")
+                        ServerState.STATE_ERROR_DATABASE -> {
                             appController.alertConfirm(this@LoginActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
                         }
-                        SignUpState.STATE_ERROR_PASSWORD -> {
-                            Log.e("SIGNUP ERROR", "Password is not correct.")
+                        ServerState.STATE_ERROR_PASSWORD -> {
                             appController.alertConfirm(this@LoginActivity, "Error", "La contraseña no es correcta.").show()
                         }
-                        SignUpState.STATE_SUCCESS -> {
-                            Log.d("SIGNUP SUCCESS", "Your user has been registered successfully!")
+                        ServerState.STATE_SUCCESS -> {
                             appController.alertConfirm(this@LoginActivity, "Bienvenido", "El usuario se ha registrado.").show()
                         }
-                    }*/
+                    }
                 } else {
                     if(appController.checkLogin(inputUser.text.toString(), inputPass.text.toString())) {
                         appController.openView(MainActivity::class.java)
@@ -71,7 +66,6 @@ class LoginActivity : AppCompatActivity() {
                         appController.alertConfirm(this@LoginActivity, "Error", "Nombre de usuario o contraseña incorrectos.").show()
                     }
                 }
-
             }
         }
 

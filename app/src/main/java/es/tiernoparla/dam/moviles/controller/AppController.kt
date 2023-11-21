@@ -2,12 +2,11 @@ package es.tiernoparla.dam.moviles.controller
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import es.tiernoparla.dam.moviles.data.User
 import es.tiernoparla.dam.moviles.model.data.Email
-import es.tiernoparla.dam.moviles.model.data.account.SignUpState
+import es.tiernoparla.dam.moviles.model.data.account.ServerState
 import es.tiernoparla.dam.moviles.model.data.game.GameAbility
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
 import es.tiernoparla.dam.moviles.model.database.DBDAO
@@ -28,10 +27,10 @@ class AppController(private var context: Context) : Controller {
         serverDAO   = ServerFactory.getDAO(ServerFactory.MODE_SERVER)
     }
 
-    override suspend fun checkLogin(username: String, pass: String): Boolean {
+    override suspend fun checkLogin(user: String, password: String): Boolean {
         try {
-            return if(serverDAO!!.checkLogin(username, pass)) {
-                session = serverDAO!!.getSession(username, pass)
+            return if(serverDAO!!.checkLogin(user, password)) {
+                session = serverDAO!!.getSession(user, password)
                 true
             } else {
                 false
@@ -41,22 +40,33 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
-    override suspend fun checkLogin(email: Email, pass: String): Boolean {
+    override suspend fun signUp(user: String, email: Email, password: String): ServerState {
         try {
-            return if(serverDAO!!.checkLogin(email, pass)) {
-                session = serverDAO!!.getSession(email, pass)
-                true
-            } else {
-                false
-            }
+            return serverDAO!!.signUp(user, email, password)
         } catch(e: Exception) {
             throw e
         }
     }
 
-    override suspend fun signUp(username: String, email: Email, pass: String): SignUpState {
+    override suspend fun modifyUser(user: String, newUsername: String, password: String): ServerState {
         try {
-            return serverDAO!!.signUp(username, email, pass)
+            return serverDAO!!.modifyUser(user, newUsername, password)
+        } catch(e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun modifyEmail(user: String, newEmail: Email, password: String): ServerState {
+        try {
+            return serverDAO!!.modifyEmail(user, newEmail, password)
+        } catch(e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun modifyPassword(user: String, newPassword: String, password: String): ServerState {
+        try {
+            return serverDAO!!.modifyPassword(user, newPassword, password)
         } catch(e: Exception) {
             throw e
         }

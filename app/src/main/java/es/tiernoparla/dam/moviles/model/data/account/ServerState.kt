@@ -1,6 +1,6 @@
 package es.tiernoparla.dam.moviles.model.data.account
 
-enum class SignUpState(val value: Int) {
+enum class ServerState(val value: Int) {
     STATE_ERROR_USERNAME(-3),
     STATE_ERROR_EMAIL(-2),
     STATE_ERROR_PASSWORD(-1),
