@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             lifecycleScope.launch {
                 if(viewState) {
-                    when(appController.signUp(inputUser.text.toString(), Email(inputEmail.text.toString()), inputPass.text.toString())) {
+                    /*when(appController.signUp(inputUser.text.toString(), Email(inputEmail.text.toString()), inputPass.text.toString())) {
                         SignUpState.STATE_ERROR_USERNAME -> {
                             Log.e("SIGNUP ERROR", "Username is not correct.")
                             appController.alertConfirm(this@LoginActivity, "Error", "El nombre de usuario no es correcto.").show()
@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
                             Log.d("SIGNUP SUCCESS", "Your user has been registered successfully!")
                             appController.alertConfirm(this@LoginActivity, "Bienvenido", "El usuario se ha registrado.").show()
                         }
-                    }
+                    }*/
                 } else {
                     if(appController.checkLogin(inputUser.text.toString(), inputPass.text.toString())) {
                         appController.openView(MainActivity::class.java)

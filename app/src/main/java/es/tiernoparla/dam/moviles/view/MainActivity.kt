@@ -1,19 +1,81 @@
 package es.tiernoparla.dam.moviles.view
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.tiernoparla.dam.moviles.R
 import es.tiernoparla.dam.moviles.controller.AppController
 import es.tiernoparla.dam.moviles.controller.Controller
 import es.tiernoparla.dam.moviles.databinding.ActivityMainBinding
+import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private fun createCharactersRow(): TableRow {
+        var tableRow = TableRow(this)
+
+        // TableRow attributes.
+        tableRow.setLayoutParams(
+            TableLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        )
+
+        return tableRow
+    }
+
+    private fun createCharactersLayout(character: GameCharacter): LinearLayout {
+        var layout = LinearLayout(this)
+
+        // LinearLayout attributes.
+        layout.setLayoutParams(
+            TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        )
+        layout.setOrientation(LinearLayout.HORIZONTAL)
+        layout.setGravity(Gravity.CENTER)
+        layout.setBackgroundColor(Color.parseColor("#EDEDED"))
+
+        fillCharactersLayout(layout, character)
+
+        return layout
+    }
+
+    private fun fillCharactersLayout(layout: LinearLayout, character: GameCharacter) {
+        var imgCharacter: ImageView = ImageView(this)
+        var nameCharacter: TextView = TextView(this)
+
+        imgCharacter.setLayoutParams(
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        )
+        imgCharacter.setImageResource(R.drawable.ic_launcher_background)    // CAMBIAR.
+
+        nameCharacter.setLayoutParams(
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        )
+        nameCharacter.setText(character.getName())
+        nameCharacter.setGravity(Gravity.CENTER)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,11 +128,24 @@ class MainActivity : AppCompatActivity() {
 
 
         /* ==========# TEAM LAYOUT #========== */
-        val tableTeam: TableLayout = findViewById(R.id.tableTeam)
+        val tableTeam: TableLayout  = findViewById(R.id.tableTeam)
+        val ITEMS_PER_ROW: Int      = 2
+
+        var countItemsRow: Int      = 0
 
         for(character in appController.listCharacters()) {
+            var tableRow: TableRow?             = findViewById(R.id.charactersRowTeams1)
+            var lytCharacter: LinearLayout      = this.createCharactersLayout(character)
 
+            if(countItemsRow == ITEMS_PER_ROW) {
+                tableRow = this.createCharactersRow()
+                countItemsRow = 0
+            }
+
+            tableRow?.addView(lytCharacter)
+            countItemsRow++
         }
+
 
         /* ==========# CHARACTERS LAYOUT #========== */
     }
