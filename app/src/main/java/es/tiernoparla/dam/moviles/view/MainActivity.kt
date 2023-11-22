@@ -35,119 +35,19 @@ import es.tiernoparla.dam.moviles.databinding.ActivityMainBinding
 import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.account.ServerState
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
+import es.tiernoparla.dam.moviles.view.generator.CharacterListGenerator
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var appController: Controller? = null
 
-    private fun fillCharactersLayout(layout: LinearLayout, character: GameCharacter) {
-        val frameCharacter      = FrameLayout(this)
-        val viewCharacter       = View(this)
-        val imgCharacter        = ImageView(this)
-        val nameCharacter       = TextView(this)
-
-        val imageSize           = 135
-        val textSize            = 16
-
-        // FRAME ATTRIBUTES
-        frameCharacter.layoutParams = FrameLayout.LayoutParams(
-            imageSize,
-            imageSize
-        )
-
-        // VIEW ATTRIBUTES
-        viewCharacter.layoutParams = ViewGroup.LayoutParams(
-            imageSize,
-            imageSize
-        )
-        viewCharacter.setBackgroundResource(R.drawable.image_border)
-
-        // CHARACTER'S IMAGE ATTRIBUTES
-        imgCharacter.layoutParams = LinearLayout.LayoutParams(
-            imageSize,
-            imageSize
-        )
-        imgCharacter.setImageResource(R.drawable.logo)
-        imgCharacter.setBackgroundResource(R.drawable.image_border)
-        imgCharacter.scaleType = ImageView.ScaleType.CENTER_CROP
-
-        Glide.with(this@MainActivity).load(character.getIMG()).transform(RoundedCorners(16)).into(imgCharacter)
-
-        imgCharacter.setOnClickListener {
-            AppController.session!!.addToTeam(character)
-
-            if(User.getTeamElementsCount() <= User.TEAM_MAX_SIZE) {
-                var imageTeam           = findViewById<ImageView>(resources.getIdentifier("imgTeam${User.getTeamElementsCount()}", "id", packageName))
-                var imageTeamProfile    = findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${User.getTeamElementsCount()}", "id", packageName))
-
-                Glide.with(this@MainActivity).load(character.getIMG()).transform(RoundedCorners(16)).into(imageTeam)
-                Glide.with(this@MainActivity).load(character.getIMG()).transform(RoundedCorners(16)).into(imageTeamProfile)
-
-                imgCharacter.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
-            } else {
-                appController!!.alertConfirm(this@MainActivity, "Full team", "Your team is already full.")
-            }
-        }
-
-        // CHARACTER'S NAME ATTRIBUTES
-        var characterNameParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        characterNameParams.setMargins(0, 2, 0, 0)
-        nameCharacter.setTextColor(ContextCompat.getColor(this, R.color.golden_light))
-        nameCharacter.layoutParams  = characterNameParams
-        nameCharacter.textSize      = textSize.toFloat()
-        nameCharacter.typeface      = ResourcesCompat.getFont(this, R.font.cinzel)
-        nameCharacter.text          = character.getName()
-        nameCharacter.gravity       = Gravity.CENTER
-
-        frameCharacter.addView(imgCharacter)
-        frameCharacter.addView(viewCharacter)
-        layout.addView(frameCharacter)
-        layout.addView(nameCharacter)
+    private fun buildCharactersTeam() {
+        var teamListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!)
     }
 
-    private fun generateChararactesGrid() {
-        val tableTeam: TableLayout = findViewById(R.id.tableSelectCharacters)
-
-        val ITEMS_PER_ROW: Int = 4
-        var countItemsRow: Int = 0
-
-        var tableRow: TableRow? = null
-
-        for (character in appController!!.listCharacters()) {
-
-            // NEW ROW EACH TIME ONE GETS FILLED.
-            if (countItemsRow == 0 || countItemsRow == ITEMS_PER_ROW) {
-                tableRow = TableRow(this)
-                tableRow.layoutParams = TableLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                tableRow.gravity = Gravity.CENTER
-
-                tableTeam.addView(tableRow)
-                countItemsRow = 0
-            }
-
-            // LAYOUT OF EACH CHARACTER
-            val charactersLayout        = LinearLayout(this)
-            var charactersLayoutParams  = TableRow.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            charactersLayoutParams.setMargins(5, 5, 5, 5)
-            charactersLayout.layoutParams   = charactersLayoutParams
-            charactersLayout.orientation    = LinearLayout.VERTICAL  // Cambiado a vertical
-            charactersLayout.gravity        = Gravity.CENTER
-
-            fillCharactersLayout(charactersLayout, character)
-
-            tableRow?.addView(charactersLayout)
-            countItemsRow++
-        }
+    private fun buildCharactersProfile() {
+        var profileListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!)
     }
 
     fun alertFormPassword(context: Context) {
@@ -389,7 +289,7 @@ class MainActivity : AppCompatActivity() {
 
         /* ==========# TEAM LAYOUT #========== */
 
-        generateChararactesGrid()
+        // generateChararactesGrid()
 
 
 
