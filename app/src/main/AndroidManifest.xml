@@ -27,7 +27,12 @@
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <!-- <nav-graph android:value="@navigation/mobile_navigation" /> -->
+        </activity>
+        <activity
+            android:name=".view.CharacterActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         <meta-data
             android:name="preloaded_fonts"

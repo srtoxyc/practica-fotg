@@ -19,7 +19,8 @@ class AppController(private var context: Context) : Controller {
     var serverDAO: ServerDAO?   = null
 
     companion object {
-        var session: User? = null
+        var session: User?                      = null
+        var characterSelected: GameCharacter?   = null      // Serves as a bridge between MainActivity and CharacterActivity to pass the character selected.
     }
 
     init {

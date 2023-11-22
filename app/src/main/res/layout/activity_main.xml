@@ -13,7 +13,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -495,7 +495,7 @@
         <LinearLayout
             android:id="@+id/lytSelectCharacters"
             android:layout_width="match_parent"
-            android:layout_height="540dp"
+            android:layout_height="452dp"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -513,14 +513,14 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="507dp"
+                android:layout_height="420dp"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/app_name">
 
                 <TableLayout
                     android:id="@+id/tableSelectCharacters"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center_horizontal" />
             </ScrollView>
 
@@ -535,7 +535,7 @@
         android:background="@drawable/background"
         android:gravity="center_horizontal|top"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -552,6 +552,29 @@
             android:textAlignment="center"
             android:textColor="@color/golden_light"
             android:textSize="43sp" />
+
+        <LinearLayout
+            android:id="@+id/lytCollectionCharacters"
+            android:layout_width="match_parent"
+            android:layout_height="633dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="633dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/app_name">
+
+                <TableLayout
+                    android:id="@+id/tableCollectionCharacters"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal" />
+            </ScrollView>
+
+        </LinearLayout>
     </LinearLayout>
 
         <!-- BottomNavigationView -->

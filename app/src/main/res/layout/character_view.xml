@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/lytCharacter"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:background="@drawable/background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="332dp"
+            android:layout_height="272dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_margin="5dp">
+
+                <ImageView
+                    android:id="@+id/imgCharacter"
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
+                    android:src="@drawable/none" />
+
+                <View
+                    android:layout_width="135dp"
+                    android:layout_height="135dp"
+                    android:background="@drawable/image_border" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/lblName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cinzel"
+                android:text="Character"
+                android:textAlignment="center"
+                android:textColor="@color/golden_light"
+                android:textSize="33sp" />
+
+            <TextView
+                android:id="@+id/lblDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/cormorant_garamond_light"
+                android:text="I know everything, Odín"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

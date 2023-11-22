@@ -1,30 +1,18 @@
 package es.tiernoparla.dam.moviles.view
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import es.tiernoparla.dam.moviles.R
@@ -32,10 +20,8 @@ import es.tiernoparla.dam.moviles.controller.AppController
 import es.tiernoparla.dam.moviles.controller.Controller
 import es.tiernoparla.dam.moviles.data.User
 import es.tiernoparla.dam.moviles.databinding.ActivityMainBinding
-import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.account.ServerState
-import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
-import es.tiernoparla.dam.moviles.view.generator.CharacterListGenerator
+import es.tiernoparla.dam.moviles.view.utils.CharacterListGenerator
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -43,11 +29,31 @@ class MainActivity : AppCompatActivity() {
     private var appController: Controller? = null
 
     private fun buildCharactersTeam() {
-        var teamListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!)
+        val teamListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!, 135, 16)
+
+        val tableTeam                                   = findViewById<TableLayout>(R.id.tableSelectCharacters)
+        val team: MutableList<ImageView>                = ArrayList<ImageView>()
+        val teamProfile: MutableList<ImageView>         = ArrayList<ImageView>()
+
+        for(i: Int in 1..User.TEAM_MAX_SIZE) {
+            team.add(findViewById<ImageView>(resources.getIdentifier("imgTeam${i}", "id", packageName)))
+            teamProfile.add(findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${i}", "id", packageName)))
+        }
+
+        for(character in this.appController!!.listCharacters()) {
+            teamListGenerator.mountListTeam(tableTeam, team, teamProfile, character)
+        }
     }
 
-    private fun buildCharactersProfile() {
-        var profileListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!)
+    private fun buildCharactersCollection() {
+        val collectionListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!, 150, 20)
+
+        val tableCollection                                 = findViewById<TableLayout>(R.id.tableCollectionCharacters)
+
+        for(character in this.appController!!.listCharacters()) {
+            Log.i("eee", character.getName())
+            collectionListGenerator.mountListCollection(tableCollection, character)
+        }
     }
 
     fun alertFormPassword(context: Context) {
@@ -217,7 +223,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        appController = AppController(this)
+        this.appController = AppController(this)
 
 
 
@@ -282,17 +288,19 @@ class MainActivity : AppCompatActivity() {
 
         btnLogOut.setOnClickListener {
             AppController.session = null
-            appController!!.closeView(this)
+            this.appController!!.closeView(this)
         }
 
 
 
         /* ==========# TEAM LAYOUT #========== */
 
-        // generateChararactesGrid()
+        buildCharactersTeam()
 
 
 
         /* ==========# CHARACTERS LAYOUT #========== */
+
+        buildCharactersCollection()
     }
 }

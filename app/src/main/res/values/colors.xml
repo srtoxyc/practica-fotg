@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="dialogBG">#12FFFFFF</color>
+    <color name="dialogBG">#0DFFFFFF</color>
     <color name="golden_light">#BB9454</color>
     <color name="golden_dark">#71572D</color>
 </resources>
