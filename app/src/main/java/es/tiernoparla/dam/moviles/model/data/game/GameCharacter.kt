@@ -15,6 +15,7 @@ data class GameCharacter (
     private var movementType: Int?,
     private var img: String?,
     private var splash: String?,
+    private var ability: GameAbility?,
 ) : Exportable {
     fun getID(): Int {
         return this.id
@@ -98,6 +99,13 @@ data class GameCharacter (
     }
     fun setSplash(splash: String) {
         this.splash = splash
+    }
+
+    fun getAbility(): GameAbility {
+        return this.ability!!
+    }
+    fun setAbility(ability: GameAbility) {
+        this.ability = ability
     }
 
     override fun toString(): String {

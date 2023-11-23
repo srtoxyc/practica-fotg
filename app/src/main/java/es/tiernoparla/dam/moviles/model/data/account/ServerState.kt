@@ -5,5 +5,18 @@ enum class ServerState(val value: Int) {
     STATE_ERROR_EMAIL(-2),
     STATE_ERROR_PASSWORD(-1),
     STATE_ERROR_DATABASE(0),
-    STATE_SUCCESS(1)
+    STATE_SUCCESS(1);
+
+    companion object {
+        public fun convertIntToServerState(responseCode: Int): ServerState? {
+            return when (responseCode) {
+                1 -> ServerState.STATE_SUCCESS
+                0 -> ServerState.STATE_ERROR_DATABASE
+                -1 -> ServerState.STATE_ERROR_PASSWORD
+                -2 -> ServerState.STATE_ERROR_EMAIL
+                -3 -> ServerState.STATE_ERROR_USERNAME
+                else -> null
+            }
+        }
+    }
 }

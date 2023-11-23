@@ -23,7 +23,7 @@ data class User (
     private var salt: ByteArray? = null
     private var role: String     = DEFAULT_ROLE
 
-    private var team: MutableList<GameCharacter> = ArrayList<GameCharacter>(TEAM_MAX_SIZE)
+    private var team: MutableList<GameCharacter?> = ArrayList<GameCharacter?>(TEAM_MAX_SIZE)
 
     fun getUsername(): String {
         return this.username
@@ -60,18 +60,25 @@ data class User (
         this.role = role
     }
 
-    fun getTeam(): MutableList<GameCharacter> {
+    fun getTeam(): MutableList<GameCharacter?> {
         return this.team
     }
     fun addToTeam(character: GameCharacter) {
         this.team.add(character)
         teamCounter++
     }
-    fun setTeam(team: MutableList<GameCharacter>) {
-        this.team = team
-        teamCounter = TEAM_MAX_SIZE
+    fun setTeam(team: MutableList<GameCharacter?>) {
+        var nullCounter: Int    = 0
+        this.team               = team
+
+        for (character in this.team) {
+            if(character == null) {
+                nullCounter++
+            }
+        }
+        teamCounter = TEAM_MAX_SIZE - nullCounter
     }
-    fun getFromTeam(index: Int): GameCharacter {
+    fun getFromTeam(index: Int): GameCharacter? {
         return this.team.get(index)
     }
 

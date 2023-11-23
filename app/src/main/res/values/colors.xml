@@ -8,6 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dialogBG">#0DFFFFFF</color>
+    <color name="golden_bright">#E8C58A</color>
     <color name="golden_light">#BB9454</color>
     <color name="golden_dark">#71572D</color>
+    <color name="attack">#FF0099</color>
+    <color name="defense">#0099FF</color>
+    <color name="accuracy">#FFD500</color>
+    <color name="life">#15CD00</color>
+    <color name="ether">#6200FF</color>
+    <color name="movement">#066D87</color>
 </resources>

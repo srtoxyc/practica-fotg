@@ -33,19 +33,19 @@ class ServerAccountsDAO() : ServerDAO {
     }
 
     override suspend fun signUp(user: String, email: Email, password: String): ServerState {
-        return this.fetch(URL + "/signup/${user}/${email.toString()}/${password}").toInt() as ServerState
+        return ServerState.convertIntToServerState(this.fetch(URL + "/signup/${user}/${email.toString()}/${password}").toInt())!!
     }
 
-    override suspend fun modifyUser(newUsername: String, password: String): ServerState {
-        return this.fetch(URL + "/modify/user/${newUsername}/${password}").toInt() as ServerState
+    override suspend fun modifyUser(username: String, newUsername: String, password: String): ServerState {
+        return ServerState.convertIntToServerState(this.fetch(URL + "/update/user/${username}/${newUsername}/${password}").toInt())!!
     }
 
     override suspend fun modifyEmail(user: String, newEmail: Email, password: String): ServerState {
-        return this.fetch(URL + "/modify/email/${user}/${newEmail.toString()}/${password}").toInt() as ServerState
+        return ServerState.convertIntToServerState(this.fetch(URL + "/update/email/${user}/${newEmail.toString()}/${password}").toInt())!!
     }
 
     override suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState {
-        return this.fetch(URL + "/modify/password/${user}/${oldPassword}/${newPassword}").toInt() as ServerState
+        return ServerState.convertIntToServerState(this.fetch(URL + "/update/password/${user}/${oldPassword}/${newPassword}").toInt())!!
     }
 
     override suspend fun getSession(user: String, password: String): User? {
@@ -62,13 +62,17 @@ class ServerAccountsDAO() : ServerDAO {
         }
     }
 
-    override suspend fun getTeam(user: String, password: String, dbDAO: DBDAO): MutableList<GameCharacter> {
+    override suspend fun getTeam(user: String, password: String, dbDAO: DBDAO): MutableList<GameCharacter?> {
         val DELIM: String                       = ";"
         var listIDs: MutableList<Int>           = this.fetch(URL + "/team/${user}/${password}").split(DELIM).map { it.toInt() }.toMutableList()
-        var team: MutableList<GameCharacter>    = ArrayList<GameCharacter>()
+        var team: MutableList<GameCharacter?>    = ArrayList<GameCharacter?>()
 
         for(characterID in listIDs) {
-            team.add(dbDAO.getCharacter(characterID)!!)
+            if(characterID == 0) {
+                team.add(null)
+            } else {
+                team.add(dbDAO.getCharacter(characterID)!!)
+            }
         }
 
         return team
@@ -77,6 +81,6 @@ class ServerAccountsDAO() : ServerDAO {
     override suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter>): ServerState {
         var teamStringified: String = String.format("%d;%d;%d;%d;%d;%d;%d;%d", team[0].getID(), team[1].getID(), team[2].getID(), team[3].getID(), team[4].getID(), team[5].getID(), team[6].getID(), team[7].getID())
 
-        return this.fetch(URL + "/team/${user}/${password}/${teamStringified}").toInt() as ServerState
+        return ServerState.convertIntToServerState(this.fetch(URL + "/team/${user}/${password}/${teamStringified}").toInt())!!
     }
 }

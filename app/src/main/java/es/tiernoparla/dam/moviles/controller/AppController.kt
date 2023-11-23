@@ -51,9 +51,9 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
-    override suspend fun modifyUser(newUsername: String, password: String): ServerState {
+    override suspend fun modifyUser(username: String, newUsername: String, password: String): ServerState {
         try {
-            return serverDAO!!.modifyUser(newUsername, password)
+            return serverDAO!!.modifyUser(username, newUsername, password)
         } catch(e: Exception) {
             throw e
         }
@@ -75,6 +75,14 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
+    override suspend fun refreshSession(username: String, password: String) {
+        try {
+            session = serverDAO!!.getSession(username, password)
+        } catch(e: Exception) {
+            throw e
+        }
+    }
+
     override suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter> ): ServerState {
         try {
             return serverDAO!!.setTeam(user, password, team)
@@ -91,25 +99,9 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
-    override fun getAbility(id: Int): GameAbility {
-        try {
-            return dbDAO!!.getAbility(id)!!
-        } catch(e: Exception) {
-            throw e;
-        }
-    }
-
     override fun listCharacters(): MutableList<GameCharacter> {
         try {
             return dbDAO!!.listCharacters()
-        } catch(e: Exception) {
-            throw e;
-        }
-    }
-
-    override fun listAbilities(): MutableList<GameAbility> {
-        try {
-            return dbDAO!!.listAbilities()
         } catch(e: Exception) {
             throw e;
         }

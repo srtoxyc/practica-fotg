@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="332dp"
-            android:layout_height="272dp"
+            android:layout_height="315dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -53,7 +53,7 @@
             <TextView
                 android:id="@+id/lblDesc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="7dp"
                 android:fontFamily="@font/cormorant_garamond_light"
                 android:text="I know everything, Odín"
@@ -61,5 +61,164 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lytStats"
+            android:layout_width="wrap_content"
+            android:layout_height="92dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lytStatsLeft"
+                android:layout_width="151dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblAttack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:drawableStart="@drawable/damage_marker"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center_vertical|start"
+                    android:text="Attack"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/attack"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblDefense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:drawableStart="@drawable/defense_marker"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center_vertical|start"
+                    android:text="Defense"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/defense"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblAccuracy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/accuracy_marker"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center_vertical|start"
+                    android:text="Accuracy"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/accuracy"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lytStatsRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblLife"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:drawableStart="@drawable/life_marker"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center_vertical|start"
+                    android:text="Life"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/life"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblEther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:drawableStart="@drawable/ether_marker"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center_vertical|start"
+                    android:text="Ether"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/ether"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblMovement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/movement_marker"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center_vertical|start"
+                    android:text="Movement"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/movement"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lytAbility"
+            android:layout_width="match_parent"
+            android:layout_height="153dp"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblAbilityTitle"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/cinzel"
+                android:gravity="center"
+                android:text="Character's Ability"
+                android:textAlignment="center"
+                android:textColor="@color/golden_light"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/lytAbilityBox"
+                android:layout_width="336dp"
+                android:layout_height="119dp"
+                android:layout_weight="1"
+                android:background="@drawable/ability_box"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblAbility"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cinzel"
+                    android:gravity="center"
+                    android:text="Ability"
+                    android:textAlignment="center"
+                    android:textColor="@color/golden_bright"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblAbilityDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/cormorant_garamond_light"
+                    android:text="Ability Description"
+                    android:textAlignment="center"
+                    android:textColor="@color/golden_dark" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

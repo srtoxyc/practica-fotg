@@ -115,8 +115,10 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
                 val characterMovementType   = cursor.getInt(cursor.getColumnIndex("movementType"))
                 val characterImage          = cursor.getString(cursor.getColumnIndex("image"))
                 val characterSplash         = cursor.getString(cursor.getColumnIndex("splash"))
+                val abilityName             = cursor.getString(cursor.getColumnIndex("abilityName"))
+                val abilityDesc             = cursor.getString(cursor.getColumnIndex("abilityDesc"))
 
-                GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash)
+                GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash, GameAbility(characterId, abilityName, abilityDesc))
             } else {
                 null
             }
@@ -126,38 +128,6 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
 
         db.close()
         return character
-    }
-
-    @SuppressLint("Range")
-    override fun getAbility(id: Int): GameAbility? {
-        val db                           = readableDatabase
-        var ability: GameAbility?        = null
-
-        val query           = "SELECT * FROM AbilitiesGame WHERE id = ?"
-        val selectionArgs   = arrayOf(id.toString())
-        val cursor          = db.rawQuery(query, selectionArgs)
-
-        try {
-            ability = if (cursor.moveToFirst()) {
-                val characterId             = cursor.getInt(cursor.getColumnIndex("idCharacter"))
-                val abilityName             = cursor.getString(cursor.getColumnIndex("abilityName"))
-                val abilityDesc             = cursor.getString(cursor.getColumnIndex("abilityDesc"))
-                val abilityDamage           = cursor.getInt(cursor.getColumnIndex("abilityAttack"))
-                val abilityAttack           = cursor.getInt(cursor.getColumnIndex("abilityAttack"))
-                val abilityDefense          = cursor.getInt(cursor.getColumnIndex("abilityDefense"))
-                val abilityLife             = cursor.getInt(cursor.getColumnIndex("abilityLife"))
-                val abilityEther            = cursor.getInt(cursor.getColumnIndex("abilityEther"))
-
-                GameAbility(characterId, abilityName, abilityDesc, abilityDamage, abilityAttack, abilityDefense, abilityLife, abilityEther)
-            } else {
-                null
-            }
-        } finally {
-            cursor.close()
-        }
-
-        db.close()
-        return ability
     }
 
     @SuppressLint("Range")
@@ -183,9 +153,10 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
                 val characterMovementType   = cursor.getInt(cursor.getColumnIndex("movementType"))
                 val characterImage          = cursor.getString(cursor.getColumnIndex("image"))
                 val characterSplash         = cursor.getString(cursor.getColumnIndex("splash"))
+                val abilityName             = cursor.getString(cursor.getColumnIndex("abilityName"))
+                val abilityDesc             = cursor.getString(cursor.getColumnIndex("abilityDesc"))
 
-                characters.add(GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash))
-                Log.i("rgjfsrjf", characters.get(characters.lastIndex).toString())
+                characters.add(GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash, GameAbility(characterId, abilityName, abilityDesc)))
             }
         } finally {
             cursor.close()
@@ -194,35 +165,5 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
         db.close()
 
         return characters
-    }
-
-    @SuppressLint("Range")
-    override fun listAbilities(): MutableList<GameAbility> {
-        val db                                      = readableDatabase
-        var abilities: MutableList<GameAbility>     = ArrayList<GameAbility>()
-
-        val query           = "SELECT * FROM AbilitiesGame"
-        val selectionArgs   = emptyArray<String>()
-        val cursor          = db.rawQuery(query, selectionArgs)
-
-        try {
-            while (cursor.moveToNext()) {
-                val characterId             = cursor.getInt(cursor.getColumnIndex("idCharacter"))
-                val abilityName             = cursor.getString(cursor.getColumnIndex("abilityName"))
-                val abilityDesc             = cursor.getString(cursor.getColumnIndex("abilityDesc"))
-                val abilityDamage           = cursor.getInt(cursor.getColumnIndex("abilityAttack"))
-                val abilityAttack           = cursor.getInt(cursor.getColumnIndex("abilityAttack"))
-                val abilityDefense          = cursor.getInt(cursor.getColumnIndex("abilityDefense"))
-                val abilityLife             = cursor.getInt(cursor.getColumnIndex("abilityLife"))
-                val abilityEther            = cursor.getInt(cursor.getColumnIndex("abilityEther"))
-
-                abilities.add(GameAbility(characterId, abilityName, abilityDesc, abilityDamage, abilityAttack, abilityDefense, abilityLife, abilityEther))
-            }
-        } finally {
-            cursor.close()
-        }
-
-        db.close()
-        return abilities
     }
 }

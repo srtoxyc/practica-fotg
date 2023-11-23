@@ -2,10 +2,12 @@ package es.tiernoparla.dam.moviles.view
 
 import android.content.Context
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TableLayout
@@ -22,6 +24,7 @@ import es.tiernoparla.dam.moviles.controller.AppController
 import es.tiernoparla.dam.moviles.controller.Controller
 import es.tiernoparla.dam.moviles.data.User
 import es.tiernoparla.dam.moviles.databinding.ActivityMainBinding
+import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.account.ServerState
 import es.tiernoparla.dam.moviles.view.utils.CharacterListGenerator
 import kotlinx.coroutines.launch
@@ -41,8 +44,13 @@ class MainActivity : AppCompatActivity() {
             var imageTeam           = findViewById<ImageView>(resources.getIdentifier("imgTeam${i}", "id", packageName))
             var imageTeamProfile    = findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${i}", "id", packageName))
 
-            Glide.with(this).load(AppController.session!!.getFromTeam(i-1)).transform(RoundedCorners(16)).into(imageTeam)
-            Glide.with(this).load(AppController.session!!.getFromTeam(i-1)).transform(RoundedCorners(16)).into(imageTeamProfile)
+            if(AppController.session!!.getFromTeam(i-1) != null) {
+                Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeam)
+                Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeamProfile)
+            } else {
+                imageTeam.setImageResource(R.drawable.none)
+                imageTeamProfile.setImageResource(R.drawable.none)
+            }
 
             team.add(imageTeam)
             teamProfile.add(imageTeamProfile)
@@ -63,12 +71,97 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun alertFormPassword(context: Context) {
-        val inflater            = LayoutInflater.from(context)
-        val dialogView: View    = inflater.inflate(R.layout.dialog_password_view, null)
+    private suspend fun modifyUserEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
+        when(appController!!.modifyUser(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
+            ServerState.STATE_ERROR_USERNAME -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+            }
+            ServerState.STATE_ERROR_EMAIL -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
+            }
+            ServerState.STATE_ERROR_DATABASE -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+            }
+            ServerState.STATE_ERROR_PASSWORD -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
+            }
+            ServerState.STATE_SUCCESS -> {
+                this.appController!!.refreshSession(inputField1.getText().toString(), inputField2.getText().toString())
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Nombre de usuario cambiado correctamente.").show()
+            }
+        }
+    }
 
-        val inputOldPass        = dialogView.findViewById<TextInputEditText>(R.id.inputOldPass)
-        val inputNewPass        = dialogView.findViewById<TextInputEditText>(R.id.inputNewPass)
+    private suspend fun modifyEmailEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
+        when(appController!!.modifyEmail(AppController.session!!.getUsername(), Email(inputField1.getText().toString()), inputField2.getText().toString())) {
+            ServerState.STATE_ERROR_USERNAME -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+            }
+            ServerState.STATE_ERROR_EMAIL -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "El email no es correcto.").show()
+            }
+            ServerState.STATE_ERROR_DATABASE -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+            }
+            ServerState.STATE_ERROR_PASSWORD -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
+            }
+            ServerState.STATE_SUCCESS -> {
+                this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Email cambiado correctamente.").show()
+            }
+        }
+    }
+
+    private suspend fun modifyPassEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
+        when(appController!!.modifyPassword(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
+            ServerState.STATE_ERROR_USERNAME -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+            }
+            ServerState.STATE_ERROR_EMAIL -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
+            }
+            ServerState.STATE_ERROR_DATABASE -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+            }
+            ServerState.STATE_ERROR_PASSWORD -> {
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Error", "La anterior contraseña no es correcta.").show()
+            }
+            ServerState.STATE_SUCCESS -> {
+                this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
+                alertDialog.dismiss()
+                appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Contraseña cambiada correctamente.").show()
+            }
+        }
+    }
+
+    fun alertForm(context: Context, selector: String) {
+        val SELECTOR_USER       = "USER"
+        val SELECTOR_EMAIL      = "EMAIL"
+        val SELECTOR_PASS       = "PASS"
+
+        val SELECTOR_ERR_TITLE  = "Error"
+        val SELECTOR_ERR_MSG    = "Wrong selector used to display the form alert."
+
+        val inflater            = LayoutInflater.from(context)
+        val dialogView: View    = inflater.inflate(R.layout.dialog_view, null)
+
+        val inputField1         = dialogView.findViewById<EditText>(R.id.inputField1)
+        val inputField2         = dialogView.findViewById<EditText>(R.id.inputField2)
         val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
         val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
 
@@ -77,150 +170,53 @@ class MainActivity : AppCompatActivity() {
             .setCancelable(false)
             .create()
 
-        btnCancel.setOnClickListener {
-            alertDialog.dismiss()
+        when(selector) {
+            SELECTOR_USER -> {
+                inputField1.hint = SpannableStringBuilder("New Username");
+                inputField2.hint = SpannableStringBuilder("Password");
+
+                btnConfirm.setOnClickListener {
+                    lifecycleScope.launch {
+                        modifyUserEvent(inputField1, inputField2, alertDialog)
+                    }
+
+                    alertDialog.dismiss()
+
+                }
+            }
+            SELECTOR_EMAIL -> {
+                inputField1.hint = SpannableStringBuilder("New Email");
+                inputField2.hint = SpannableStringBuilder("Password");
+
+                btnConfirm.setOnClickListener {
+                    lifecycleScope.launch {
+                        modifyEmailEvent(inputField1, inputField2, alertDialog)
+                    }
+
+                    alertDialog.dismiss()
+                }
+            }
+            SELECTOR_PASS -> {
+                inputField1.hint = SpannableStringBuilder("Old Password");
+                inputField2.hint = SpannableStringBuilder("New Password");
+
+                btnConfirm.setOnClickListener {
+                    lifecycleScope.launch {
+                        modifyPassEvent(inputField1, inputField2, alertDialog)
+                    }
+
+                    alertDialog.dismiss()
+                }
+            }
+            else -> appController!!.alertConfirm(this, SELECTOR_ERR_TITLE, SELECTOR_ERR_MSG).show()
         }
 
-        btnConfirm.setOnClickListener {
-            val oldPassword = inputOldPass.getText().toString()
-            val newPassword = inputNewPass.getText().toString()
-
-            lifecycleScope.launch {
-                    when(appController!!.modifyPassword(AppController.session!!.getUsername(), oldPassword, newPassword)) {
-                        ServerState.STATE_ERROR_USERNAME -> {
-                            alertDialog.dismiss()
-                            appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
-                        }
-                        ServerState.STATE_ERROR_EMAIL -> {
-                            alertDialog.dismiss()
-                            appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
-                        }
-                        ServerState.STATE_ERROR_DATABASE -> {
-                            alertDialog.dismiss()
-                            appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
-                        }
-                        ServerState.STATE_ERROR_PASSWORD -> {
-                            alertDialog.dismiss()
-                            appController!!.alertConfirm(this@MainActivity, "Error", "La anterior contraseña no es correcta.").show()
-                        }
-                        ServerState.STATE_SUCCESS -> {
-                            alertDialog.dismiss()
-                            appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Contraseña cambiada correctamente.").show()
-                        }
-                    }
-            }
-
+        btnCancel.setOnClickListener {
             alertDialog.dismiss()
         }
 
         alertDialog.show()
     }
-
-    /* fun alertFormEmail(context: Context) {
-        val inflater            = LayoutInflater.from(context)
-        val dialogView: View    = inflater.inflate(R.layout.dialog_email_view, null)
-
-        val inputPass           = dialogView.findViewById<TextInputEditText>(R.id.inputPass)
-        val inputNewEmail       = dialogView.findViewById<TextInputEditText>(R.id.inputNewEmail)
-        val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
-        val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
-
-        val alertDialog = AlertDialog.Builder(context)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
-
-        btnCancel.setOnClickListener {
-            alertDialog.dismiss()
-        }
-
-        btnConfirm.setOnClickListener {
-            val password = inputPass.getText().toString()
-            val newEmail = inputNewEmail.getText().toString()
-
-            lifecycleScope.launch {
-                when(appController!!.modifyEmail(AppController.session!!.getUsername(), Email(newEmail), password)) {
-                    ServerState.STATE_ERROR_USERNAME -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
-                    }
-                    ServerState.STATE_ERROR_EMAIL -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
-                    }
-                    ServerState.STATE_ERROR_DATABASE -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
-                    }
-                    ServerState.STATE_ERROR_PASSWORD -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
-                    }
-                    ServerState.STATE_SUCCESS -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Email cambiado correctamente.").show()
-                    }
-                }
-            }
-
-            alertDialog.dismiss()
-        }
-
-        alertDialog.show()
-    }*/
-
-    /*fun alertFormUser(context: Context) {
-        val inflater            = LayoutInflater.from(context)
-        val dialogView: View    = inflater.inflate(R.layout.dialog_user_view, null)
-
-        val inputPass           = dialogView.findViewById<TextInputEditText>(R.id.inputPass)
-        val inputNewUser        = dialogView.findViewById<TextInputEditText>(R.id.inputNewUser)
-        val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
-        val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
-
-        val alertDialog = AlertDialog.Builder(context)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
-
-        btnCancel.setOnClickListener {
-            alertDialog.dismiss()
-        }
-
-        btnConfirm.setOnClickListener {
-            val password = inputPass.getText().toString()
-            val newUser = inputNewUser.getText().toString()
-
-            lifecycleScope.launch {
-                when(appController!!.modifyUser(AppController.session!!.getUsername(), newUser, password)) {
-                    ServerState.STATE_ERROR_USERNAME -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
-                    }
-                    ServerState.STATE_ERROR_EMAIL -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
-                    }
-                    ServerState.STATE_ERROR_DATABASE -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
-                    }
-                    ServerState.STATE_ERROR_PASSWORD -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
-                    }
-                    ServerState.STATE_SUCCESS -> {
-                        alertDialog.dismiss()
-                        appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Nombre de usuario cambiado correctamente.").show()
-                    }
-                }
-            }
-
-            alertDialog.dismiss()
-        }
-
-        alertDialog.show()
-    }*/
 
 
 
@@ -283,16 +279,28 @@ class MainActivity : AppCompatActivity() {
         lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
         lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
 
-        btnModifyPass.setOnClickListener {
-            alertFormPassword(this)
+        btnModifyUser.setOnClickListener {
+            alertForm(this, "USER")
+
+            lblUser.text                = AppController.session!!.getUsername()
+            lblEmail.text               = AppController.session!!.getEmail().toString()
+            lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
         }
 
         btnModifyEmail.setOnClickListener {
-            // alertFormEmail(this)
+            alertForm(this, "EMAIL")
+
+            lblUser.text                = AppController.session!!.getUsername()
+            lblEmail.text               = AppController.session!!.getEmail().toString()
+            lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
         }
 
-        btnModifyUser.setOnClickListener {
-            // alertFormUser(this)
+        btnModifyPass.setOnClickListener {
+            alertForm(this, "PASS")
+
+            lblUser.text                = AppController.session!!.getUsername()
+            lblEmail.text               = AppController.session!!.getEmail().toString()
+            lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
         }
 
         btnLogOut.setOnClickListener {

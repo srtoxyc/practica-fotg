@@ -71,15 +71,17 @@ class LoginActivity : AppCompatActivity() {
 
         lblChangeState.setOnClickListener {
             if(viewState) {
-                inputLytEmail.isEnabled = false
-                inputLytEmail.visibility = TextInputLayout.GONE
+                inputLytEmail.isEnabled     = false
+                inputLytEmail.visibility    = TextInputLayout.GONE
 
-                lblChangeState.text = TXT_SIGNUP
+                lblChangeState.text         = TXT_SIGNUP
+                btnLogin.text               = TXT_LOGIN
             } else {
-                inputLytEmail.isEnabled = true
-                inputLytEmail.visibility = TextInputLayout.VISIBLE
+                inputLytEmail.isEnabled     = true
+                inputLytEmail.visibility    = TextInputLayout.VISIBLE
 
-                lblChangeState.text = TXT_LOGIN
+                lblChangeState.text         = TXT_LOGIN
+                btnLogin.text               = TXT_SIGNUP
             }
 
             viewState = !viewState
