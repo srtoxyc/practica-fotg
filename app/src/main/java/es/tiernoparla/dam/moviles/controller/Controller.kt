@@ -12,9 +12,11 @@ interface Controller {
     suspend fun checkLogin(user: String, password: String): Boolean
     suspend fun signUp(user: String, email: Email, password: String): ServerState
 
-    suspend fun modifyUser(user: String, newUsername: String, password: String): ServerState
+    suspend fun modifyUser(newUsername: String, password: String): ServerState
     suspend fun modifyEmail(user: String, newEmail: Email, password: String): ServerState
-    suspend fun modifyPassword(user: String, newPassword: String, password: String): ServerState
+    suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState
+
+    suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter>): ServerState
 
     fun getCharacter(id: Int): GameCharacter
     fun getAbility(id: Int): GameAbility
@@ -23,6 +25,5 @@ interface Controller {
 
     fun openView(activityClass: Class<out AppCompatActivity>)
     fun closeView(activity: AppCompatActivity)
-
     fun alertConfirm(context: Context, title: String, msg: String): AlertDialog
 }

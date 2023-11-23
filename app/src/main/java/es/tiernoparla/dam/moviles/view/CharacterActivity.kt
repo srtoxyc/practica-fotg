@@ -22,8 +22,8 @@ class CharacterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.character_view)
 
-        this.appController = AppController(this)
-        this.characterSelected = AppController.characterSelected
+        this.appController      = AppController(this)
+        this.characterSelected  = AppController.characterSelected
 
         val imgCharacter        = findViewById<ImageView>(R.id.imgCharacter)
         val lblName             = findViewById<TextView>(R.id.lblName)

@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import es.tiernoparla.dam.moviles.R
@@ -36,8 +38,14 @@ class MainActivity : AppCompatActivity() {
         val teamProfile: MutableList<ImageView>         = ArrayList<ImageView>()
 
         for(i: Int in 1..User.TEAM_MAX_SIZE) {
-            team.add(findViewById<ImageView>(resources.getIdentifier("imgTeam${i}", "id", packageName)))
-            teamProfile.add(findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${i}", "id", packageName)))
+            var imageTeam           = findViewById<ImageView>(resources.getIdentifier("imgTeam${i}", "id", packageName))
+            var imageTeamProfile    = findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${i}", "id", packageName))
+
+            Glide.with(this).load(AppController.session!!.getFromTeam(i-1)).transform(RoundedCorners(16)).into(imageTeam)
+            Glide.with(this).load(AppController.session!!.getFromTeam(i-1)).transform(RoundedCorners(16)).into(imageTeamProfile)
+
+            team.add(imageTeam)
+            teamProfile.add(imageTeamProfile)
         }
 
         for(character in this.appController!!.listCharacters()) {
@@ -51,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         val tableCollection                                 = findViewById<TableLayout>(R.id.tableCollectionCharacters)
 
         for(character in this.appController!!.listCharacters()) {
-            Log.i("eee", character.getName())
             collectionListGenerator.mountListCollection(tableCollection, character)
         }
     }
@@ -214,6 +221,8 @@ class MainActivity : AppCompatActivity() {
 
         alertDialog.show()
     }*/
+
+
 
     /* ============# MAIN VIEW #============ */
 

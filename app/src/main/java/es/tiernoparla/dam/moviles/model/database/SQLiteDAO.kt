@@ -97,8 +97,8 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
         val db                           = readableDatabase
         var character: GameCharacter?    = null
 
-        val query           = "SELECT * FROM CharactersGame WHERE id = ?"
-        val selectionArgs   = arrayOf(id.toString())
+        val query           = "SELECT * FROM CharactersGame WHERE id = ${id}"
+        val selectionArgs   = emptyArray<String>()
         val cursor          = db.rawQuery(query, selectionArgs)
 
         try {
@@ -184,9 +184,8 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
                 val characterImage          = cursor.getString(cursor.getColumnIndex("image"))
                 val characterSplash         = cursor.getString(cursor.getColumnIndex("splash"))
 
-                Log.i("eeeeeee", "${characterImage}")
-
                 characters.add(GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash))
+                Log.i("rgjfsrjf", characters.get(characters.lastIndex).toString())
             }
         } finally {
             cursor.close()

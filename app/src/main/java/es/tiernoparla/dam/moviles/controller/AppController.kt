@@ -2,6 +2,7 @@ package es.tiernoparla.dam.moviles.controller
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import es.tiernoparla.dam.moviles.data.User
@@ -32,6 +33,7 @@ class AppController(private var context: Context) : Controller {
         try {
             return if(serverDAO!!.checkLogin(user, password)) {
                 session = serverDAO!!.getSession(user, password)
+                session!!.setTeam(serverDAO!!.getTeam(user, password, dbDAO!!))
                 true
             } else {
                 false
@@ -49,9 +51,9 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
-    override suspend fun modifyUser(user: String, newUsername: String, password: String): ServerState {
+    override suspend fun modifyUser(newUsername: String, password: String): ServerState {
         try {
-            return serverDAO!!.modifyUser(user, newUsername, password)
+            return serverDAO!!.modifyUser(newUsername, password)
         } catch(e: Exception) {
             throw e
         }
@@ -65,9 +67,17 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
-    override suspend fun modifyPassword(user: String, newPassword: String, password: String): ServerState {
+    override suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState {
         try {
-            return serverDAO!!.modifyPassword(user, newPassword, password)
+            return serverDAO!!.modifyPassword(user, oldPassword, newPassword)
+        } catch(e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter> ): ServerState {
+        try {
+            return serverDAO!!.setTeam(user, password, team)
         } catch(e: Exception) {
             throw e
         }

@@ -67,6 +67,10 @@ data class User (
         this.team.add(character)
         teamCounter++
     }
+    fun setTeam(team: MutableList<GameCharacter>) {
+        this.team = team
+        teamCounter = TEAM_MAX_SIZE
+    }
     fun getFromTeam(index: Int): GameCharacter {
         return this.team.get(index)
     }
