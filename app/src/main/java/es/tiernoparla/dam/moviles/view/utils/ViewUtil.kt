@@ -4,16 +4,19 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 
+@SuppressLint("StaticFieldLeak")
 object ViewUtil {
-    fun <T : View> findViewByTag(viewGroup: ViewGroup, tag: String): T? {
-        for (i in 0 until viewGroup.childCount) {
-            val child = viewGroup.getChildAt(i)
+    var viewGroup: ViewGroup? = null
+
+    fun <T : View> findViewByTag(tag: String): T? {
+        for (i in 0 until viewGroup!!.childCount) {
+            val child = viewGroup!!.getChildAt(i)
             if (child is ViewGroup) {
-                val result = findViewByTag<T>(child, tag)
+                val result = findViewByTag<T>(tag)
                 if (result != null) {
                     return result
                 }
-            } else if (child.tag == tag) {
+            } else if (child!!.tag == tag) {
                 return child as T
             }
         }

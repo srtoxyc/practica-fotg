@@ -60,9 +60,14 @@ class MainActivity : AppCompatActivity() {
             team.add(imageTeam)
             teamProfile.add(imageTeamProfile)
 
+            //Log.e("Imagen del equipo ${i}", imageTeam.tag.toString())
+            Log.e("Imagen del equipo ${i} desde array", team[i].tag.toString())
+            Log.e("Imagen ${i} de la colección", ViewUtil.findViewByTag<ImageView>("imgCharacter${i}")?.tag.toString())
+
             imageTeam.setOnClickListener {
+
                 if(imageTeam.tag == "imgCharacter${i}") {
-                    var imageCharacter = ViewUtil.findViewByTag<ImageView>(findViewById<ViewGroup>(R.id.lytCharacters), "imgCharacter${i}")
+                    var imageCharacter = ViewUtil.findViewByTag<ImageView>("imgCharacter${i}")
 
                     imageTeam.setImageResource(R.drawable.none)
                     imageTeamProfile.setImageResource(R.drawable.none)

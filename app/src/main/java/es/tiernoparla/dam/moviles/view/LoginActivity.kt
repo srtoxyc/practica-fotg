@@ -60,7 +60,8 @@ class LoginActivity : AppCompatActivity() {
                     }
                 } else {
                     if(appController.checkLogin(inputUser.text.toString(), inputPass.text.toString())) {
-                        appController.openView(MainActivity::class.java)
+                        appController.openView(LoadingActivity::class.java)
+                        overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
                     } else {
                         Log.e("ERROR", "Login failed.")
                         appController.alertConfirm(this@LoginActivity, "Error", "Nombre de usuario o contraseña incorrectos.").show()

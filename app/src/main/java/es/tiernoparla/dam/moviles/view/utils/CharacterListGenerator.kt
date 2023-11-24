@@ -49,6 +49,9 @@ class CharacterListGenerator(
                 team[User.getTeamElementsCount()].tag               = imgCharacter.tag
                 teamProfile[User.getTeamElementsCount()].tag        = imgCharacter.tag
 
+                Log.e("Imagen de la colección", imgCharacter.tag.toString())
+                Log.e("Imagen de el equipo tras asignarse", team[User.getTeamElementsCount()].tag.toString())
+
                 imgCharacter.setEnabled(false)
 
                 AppController.session!!.addToTeam(character)
@@ -99,6 +102,8 @@ class CharacterListGenerator(
             this.imageSize,
             this.imageSize
         )
+
+        ViewUtil.viewGroup = frameCharacter
 
         return frameCharacter
     }

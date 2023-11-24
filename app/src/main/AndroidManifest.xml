@@ -13,7 +13,7 @@
         android:theme="@style/Theme.PracticaFOTG"
         tools:targetApi="31">
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.SplashActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
@@ -21,6 +21,18 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.LoginActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".view.LoadingActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".view.MainActivity"

@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.gridlayout)
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.airbnb.android:lottie:6.1.0")
 
     testImplementation(libs.junit)
 
