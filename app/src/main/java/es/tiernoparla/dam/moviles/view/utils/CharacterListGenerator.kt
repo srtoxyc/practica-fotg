@@ -24,9 +24,8 @@ import es.tiernoparla.dam.moviles.controller.Controller
 import es.tiernoparla.dam.moviles.data.User
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
 import es.tiernoparla.dam.moviles.view.CharacterActivity
-
-// La idea es que aquí no se toque la vista, sino que retorne los elementos.
-// Por ende, esta clase no tendrá acceso a elementos de la vista, sino que se le pasarán por parámetros.
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class CharacterListGenerator(
     private var context: Context,

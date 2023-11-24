@@ -62,9 +62,9 @@ class ServerAccountsDAO() : ServerDAO {
         }
     }
 
-    override suspend fun getTeam(user: String, password: String, dbDAO: DBDAO): MutableList<GameCharacter?> {
+    override suspend fun getTeam(user: String, dbDAO: DBDAO): MutableList<GameCharacter?> {
         val DELIM: String                       = ";"
-        var listIDs: MutableList<Int>           = this.fetch(URL + "/team/${user}/${password}").split(DELIM).map { it.toInt() }.toMutableList()
+        var listIDs: MutableList<Int>           = this.fetch(URL + "/team/${user}").split(DELIM).map { it.toInt() }.toMutableList()
         var team: MutableList<GameCharacter?>    = ArrayList<GameCharacter?>()
 
         for(characterID in listIDs) {
@@ -78,9 +78,19 @@ class ServerAccountsDAO() : ServerDAO {
         return team
     }
 
-    override suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter>): ServerState {
-        var teamStringified: String = String.format("%d;%d;%d;%d;%d;%d;%d;%d", team[0].getID(), team[1].getID(), team[2].getID(), team[3].getID(), team[4].getID(), team[5].getID(), team[6].getID(), team[7].getID())
+    override suspend fun setTeam(user: String, team: MutableList<GameCharacter?>): ServerState {
+        var teamStringified: String = ""
 
-        return ServerState.convertIntToServerState(this.fetch(URL + "/team/${user}/${password}/${teamStringified}").toInt())!!
+        for(character in team) {
+            if(character != null) {
+                teamStringified += String.format("%d;", character.getID())
+            } else {
+                teamStringified += String.format("%d;", 0)
+            }
+        }
+
+        Log.e("sreyfgsa", teamStringified)
+
+        return ServerState.convertIntToServerState(this.fetch(URL + "/team/${user}/${teamStringified}").toInt())!!
     }
 }

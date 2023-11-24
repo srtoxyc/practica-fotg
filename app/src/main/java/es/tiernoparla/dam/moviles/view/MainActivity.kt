@@ -1,11 +1,14 @@
 package es.tiernoparla.dam.moviles.view
 
 import android.content.Context
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -27,7 +30,9 @@ import es.tiernoparla.dam.moviles.databinding.ActivityMainBinding
 import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.account.ServerState
 import es.tiernoparla.dam.moviles.view.utils.CharacterListGenerator
+import es.tiernoparla.dam.moviles.view.utils.ViewUtil
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -54,6 +59,17 @@ class MainActivity : AppCompatActivity() {
 
             team.add(imageTeam)
             teamProfile.add(imageTeamProfile)
+
+            imageTeam.setOnClickListener {
+                if(imageTeam.tag == "imgCharacter${i}") {
+                    var imageCharacter = ViewUtil.findViewByTag<ImageView>(findViewById<ViewGroup>(R.id.lytCharacters), "imgCharacter${i}")
+
+                    imageTeam.setImageResource(R.drawable.none)
+                    imageTeamProfile.setImageResource(R.drawable.none)
+                    imageCharacter!!.isEnabled = true
+                    imageCharacter!!.colorFilter = null
+                }
+            }
         }
 
         for(character in this.appController!!.listCharacters()) {
@@ -269,6 +285,7 @@ class MainActivity : AppCompatActivity() {
         val lblRole: TextView       = findViewById(R.id.lblRole)
         val lblUserTeam: TextView   = findViewById(R.id.lblUserTeamTitleProfile)
 
+        val btnSaveTeam: Button     = findViewById(R.id.btnSaveTeam)
         val btnModifyPass: Button   = findViewById(R.id.btnModifyPass)
         val btnModifyEmail: Button  = findViewById(R.id.btnModifyEmail)
         val btnModifyUser: Button   = findViewById(R.id.btnModifyUsername)
@@ -279,12 +296,19 @@ class MainActivity : AppCompatActivity() {
         lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
         lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
 
+        btnSaveTeam.setOnClickListener {
+            lifecycleScope.launch {
+                appController!!.setTeam(AppController.session!!.getUsername(), AppController.session!!.getTeam())
+            }
+        }
+
         btnModifyUser.setOnClickListener {
             alertForm(this, "USER")
 
             lblUser.text                = AppController.session!!.getUsername()
             lblEmail.text               = AppController.session!!.getEmail().toString()
             lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
+            lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
         }
 
         btnModifyEmail.setOnClickListener {
@@ -293,6 +317,7 @@ class MainActivity : AppCompatActivity() {
             lblUser.text                = AppController.session!!.getUsername()
             lblEmail.text               = AppController.session!!.getEmail().toString()
             lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
+            lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
         }
 
         btnModifyPass.setOnClickListener {
@@ -301,6 +326,7 @@ class MainActivity : AppCompatActivity() {
             lblUser.text                = AppController.session!!.getUsername()
             lblEmail.text               = AppController.session!!.getEmail().toString()
             lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
+            lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
         }
 
         btnLogOut.setOnClickListener {
@@ -319,5 +345,12 @@ class MainActivity : AppCompatActivity() {
         /* ==========# CHARACTERS LAYOUT #========== */
 
         buildCharactersCollection()
+    }
+
+    override fun onDestroy() {
+        lifecycleScope.launch {
+            appController!!.setTeam(AppController.session!!.getUsername(), AppController.session!!.getTeam())
+        }
+        super.onDestroy()
     }
 }

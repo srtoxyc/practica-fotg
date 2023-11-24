@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -49,7 +48,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
-
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.20")
     implementation("io.ktor:ktor-client-core:1.6.7")
     implementation("io.ktor:ktor-client-cio:1.6.7")
     implementation(libs.androidx.gridlayout)

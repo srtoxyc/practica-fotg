@@ -16,6 +16,6 @@ interface ServerDAO {
 
     suspend fun getSession(user: String, password: String): User?
 
-    suspend fun getTeam(user: String, password: String, dbDAO: DBDAO): MutableList<GameCharacter?>
-    suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter>): ServerState
+    suspend fun getTeam(user: String, dbDAO: DBDAO): MutableList<GameCharacter?>
+    suspend fun setTeam(user: String, team: MutableList<GameCharacter?>): ServerState
 }

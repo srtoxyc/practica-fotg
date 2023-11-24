@@ -34,7 +34,7 @@
         <LinearLayout
             android:id="@+id/lytUserTeamProfile"
             android:layout_width="match_parent"
-            android:layout_height="214dp"
+            android:layout_height="252dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="vertical">
@@ -204,6 +204,12 @@
                 </TableRow>
 
             </TableLayout>
+
+            <Button
+                android:id="@+id/btnSaveTeam"
+                android:layout_width="147dp"
+                android:layout_height="match_parent"
+                android:text="Save Team" />
         </LinearLayout>
 
         <LinearLayout

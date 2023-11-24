@@ -16,7 +16,7 @@ interface Controller {
     suspend fun modifyEmail(user: String, newEmail: Email, password: String): ServerState
     suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState
 
-    suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter>): ServerState
+    suspend fun setTeam(user: String, team: MutableList<GameCharacter?>): ServerState
 
     suspend fun refreshSession(username: String, password: String)
 

@@ -33,7 +33,7 @@ class AppController(private var context: Context) : Controller {
         try {
             return if(serverDAO!!.checkLogin(user, password)) {
                 session = serverDAO!!.getSession(user, password)
-                session!!.setTeam(serverDAO!!.getTeam(user, password, dbDAO!!))
+                session!!.setTeam(serverDAO!!.getTeam(user, dbDAO!!))
                 true
             } else {
                 false
@@ -83,9 +83,9 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
-    override suspend fun setTeam(user: String, password: String, team: MutableList<GameCharacter> ): ServerState {
+    override suspend fun setTeam(user: String, team: MutableList<GameCharacter?> ): ServerState {
         try {
-            return serverDAO!!.setTeam(user, password, team)
+            return serverDAO!!.setTeam(user, team)
         } catch(e: Exception) {
             throw e
         }
