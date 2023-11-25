@@ -79,18 +79,17 @@ class ServerAccountsDAO() : ServerDAO {
     }
 
     override suspend fun setTeam(user: String, team: MutableList<GameCharacter?>): ServerState {
-        var teamStringified: String = ""
+        val DELIM: String                   = ";"
+        var teamIDs: MutableList<Int>       = ArrayList<Int>()
 
-        for(character in team) {
-            if(character != null) {
-                teamStringified += String.format("%d;", character.getID())
+        for(element in team) {
+            if(element != null) {
+                teamIDs.add(element.getID())
             } else {
-                teamStringified += String.format("%d;", 0)
+                teamIDs.add(0)
             }
         }
 
-        Log.e("sreyfgsa", teamStringified)
-
-        return ServerState.convertIntToServerState(this.fetch(URL + "/team/${user}/${teamStringified}").toInt())!!
+        return ServerState.convertIntToServerState(this.fetch(URL + "/team/${user}/${teamIDs.joinToString(DELIM)}").toInt())!!
     }
 }

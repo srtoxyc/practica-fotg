@@ -1,5 +1,7 @@
 package es.tiernoparla.dam.moviles.data
 
+import android.util.Log
+import es.tiernoparla.dam.moviles.controller.AppController
 import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.Exportable
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
@@ -64,8 +66,13 @@ data class User (
         return this.team
     }
     fun addToTeam(character: GameCharacter) {
-        this.team.add(character)
+        this.team.set(teamCounter, character)
         teamCounter++
+    }
+    fun removeFromTeam(index: Int) {
+        this.team.set(index, null)
+        teamCounter--
+        this.team = this.team.sortedWith(compareBy { it == null }).toMutableList()
     }
     fun setTeam(team: MutableList<GameCharacter?>) {
         var nullCounter: Int    = 0

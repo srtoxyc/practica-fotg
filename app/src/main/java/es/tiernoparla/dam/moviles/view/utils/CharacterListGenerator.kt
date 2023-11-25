@@ -42,16 +42,16 @@ class CharacterListGenerator(
 
         imgCharacter.setOnClickListener {
             if(User.getTeamElementsCount() < User.TEAM_MAX_SIZE) {
+                // Adds the image of the character to the correct position on the table.
                 Glide.with(this.context).load(character.getIMG()).transform(RoundedCorners(16)).into(team[User.getTeamElementsCount()])
                 Glide.with(this.context).load(character.getIMG()).transform(RoundedCorners(16)).into(teamProfile[User.getTeamElementsCount()])
 
-                imgCharacter.colorFilter                            = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
-                team[User.getTeamElementsCount()].tag               = imgCharacter.tag
-                teamProfile[User.getTeamElementsCount()].tag        = imgCharacter.tag
+                // Sets a tag on the ImageView with the character's ID that has been added to the tables position.
+                team[User.getTeamElementsCount()].tag               = character.getID().toString()
+                teamProfile[User.getTeamElementsCount()].tag        = character.getID().toString()
 
-                Log.e("Imagen de la colección", imgCharacter.tag.toString())
-                Log.e("Imagen de el equipo tras asignarse", team[User.getTeamElementsCount()].tag.toString())
-
+                // Sets a color filter to the character image and disables it.
+                imgCharacter.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
                 imgCharacter.setEnabled(false)
 
                 AppController.session!!.addToTeam(character)
@@ -103,8 +103,6 @@ class CharacterListGenerator(
             this.imageSize
         )
 
-        ViewUtil.viewGroup = frameCharacter
-
         return frameCharacter
     }
 
@@ -130,7 +128,7 @@ class CharacterListGenerator(
         imgCharacter.setImageResource(R.drawable.logo)
         imgCharacter.setBackgroundResource(R.drawable.image_border)
         imgCharacter.scaleType  = ImageView.ScaleType.CENTER_CROP
-        imgCharacter.tag        = String.format("imgCharacter%d", character.getID())
+        imgCharacter.tag        = character.getID().toString()
 
         Glide.with(this.context).load(character.getIMG()).transform(RoundedCorners(16)).into(imgCharacter)
 

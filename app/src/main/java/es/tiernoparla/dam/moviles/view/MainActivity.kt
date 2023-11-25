@@ -29,6 +29,7 @@ import es.tiernoparla.dam.moviles.data.User
 import es.tiernoparla.dam.moviles.databinding.ActivityMainBinding
 import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.account.ServerState
+import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
 import es.tiernoparla.dam.moviles.view.utils.CharacterListGenerator
 import es.tiernoparla.dam.moviles.view.utils.ViewUtil
 import kotlinx.coroutines.launch
@@ -49,36 +50,64 @@ class MainActivity : AppCompatActivity() {
             var imageTeam           = findViewById<ImageView>(resources.getIdentifier("imgTeam${i}", "id", packageName))
             var imageTeamProfile    = findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${i}", "id", packageName))
 
+            // Loads each character of the team from the user session at the beginning of the application.
             if(AppController.session!!.getFromTeam(i-1) != null) {
                 Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeam)
                 Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeamProfile)
+
+                imageTeam.tag         = AppController.session!!.getFromTeam(i-1)!!.getID().toString()
+                imageTeamProfile.tag  = AppController.session!!.getFromTeam(i-1)!!.getID().toString()
             } else {
                 imageTeam.setImageResource(R.drawable.none)
                 imageTeamProfile.setImageResource(R.drawable.none)
+
+                imageTeam.tag         = "0"
+                imageTeamProfile.tag  = "0"
             }
 
+            // Adds all of the images from the lists (profile and team selection sections) to a list.
             team.add(imageTeam)
             teamProfile.add(imageTeamProfile)
 
-            //Log.e("Imagen del equipo ${i}", imageTeam.tag.toString())
-            Log.e("Imagen del equipo ${i} desde array", team[i].tag.toString())
-            Log.e("Imagen ${i} de la colección", ViewUtil.findViewByTag<ImageView>("imgCharacter${i}")?.tag.toString())
-
+            // Sets an event listener to each image from the team table, representing the removal of the character from the team.
             imageTeam.setOnClickListener {
-
-                if(imageTeam.tag == "imgCharacter${i}") {
-                    var imageCharacter = ViewUtil.findViewByTag<ImageView>("imgCharacter${i}")
-
-                    imageTeam.setImageResource(R.drawable.none)
-                    imageTeamProfile.setImageResource(R.drawable.none)
-                    imageCharacter!!.isEnabled = true
-                    imageCharacter!!.colorFilter = null
-                }
+                teamImageEvent(i-1, team, teamProfile, tableTeam)
             }
         }
 
+        // Mounts the list of characters on the team selection section.
         for(character in this.appController!!.listCharacters()) {
             teamListGenerator.mountListTeam(tableTeam, team, teamProfile, character)
+        }
+    }
+
+    private fun teamImageEvent(imageID: Int, team: MutableList<ImageView>, teamProfile: MutableList<ImageView>, tableTeam: TableLayout) {
+        var imgCharacter: ImageView? = ViewUtil.findViewByTag<ImageView>(tableTeam, team[imageID].tag.toString())
+
+        if(imgCharacter != null) {
+            // Removal of the character from the list (team) of the user.
+            AppController.session!!.removeFromTeam(imageID)
+
+            // Team tables refreshes after the removal.
+            for(i in 0..<User.TEAM_MAX_SIZE) {
+                if(AppController.session!!.getFromTeam(i) != null) {
+                    Glide.with(this).load(AppController.session!!.getFromTeam(i)!!.getIMG()).transform(RoundedCorners(16)).into(team[i])
+                    Glide.with(this).load(AppController.session!!.getFromTeam(i)!!.getIMG()).transform(RoundedCorners(16)).into(teamProfile[i])
+
+                    team[i].tag         = AppController.session!!.getFromTeam(i)!!.getID().toString()
+                    teamProfile[i].tag  = AppController.session!!.getFromTeam(i)!!.getID().toString()
+                } else {
+                    team[i].setImageResource(R.drawable.none)
+                    teamProfile[i].setImageResource(R.drawable.none)
+
+                    team[i].tag         = "0"
+                    teamProfile[i].tag  = "0"
+                }
+            }
+
+            // Enables the character selection.
+            imgCharacter.isEnabled      = true
+            imgCharacter.colorFilter    = null
         }
     }
 

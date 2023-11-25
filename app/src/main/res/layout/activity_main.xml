@@ -67,6 +67,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile1"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -84,6 +85,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile2"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -101,6 +103,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile3"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -118,6 +121,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile4"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -141,6 +145,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile5"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -158,6 +163,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile6"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -175,6 +181,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile7"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -192,6 +199,7 @@
 
                         <ImageView
                             android:id="@+id/imgTeamProfile8"
+                            android:tag="imgCharacter0"
                             android:layout_width="79dp"
                             android:layout_height="79dp"
                             android:src="@drawable/none" />
@@ -360,6 +368,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam1"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
@@ -377,6 +386,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam2"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
@@ -394,6 +404,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam3"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
@@ -411,6 +422,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam4"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
@@ -434,6 +446,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam5"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
@@ -451,6 +464,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam6"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
@@ -468,6 +482,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam7"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
@@ -485,6 +500,7 @@
 
                     <ImageView
                         android:id="@+id/imgTeam8"
+                        android:tag="imgCharacter0"
                         android:layout_width="79dp"
                         android:layout_height="79dp"
                         android:src="@drawable/none" />
