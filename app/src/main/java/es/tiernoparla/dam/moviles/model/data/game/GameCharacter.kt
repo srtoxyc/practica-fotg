@@ -12,9 +12,7 @@ data class GameCharacter (
     private var life: Int?,
     private var ether: Int?,
     private var movement: Int?,
-    private var movementType: Int?,
     private var img: String?,
-    private var splash: String?,
     private var ability: GameAbility?,
 ) : Exportable {
     fun getID(): Int {
@@ -80,25 +78,11 @@ data class GameCharacter (
         this.movement = movement
     }
 
-    fun getMovementType(): Int {
-        return this.movementType!!
-    }
-    fun setMovementType(movementType: Int) {
-        this.movementType = movementType
-    }
-
     fun getIMG(): String {
         return this.img!!
     }
     fun setIMG(img: String) {
         this.img = img
-    }
-
-    fun getSplash(): String {
-        return this.splash!!
-    }
-    fun setSplash(splash: String) {
-        this.splash = splash
     }
 
     fun getAbility(): GameAbility {
@@ -124,11 +108,9 @@ data class GameCharacter (
                 "[life: %d]\n" +
                 "[ether: %d]\n" +
                 "[movement: %d]\n" +
-                "[movementType: %d]\n\n" +
-                "[img: %s]\n" +
-                "[splash: %s]\n"
+                "[img: %s]\n"
 
-        return String.format(TXT_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.img, this.splash)
+        return String.format(TXT_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.img)
     }
 
     override fun toXML(): String {
@@ -142,12 +124,10 @@ data class GameCharacter (
                 "<life>%d</life>\n\t" +
                 "<ether>%d</ether>\n\t" +
                 "<movement>%d</movement>\n\t" +
-                "<movementType>%d</movementType>\n\t" +
-                "<img>%s</img>\n\t" +
-                "<splash>%s</splash>\n" +
+                "<img>%s</img>\n" +
                 "</gameItem>"
 
-        return String.format(XML_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.img, this.splash)
+        return String.format(XML_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.img)
     }
 
     override fun toJSON(): String {
@@ -161,12 +141,10 @@ data class GameCharacter (
                 "accuracy: \"%d\",\n\t" +
                 "life: \"%d\",\n\t" +
                 "ether: \"%d\",\n\t" +
-                "movement: \"%d\",\n\t" +
-                "movementType: \"%d\",\n\n\t" +
-                "img: \"%s\",\n\t" +
-                "splash: \"%s\"\n" +
+                "movement: \"%d\",\n\t\t" +
+                "img: \"%s\",\n" +
                 "}"
 
-        return String.format(JSON_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.movementType, this.img, this.splash)
+        return String.format(JSON_FORMAT, this.id, this.name, this.desc, this.attack, this.defense, this.accuracy, this.life, this.ether, this.movement, this.img)
     }
 }

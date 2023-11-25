@@ -112,13 +112,11 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
                 val characterStatLife       = cursor.getInt(cursor.getColumnIndex("life"))
                 val characterStatEther      = cursor.getInt(cursor.getColumnIndex("ether"))
                 val characterStatMovement   = cursor.getInt(cursor.getColumnIndex("movement"))
-                val characterMovementType   = cursor.getInt(cursor.getColumnIndex("movementType"))
                 val characterImage          = cursor.getString(cursor.getColumnIndex("image"))
-                val characterSplash         = cursor.getString(cursor.getColumnIndex("splash"))
                 val abilityName             = cursor.getString(cursor.getColumnIndex("abilityName"))
                 val abilityDesc             = cursor.getString(cursor.getColumnIndex("abilityDesc"))
 
-                GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash, GameAbility(characterId, abilityName, abilityDesc))
+                GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterImage, GameAbility(characterId, abilityName, abilityDesc))
             } else {
                 null
             }
@@ -150,13 +148,11 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
                 val characterStatLife       = cursor.getInt(cursor.getColumnIndex("life"))
                 val characterStatEther      = cursor.getInt(cursor.getColumnIndex("ether"))
                 val characterStatMovement   = cursor.getInt(cursor.getColumnIndex("movement"))
-                val characterMovementType   = cursor.getInt(cursor.getColumnIndex("movementType"))
                 val characterImage          = cursor.getString(cursor.getColumnIndex("image"))
-                val characterSplash         = cursor.getString(cursor.getColumnIndex("splash"))
                 val abilityName             = cursor.getString(cursor.getColumnIndex("abilityName"))
                 val abilityDesc             = cursor.getString(cursor.getColumnIndex("abilityDesc"))
 
-                characters.add(GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterMovementType, characterImage, characterSplash, GameAbility(characterId, abilityName, abilityDesc)))
+                characters.add(GameCharacter(characterId, characterName, characterDesc, characterStatAttack, characterStatDefense, characterStatAccuracy, characterStatLife, characterStatEther, characterStatMovement, characterImage, GameAbility(characterId, abilityName, abilityDesc)))
             }
         } finally {
             cursor.close()
