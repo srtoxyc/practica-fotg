@@ -27,6 +27,17 @@ import es.tiernoparla.dam.moviles.view.CharacterActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
+/**
+ * Su objetivo es proveer de la funcionalidad necesaria para generar listas de personajes sobre tablas.
+ * @param context Contexto sobre el que se generará la lista.
+ * @param appController Objeto controlador de la app (MVC).
+ * @param imageSize Tamaño de la imagen (relación de aspecto 1:1) de cada personaje de la lista.
+ * @param textSize Tamaño del texto del nombre de cada personaje.
+ * @author Iván Vicente Morales
+ * @see Context
+ * @see TableLayout
+ * @see TableRow
+ */
 class CharacterListGenerator(
     private var context: Context,
     private var appController: Controller?,
@@ -56,7 +67,7 @@ class CharacterListGenerator(
 
                 AppController.session!!.addToTeam(character)
             } else {
-                appController!!.alertConfirm(this.context, ERR_TITLE, ERR_MSG).show()
+                ViewUtil.alertConfirm(this.context, R.drawable.logo, ERR_TITLE, ERR_MSG).show()
             }
         }
     }
@@ -64,7 +75,7 @@ class CharacterListGenerator(
     private fun applyCollectionListener(imgCharacter: ImageView, character: GameCharacter) {
         imgCharacter.setOnClickListener {
             AppController.characterSelected = character
-            appController!!.openView(CharacterActivity::class.java)
+            ViewUtil.openView(this.context, CharacterActivity::class.java)
         }
     }
 

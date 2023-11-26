@@ -125,24 +125,24 @@ class MainActivity : AppCompatActivity() {
         when(appController!!.modifyUser(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
             ServerState.STATE_ERROR_USERNAME -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo,"Error", "El nombre de usuario de la sesión no es correcto.").show()
             }
             ServerState.STATE_ERROR_EMAIL -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email de la sesión no es correcto.").show()
             }
             ServerState.STATE_ERROR_DATABASE -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
             }
             ServerState.STATE_ERROR_PASSWORD -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La contraseña no es correcta.").show()
             }
             ServerState.STATE_SUCCESS -> {
                 this.appController!!.refreshSession(inputField1.getText().toString(), inputField2.getText().toString())
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Nombre de usuario cambiado correctamente.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Cambio correcto", "Nombre de usuario cambiado correctamente.").show()
             }
         }
     }
@@ -151,24 +151,24 @@ class MainActivity : AppCompatActivity() {
         when(appController!!.modifyEmail(AppController.session!!.getUsername(), Email(inputField1.getText().toString()), inputField2.getText().toString())) {
             ServerState.STATE_ERROR_USERNAME -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El nombre de usuario de la sesión no es correcto.").show()
             }
             ServerState.STATE_ERROR_EMAIL -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "El email no es correcto.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email no es correcto.").show()
             }
             ServerState.STATE_ERROR_DATABASE -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
             }
             ServerState.STATE_ERROR_PASSWORD -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "La contraseña no es correcta.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La contraseña no es correcta.").show()
             }
             ServerState.STATE_SUCCESS -> {
                 this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Email cambiado correctamente.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Cambio correcto", "Email cambiado correctamente.").show()
             }
         }
     }
@@ -177,24 +177,24 @@ class MainActivity : AppCompatActivity() {
         when(appController!!.modifyPassword(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
             ServerState.STATE_ERROR_USERNAME -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El nombre de usuario de la sesión no es correcto.").show()
             }
             ServerState.STATE_ERROR_EMAIL -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "El email de la sesión no es correcto.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email de la sesión no es correcto.").show()
             }
             ServerState.STATE_ERROR_DATABASE -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
             }
             ServerState.STATE_ERROR_PASSWORD -> {
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Error", "La anterior contraseña no es correcta.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La anterior contraseña no es correcta.").show()
             }
             ServerState.STATE_SUCCESS -> {
                 this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
                 alertDialog.dismiss()
-                appController!!.alertConfirm(this@MainActivity, "Cambio correcto", "Contraseña cambiada correctamente.").show()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Cambio correcto", "Contraseña cambiada correctamente.").show()
             }
         }
     }
@@ -258,7 +258,7 @@ class MainActivity : AppCompatActivity() {
                     alertDialog.dismiss()
                 }
             }
-            else -> appController!!.alertConfirm(this, SELECTOR_ERR_TITLE, SELECTOR_ERR_MSG).show()
+            else -> ViewUtil.alertConfirm(this, R.drawable.logo, SELECTOR_ERR_TITLE, SELECTOR_ERR_MSG).show()
         }
 
         btnCancel.setOnClickListener {
@@ -332,7 +332,24 @@ class MainActivity : AppCompatActivity() {
 
         btnSaveTeam.setOnClickListener {
             lifecycleScope.launch {
-                appController!!.setTeam(AppController.session!!.getUsername(), AppController.session!!.getTeam())
+                when(appController!!.setTeam(AppController.session!!.getUsername(), AppController.session!!.getTeam())) {
+                    ServerState.STATE_ERROR_USERNAME -> {
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                    }
+                    ServerState.STATE_ERROR_EMAIL -> {
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email de la sesión no es correcto.").show()
+                    }
+                    ServerState.STATE_ERROR_DATABASE -> {
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                    }
+                    ServerState.STATE_ERROR_PASSWORD -> {
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La contraseña no es correcta.").show()
+                    }
+                    ServerState.STATE_SUCCESS -> {
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Equipo guardado", "El equipo ha sido guardado correctamente.").show()
+                    }
+                }
+
             }
         }
 
@@ -365,7 +382,7 @@ class MainActivity : AppCompatActivity() {
 
         btnLogOut.setOnClickListener {
             AppController.session = null
-            this.appController!!.closeView(this)
+            ViewUtil.closeView(this)
         }
 
 

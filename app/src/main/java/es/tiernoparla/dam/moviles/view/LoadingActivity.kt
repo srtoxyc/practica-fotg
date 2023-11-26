@@ -6,9 +6,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import es.tiernoparla.dam.moviles.R
+import es.tiernoparla.dam.moviles.view.utils.ViewUtil
 
 class LoadingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val LOADING_TIME = 2400L
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.loading_view)
 
@@ -20,6 +23,6 @@ class LoadingActivity : AppCompatActivity() {
             } catch(e: Exception) {
                 e.printStackTrace()
             }
-        }, 2400)
+        }, LOADING_TIME)
     }
 }

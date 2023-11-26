@@ -6,9 +6,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import es.tiernoparla.dam.moviles.R
+import es.tiernoparla.dam.moviles.view.utils.ViewUtil
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val SPLASH_TIME = 7000L
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_view)
 
@@ -20,6 +23,6 @@ class SplashActivity : AppCompatActivity() {
             } catch(e: Exception) {
                 e.printStackTrace()
             }
-        }, 7000)
+        }, SPLASH_TIME)
     }
 }

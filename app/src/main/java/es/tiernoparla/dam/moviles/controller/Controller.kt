@@ -9,7 +9,26 @@ import es.tiernoparla.dam.moviles.model.data.game.GameAbility
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
 
 interface Controller {
+    /**
+     * Evalúa si el login del usuario es correcto (existe en la base de datos y la contraseña es correcta).
+     * De ser así, devuelve true, de no ser así o fallar la base de datos, devuelve false.
+     * @param user Nombre o Email (indistintamente) del usuario.
+     * @param password Contraseña del usuario.
+     * @return True si el login es satisfactorio, false si no lo es o falla el servidor.
+     * @author Iván Vicente Morales
+     */
     suspend fun checkLogin(user: String, password: String): Boolean
+
+    /**
+     * Efectúa un registro en la base de datos de usuarios.
+     * @param user Nombre del usuario.
+     * @param Email Email del usuario.
+     * @param password Contraseña del usuario.
+     * @return Un código de estado del servidor indicando qué ha ocurrido con la transacción.
+     * @author Iván Vicente Morales
+     * @see Email
+     * @see ServerState
+     */
     suspend fun signUp(user: String, email: Email, password: String): ServerState
 
     suspend fun modifyUser(username: String, newUsername: String, password: String): ServerState
@@ -22,8 +41,4 @@ interface Controller {
 
     fun getCharacter(id: Int): GameCharacter
     fun listCharacters(): MutableList<GameCharacter>
-
-    fun openView(activityClass: Class<out AppCompatActivity>)
-    fun closeView(activity: AppCompatActivity)
-    fun alertConfirm(context: Context, title: String, msg: String): AlertDialog
 }

@@ -13,6 +13,7 @@ import es.tiernoparla.dam.moviles.controller.AppController
 import es.tiernoparla.dam.moviles.controller.Controller
 import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.account.ServerState
+import es.tiernoparla.dam.moviles.view.utils.ViewUtil
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -22,9 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
         val appController: Controller       = AppController(this)
 
-        val inputLytUser: TextInputLayout   = findViewById(R.id.inputLytUser)
         val inputLytEmail: TextInputLayout  = findViewById(R.id.inputLytEmail)
-        val inputLytPass: TextInputLayout   = findViewById(R.id.inputLytPass)
 
         val inputUser: TextInputEditText    = findViewById(R.id.inputUser)
         val inputEmail: TextInputEditText   = findViewById(R.id.inputEmail)
@@ -35,36 +34,41 @@ class LoginActivity : AppCompatActivity() {
 
         val TXT_SIGNUP: String              = "Sign up"
         val TXT_LOGIN: String               = "Log in"
+        val MSG_ERROR_LOGIN: String         = "Nombre de usuario o contraseña incorrectos."
+        val MSG_ERROR_USERNAME: String      = "El nombre de usuario no es correcto."
+        val MSG_ERROR_EMAIL: String         = "El email no es correcto."
+        val MSG_ERROR_DATABASE: String      = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD: String      = "La contraseña no es correcta."
+        val MSG_SIGNUP: String              = "El usuario se ha registrado."
 
-        var viewState: Boolean              = false
+        var viewState: Boolean              = false     // 'false' = LogIn Activity, 'true' = SignUp Activity.
 
         btnLogin.setOnClickListener {
             lifecycleScope.launch {
                 if(viewState) {
                     when(appController.signUp(inputUser.text.toString(), Email(inputEmail.text.toString()), inputPass.text.toString())) {
                         ServerState.STATE_ERROR_USERNAME -> {
-                            appController.alertConfirm(this@LoginActivity, "Error", "El nombre de usuario no es correcto.").show()
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
                         }
                         ServerState.STATE_ERROR_EMAIL -> {
-                            appController.alertConfirm(this@LoginActivity, "Error", "El email no es correcto.").show()
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
                         }
                         ServerState.STATE_ERROR_DATABASE -> {
-                            appController.alertConfirm(this@LoginActivity, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
                         }
                         ServerState.STATE_ERROR_PASSWORD -> {
-                            appController.alertConfirm(this@LoginActivity, "Error", "La contraseña no es correcta.").show()
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
                         }
                         ServerState.STATE_SUCCESS -> {
-                            appController.alertConfirm(this@LoginActivity, "Bienvenido", "El usuario se ha registrado.").show()
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_WELCOME, MSG_SIGNUP).show()
                         }
                     }
                 } else {
                     if(appController.checkLogin(inputUser.text.toString(), inputPass.text.toString())) {
-                        appController.openView(LoadingActivity::class.java)
+                        ViewUtil.openView(this@LoginActivity, LoadingActivity::class.java)
                         overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
                     } else {
-                        Log.e("ERROR", "Login failed.")
-                        appController.alertConfirm(this@LoginActivity, "Error", "Nombre de usuario o contraseña incorrectos.").show()
+                        ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo,ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_LOGIN).show()
                     }
                 }
             }

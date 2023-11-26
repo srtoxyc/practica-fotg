@@ -9,7 +9,7 @@
         android:id="@+id/lytCharacter"
         android:layout_width="409dp"
         android:layout_height="729dp"
-        android:background="@drawable/background"
+        android:background="@drawable/background_character"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

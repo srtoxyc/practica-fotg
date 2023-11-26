@@ -2,6 +2,7 @@ package es.tiernoparla.dam.moviles.controller
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -105,23 +106,5 @@ class AppController(private var context: Context) : Controller {
         } catch(e: Exception) {
             throw e;
         }
-    }
-
-    override fun openView(activityClass: Class<out AppCompatActivity>) {
-        this.context.startActivity(Intent(this.context, activityClass))
-    }
-
-    override fun closeView(activity: AppCompatActivity) {
-        activity.finish()
-    }
-
-    override fun alertConfirm(context: Context, title: String, msg: String): AlertDialog {
-        val MSG_CONFIRM: String = "Agree"
-
-        return AlertDialog.Builder(context)
-            .setTitle(title)
-            .setMessage(msg)
-            .setPositiveButton(MSG_CONFIRM, null)
-            .create()
     }
 }
