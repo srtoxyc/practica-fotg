@@ -157,4 +157,18 @@
         app:layout_constraintVertical_bias="0.081"
         app:srcCompat="@drawable/logo" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="341dp"
+        android:layout_height="24dp"
+        android:fontFamily="@font/cinzel"
+        android:text="Developed by Iván Vicente Morales"
+        android:textAlignment="center"
+        android:textColor="@color/white_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lytLogin"
+        app:layout_constraintVertical_bias="0.932" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

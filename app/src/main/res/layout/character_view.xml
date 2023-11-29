@@ -59,7 +59,8 @@
                 android:text="I know everything, Odín"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,6 +99,7 @@
                         android:text="100"
                         android:textAlignment="textStart"
                         android:textColor="@color/attack"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -124,6 +126,7 @@
                         android:text="100"
                         android:textAlignment="textStart"
                         android:textColor="@color/defense"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -150,6 +153,7 @@
                         android:text="100"
                         android:textAlignment="textStart"
                         android:textColor="@color/accuracy"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -183,6 +187,7 @@
                         android:text="100"
                         android:textAlignment="textStart"
                         android:textColor="@color/life"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -209,6 +214,7 @@
                         android:text="100"
                         android:textAlignment="textStart"
                         android:textColor="@color/ether"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -235,6 +241,7 @@
                         android:text="100"
                         android:textAlignment="textStart"
                         android:textColor="@color/movement"
+                        android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -289,7 +296,7 @@
                     android:fontFamily="@font/cormorant_garamond_light"
                     android:text="Ability Description"
                     android:textAlignment="center"
-                    android:textColor="@color/golden_dark" />
+                    android:textColor="@color/golden_light" />
             </LinearLayout>
         </LinearLayout>
 

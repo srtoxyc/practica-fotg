@@ -39,239 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var appController: Controller? = null
 
-    private fun buildCharactersTeam() {
-        val teamListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!, 135, 16)
-
-        val tableTeam                                   = findViewById<TableLayout>(R.id.tableSelectCharacters)
-        val team: MutableList<ImageView>                = ArrayList<ImageView>()
-        val teamProfile: MutableList<ImageView>         = ArrayList<ImageView>()
-
-        for(i: Int in 1..User.TEAM_MAX_SIZE) {
-            var imageTeam           = findViewById<ImageView>(resources.getIdentifier("imgTeam${i}", "id", packageName))
-            var imageTeamProfile    = findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${i}", "id", packageName))
-
-            // Loads each character of the team from the user session at the beginning of the application.
-            if(AppController.session!!.getFromTeam(i-1) != null) {
-                Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeam)
-                Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeamProfile)
-
-                imageTeam.tag         = AppController.session!!.getFromTeam(i-1)!!.getID().toString()
-                imageTeamProfile.tag  = AppController.session!!.getFromTeam(i-1)!!.getID().toString()
-            } else {
-                imageTeam.setImageResource(R.drawable.none)
-                imageTeamProfile.setImageResource(R.drawable.none)
-
-                imageTeam.tag         = "0"
-                imageTeamProfile.tag  = "0"
-            }
-
-            // Adds all of the images from the lists (profile and team selection sections) to a list.
-            team.add(imageTeam)
-            teamProfile.add(imageTeamProfile)
-
-            // Sets an event listener to each image from the team table, representing the removal of the character from the team.
-            imageTeam.setOnClickListener {
-                teamImageEvent(i-1, team, teamProfile, tableTeam)
-            }
-        }
-
-        // Mounts the list of characters on the team selection section.
-        for(character in this.appController!!.listCharacters()) {
-            teamListGenerator.mountListTeam(tableTeam, team, teamProfile, character)
-        }
-    }
-
-    private fun teamImageEvent(imageID: Int, team: MutableList<ImageView>, teamProfile: MutableList<ImageView>, tableTeam: TableLayout) {
-        var imgCharacter: ImageView? = ViewUtil.findViewByTag<ImageView>(tableTeam, team[imageID].tag.toString())
-
-        if(imgCharacter != null) {
-            // Removal of the character from the list (team) of the user.
-            AppController.session!!.removeFromTeam(imageID)
-
-            // Team tables refreshes after the removal.
-            for(i in 0..<User.TEAM_MAX_SIZE) {
-                if(AppController.session!!.getFromTeam(i) != null) {
-                    Glide.with(this).load(AppController.session!!.getFromTeam(i)!!.getIMG()).transform(RoundedCorners(16)).into(team[i])
-                    Glide.with(this).load(AppController.session!!.getFromTeam(i)!!.getIMG()).transform(RoundedCorners(16)).into(teamProfile[i])
-
-                    team[i].tag         = AppController.session!!.getFromTeam(i)!!.getID().toString()
-                    teamProfile[i].tag  = AppController.session!!.getFromTeam(i)!!.getID().toString()
-                } else {
-                    team[i].setImageResource(R.drawable.none)
-                    teamProfile[i].setImageResource(R.drawable.none)
-
-                    team[i].tag         = "0"
-                    teamProfile[i].tag  = "0"
-                }
-            }
-
-            // Enables the character selection.
-            imgCharacter.isEnabled      = true
-            imgCharacter.colorFilter    = null
-        }
-    }
-
-    private fun buildCharactersCollection() {
-        val collectionListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!, 150, 20)
-
-        val tableCollection                                 = findViewById<TableLayout>(R.id.tableCollectionCharacters)
-
-        for(character in this.appController!!.listCharacters()) {
-            collectionListGenerator.mountListCollection(tableCollection, character)
-        }
-    }
-
-    private suspend fun modifyUserEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
-        when(appController!!.modifyUser(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
-            ServerState.STATE_ERROR_USERNAME -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo,"Error", "El nombre de usuario de la sesión no es correcto.").show()
-            }
-            ServerState.STATE_ERROR_EMAIL -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email de la sesión no es correcto.").show()
-            }
-            ServerState.STATE_ERROR_DATABASE -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
-            }
-            ServerState.STATE_ERROR_PASSWORD -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La contraseña no es correcta.").show()
-            }
-            ServerState.STATE_SUCCESS -> {
-                this.appController!!.refreshSession(inputField1.getText().toString(), inputField2.getText().toString())
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Cambio correcto", "Nombre de usuario cambiado correctamente.").show()
-            }
-        }
-    }
-
-    private suspend fun modifyEmailEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
-        when(appController!!.modifyEmail(AppController.session!!.getUsername(), Email(inputField1.getText().toString()), inputField2.getText().toString())) {
-            ServerState.STATE_ERROR_USERNAME -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El nombre de usuario de la sesión no es correcto.").show()
-            }
-            ServerState.STATE_ERROR_EMAIL -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email no es correcto.").show()
-            }
-            ServerState.STATE_ERROR_DATABASE -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
-            }
-            ServerState.STATE_ERROR_PASSWORD -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La contraseña no es correcta.").show()
-            }
-            ServerState.STATE_SUCCESS -> {
-                this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Cambio correcto", "Email cambiado correctamente.").show()
-            }
-        }
-    }
-
-    private suspend fun modifyPassEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
-        when(appController!!.modifyPassword(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
-            ServerState.STATE_ERROR_USERNAME -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El nombre de usuario de la sesión no es correcto.").show()
-            }
-            ServerState.STATE_ERROR_EMAIL -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email de la sesión no es correcto.").show()
-            }
-            ServerState.STATE_ERROR_DATABASE -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
-            }
-            ServerState.STATE_ERROR_PASSWORD -> {
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La anterior contraseña no es correcta.").show()
-            }
-            ServerState.STATE_SUCCESS -> {
-                this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
-                alertDialog.dismiss()
-                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Cambio correcto", "Contraseña cambiada correctamente.").show()
-            }
-        }
-    }
-
-    fun alertForm(context: Context, selector: String) {
-        val SELECTOR_USER       = "USER"
-        val SELECTOR_EMAIL      = "EMAIL"
-        val SELECTOR_PASS       = "PASS"
-
-        val SELECTOR_ERR_TITLE  = "Error"
-        val SELECTOR_ERR_MSG    = "Wrong selector used to display the form alert."
-
-        val inflater            = LayoutInflater.from(context)
-        val dialogView: View    = inflater.inflate(R.layout.dialog_view, null)
-
-        val inputField1         = dialogView.findViewById<EditText>(R.id.inputField1)
-        val inputField2         = dialogView.findViewById<EditText>(R.id.inputField2)
-        val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
-        val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
-
-        val alertDialog = AlertDialog.Builder(context)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
-
-        when(selector) {
-            SELECTOR_USER -> {
-                inputField1.hint = SpannableStringBuilder("New Username");
-                inputField2.hint = SpannableStringBuilder("Password");
-
-                btnConfirm.setOnClickListener {
-                    lifecycleScope.launch {
-                        modifyUserEvent(inputField1, inputField2, alertDialog)
-                    }
-
-                    alertDialog.dismiss()
-
-                }
-            }
-            SELECTOR_EMAIL -> {
-                inputField1.hint = SpannableStringBuilder("New Email");
-                inputField2.hint = SpannableStringBuilder("Password");
-
-                btnConfirm.setOnClickListener {
-                    lifecycleScope.launch {
-                        modifyEmailEvent(inputField1, inputField2, alertDialog)
-                    }
-
-                    alertDialog.dismiss()
-                }
-            }
-            SELECTOR_PASS -> {
-                inputField1.hint = SpannableStringBuilder("Old Password");
-                inputField2.hint = SpannableStringBuilder("New Password");
-
-                btnConfirm.setOnClickListener {
-                    lifecycleScope.launch {
-                        modifyPassEvent(inputField1, inputField2, alertDialog)
-                    }
-
-                    alertDialog.dismiss()
-                }
-            }
-            else -> ViewUtil.alertConfirm(this, R.drawable.logo, SELECTOR_ERR_TITLE, SELECTOR_ERR_MSG).show()
-        }
-
-        btnCancel.setOnClickListener {
-            alertDialog.dismiss()
-        }
-
-        alertDialog.show()
-    }
-
-
 
     /* ============# MAIN VIEW #============ */
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -283,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
 
         /* ==========# BOTTOM NAVIGATION #========== */
-
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
@@ -313,6 +81,12 @@ class MainActivity : AppCompatActivity() {
 
 
         /* ==========# PROFILE LAYOUT #========== */
+        val DIALOG_TEAM_SAVED       = "Equipo guardado"
+        val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
+        val MSG_ERROR_EMAIL         = "El email de la sesión no es correcto."
+        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD      = "La contraseña no es correcta."
+        val MSG_ERROR_SUCCESS       = "El equipo ha sido guardado correctamente."
 
         val lblUser: TextView       = findViewById(R.id.lblUser)
         val lblEmail: TextView      = findViewById(R.id.lblEmail)
@@ -334,27 +108,26 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 when(appController!!.setTeam(AppController.session!!.getUsername(), AppController.session!!.getTeam())) {
                     ServerState.STATE_ERROR_USERNAME -> {
-                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El nombre de usuario de la sesión no es correcto.").show()
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
                     }
                     ServerState.STATE_ERROR_EMAIL -> {
-                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "El email de la sesión no es correcto.").show()
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
                     }
                     ServerState.STATE_ERROR_DATABASE -> {
-                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "Ha ocurrido un error inesperado con la base de datos.").show()
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
                     }
                     ServerState.STATE_ERROR_PASSWORD -> {
-                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Error", "La contraseña no es correcta.").show()
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
                     }
                     ServerState.STATE_SUCCESS -> {
-                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, "Equipo guardado", "El equipo ha sido guardado correctamente.").show()
+                        ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, DIALOG_TEAM_SAVED, MSG_ERROR_SUCCESS).show()
                     }
                 }
-
             }
         }
 
         btnModifyUser.setOnClickListener {
-            alertForm(this, "USER")
+            alertForm(this, ViewUtil.DIALOG_SELECTOR_USER)
 
             lblUser.text                = AppController.session!!.getUsername()
             lblEmail.text               = AppController.session!!.getEmail().toString()
@@ -363,7 +136,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnModifyEmail.setOnClickListener {
-            alertForm(this, "EMAIL")
+            alertForm(this, ViewUtil.DIALOG_SELECTOR_EMAIL)
 
             lblUser.text                = AppController.session!!.getUsername()
             lblEmail.text               = AppController.session!!.getEmail().toString()
@@ -372,7 +145,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnModifyPass.setOnClickListener {
-            alertForm(this, "PASS")
+            alertForm(this, ViewUtil.DIALOG_SELECTOR_PASS)
 
             lblUser.text                = AppController.session!!.getUsername()
             lblEmail.text               = AppController.session!!.getEmail().toString()
@@ -388,14 +161,19 @@ class MainActivity : AppCompatActivity() {
 
 
         /* ==========# TEAM LAYOUT #========== */
+        val TEAM_IMAGE_SIZE           = 135
+        val TEAM_TEXT_SIZE            = 16
 
-        buildCharactersTeam()
+        buildCharactersTeam(TEAM_IMAGE_SIZE, TEAM_TEXT_SIZE)
 
 
 
         /* ==========# CHARACTERS LAYOUT #========== */
 
-        buildCharactersCollection()
+        val CHARACTERS_IMAGE_SIZE     = 150
+        val CHARACTERS_TEXT_SIZE      = 20
+
+        buildCharactersCollection(CHARACTERS_IMAGE_SIZE, CHARACTERS_TEXT_SIZE)
     }
 
     override fun onDestroy() {
@@ -403,5 +181,261 @@ class MainActivity : AppCompatActivity() {
             appController!!.setTeam(AppController.session!!.getUsername(), AppController.session!!.getTeam())
         }
         super.onDestroy()
+    }
+
+
+
+    /* ============# PRIVATE FUNCTIONS #============ */
+    private fun buildCharactersTeam(imageSize: Int, textSize: Int) {
+        val DEFAULT_CHARACTER_TAG                       = "0"
+
+        val teamListGenerator: CharacterListGenerator   = CharacterListGenerator(this, this.appController!!, imageSize, textSize)
+
+        val tableTeam                                   = findViewById<TableLayout>(R.id.tableSelectCharacters)
+        val team: MutableList<ImageView>                = ArrayList<ImageView>()
+        val teamProfile: MutableList<ImageView>         = ArrayList<ImageView>()
+
+        for(i: Int in 1..User.TEAM_MAX_SIZE) {
+            var imageTeam           = findViewById<ImageView>(resources.getIdentifier("imgTeam${i}", "id", packageName))
+            var imageTeamProfile    = findViewById<ImageView>(resources.getIdentifier("imgTeamProfile${i}", "id", packageName))
+
+            // Loads each character of the team from the user session at the beginning of the application.
+            if(AppController.session!!.getFromTeam(i-1) != null) {
+                Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeam)
+                Glide.with(this).load(AppController.session!!.getFromTeam(i-1)!!.getIMG()).transform(RoundedCorners(16)).into(imageTeamProfile)
+
+                imageTeam.tag         = AppController.session!!.getFromTeam(i-1)!!.getID().toString()
+                imageTeamProfile.tag  = AppController.session!!.getFromTeam(i-1)!!.getID().toString()
+            } else {
+                imageTeam.setImageResource(R.drawable.none)
+                imageTeamProfile.setImageResource(R.drawable.none)
+
+                imageTeam.tag         = DEFAULT_CHARACTER_TAG
+                imageTeamProfile.tag  = DEFAULT_CHARACTER_TAG
+            }
+
+            // Adds all of the images from the lists (profile and team selection sections) to a list.
+            team.add(imageTeam)
+            teamProfile.add(imageTeamProfile)
+
+            // Sets an event listener to each image from the team table, representing the removal of the character from the team.
+            imageTeam.setOnClickListener {
+                teamImageEvent(i-1, team, teamProfile, tableTeam)
+            }
+        }
+
+        // Mounts the list of characters on the team selection section.
+        for(character in this.appController!!.listCharacters()) {
+            teamListGenerator.mountListTeam(tableTeam, team, teamProfile, character)
+        }
+    }
+
+    private fun buildCharactersCollection(imageSize: Int, textSize: Int) {
+        val collectionListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!, imageSize, textSize)
+
+        val tableCollection                                 = findViewById<TableLayout>(R.id.tableCollectionCharacters)
+
+        for(character in this.appController!!.listCharacters()) {
+            collectionListGenerator.mountListCollection(tableCollection, character)
+        }
+    }
+
+    private fun teamImageEvent(imageID: Int, team: MutableList<ImageView>, teamProfile: MutableList<ImageView>, tableTeam: TableLayout) {
+        val DEFAULT_CHARACTER_TAG       = "0"
+
+        var imgCharacter: ImageView?    = ViewUtil.findViewByTag<ImageView>(tableTeam, team[imageID].tag.toString())
+
+        if(imgCharacter != null) {
+            // Removal of the character from the list (team) of the user.
+            AppController.session!!.removeFromTeam(imageID)
+
+            // Team tables refreshes after the removal.
+            for(i in 0..<User.TEAM_MAX_SIZE) {
+                if(AppController.session!!.getFromTeam(i) != null) {
+                    Glide.with(this).load(AppController.session!!.getFromTeam(i)!!.getIMG()).transform(RoundedCorners(16)).into(team[i])
+                    Glide.with(this).load(AppController.session!!.getFromTeam(i)!!.getIMG()).transform(RoundedCorners(16)).into(teamProfile[i])
+
+                    team[i].tag         = AppController.session!!.getFromTeam(i)!!.getID().toString()
+                    teamProfile[i].tag  = AppController.session!!.getFromTeam(i)!!.getID().toString()
+                } else {
+                    team[i].setImageResource(R.drawable.none)
+                    teamProfile[i].setImageResource(R.drawable.none)
+
+                    team[i].tag         = DEFAULT_CHARACTER_TAG
+                    teamProfile[i].tag  = DEFAULT_CHARACTER_TAG
+                }
+            }
+
+            // Enables the character selection.
+            imgCharacter.isEnabled      = true
+            imgCharacter.colorFilter    = null
+        }
+    }
+
+    private suspend fun modifyUserEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
+        val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
+        val MSG_ERROR_EMAIL         = "El email de la sesión no es correcto."
+        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD      = "La contraseña no es correcta."
+        val MSG_ERROR_SUCCESS       = "Nombre de usuario cambiado correctamente."
+
+        when(appController!!.modifyUser(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
+            ServerState.STATE_ERROR_USERNAME -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo,ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+            }
+            ServerState.STATE_ERROR_EMAIL -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+            }
+            ServerState.STATE_ERROR_DATABASE -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+            }
+            ServerState.STATE_ERROR_PASSWORD -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+            }
+            ServerState.STATE_SUCCESS -> {
+                this.appController!!.refreshSession(inputField1.getText().toString(), inputField2.getText().toString())
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_CHANGE, MSG_ERROR_SUCCESS).show()
+            }
+        }
+    }
+
+    private suspend fun modifyEmailEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
+        val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
+        val MSG_ERROR_EMAIL         = "El email no es correcto."
+        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD      = "La contraseña no es correcta."
+        val MSG_ERROR_SUCCESS       = "Email cambiado correctamente."
+
+        when(appController!!.modifyEmail(AppController.session!!.getUsername(), Email(inputField1.getText().toString()), inputField2.getText().toString())) {
+            ServerState.STATE_ERROR_USERNAME -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+            }
+            ServerState.STATE_ERROR_EMAIL -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+            }
+            ServerState.STATE_ERROR_DATABASE -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+            }
+            ServerState.STATE_ERROR_PASSWORD -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+            }
+            ServerState.STATE_SUCCESS -> {
+                this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_CHANGE, MSG_ERROR_SUCCESS).show()
+            }
+        }
+    }
+
+    private suspend fun modifyPassEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
+        val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
+        val MSG_ERROR_EMAIL         = "El email de la sesión no es correcto."
+        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD      = "La anterior contraseña no es correcta."
+        val MSG_ERROR_SUCCESS       = "Contraseña cambiada correctamente."
+
+        when(appController!!.modifyPassword(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
+            ServerState.STATE_ERROR_USERNAME -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+            }
+            ServerState.STATE_ERROR_EMAIL -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+            }
+            ServerState.STATE_ERROR_DATABASE -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+            }
+            ServerState.STATE_ERROR_PASSWORD -> {
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+            }
+            ServerState.STATE_SUCCESS -> {
+                this.appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
+                alertDialog.dismiss()
+                ViewUtil.alertConfirm(this@MainActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_CHANGE, MSG_ERROR_SUCCESS).show()
+            }
+        }
+    }
+
+    fun alertForm(context: Context, selector: String) {
+        val SELECTOR_ERR_MSG    = "Wrong selector used to display the form alert."
+        val HINT_NEW_USERNAME   = "New Username"
+        val HINT_NEW_EMAIL      = "New Email"
+        val HINT_OLD_PASSWORD   = "Old Password"
+        val HINT_NEW_PASSWORD   = "New Password"
+        val HINT_PASSWORD       = "Password"
+
+        val inflater            = LayoutInflater.from(context)
+        val dialogView: View    = inflater.inflate(R.layout.dialog_view, null)
+
+        val inputField1         = dialogView.findViewById<EditText>(R.id.inputField1)
+        val inputField2         = dialogView.findViewById<EditText>(R.id.inputField2)
+        val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
+
+        val alertDialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        alertDialog.setCanceledOnTouchOutside(true)
+
+        when(selector) {
+            ViewUtil.DIALOG_SELECTOR_USER -> {
+                inputField1.hint = SpannableStringBuilder(HINT_NEW_USERNAME);
+                inputField2.hint = SpannableStringBuilder(HINT_PASSWORD);
+
+                btnConfirm.setOnClickListener {
+                    lifecycleScope.launch {
+                        modifyUserEvent(inputField1, inputField2, alertDialog)
+                    }
+
+                    alertDialog.dismiss()
+
+                }
+            }
+            ViewUtil.DIALOG_SELECTOR_EMAIL -> {
+                inputField1.hint = SpannableStringBuilder(HINT_NEW_EMAIL);
+                inputField2.hint = SpannableStringBuilder(HINT_PASSWORD);
+
+                btnConfirm.setOnClickListener {
+                    lifecycleScope.launch {
+                        modifyEmailEvent(inputField1, inputField2, alertDialog)
+                    }
+
+                    alertDialog.dismiss()
+                }
+            }
+            ViewUtil.DIALOG_SELECTOR_PASS -> {
+                inputField1.hint = SpannableStringBuilder(HINT_OLD_PASSWORD);
+                inputField2.hint = SpannableStringBuilder(HINT_NEW_PASSWORD);
+
+                btnConfirm.setOnClickListener {
+                    lifecycleScope.launch {
+                        modifyPassEvent(inputField1, inputField2, alertDialog)
+                    }
+
+                    alertDialog.dismiss()
+                }
+            }
+            else -> ViewUtil.alertConfirm(this, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, SELECTOR_ERR_MSG).show()
+        }
+
+        btnCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
 }

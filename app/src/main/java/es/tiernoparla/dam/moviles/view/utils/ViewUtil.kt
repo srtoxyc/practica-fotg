@@ -22,7 +22,11 @@ import es.tiernoparla.dam.moviles.data.User
  */
 object ViewUtil {
     val DIALOG_TITLE_ERROR              = "Error"
-    val DIALOG_TITLE_WELCOME            = "Bienvenido"
+    val DIALOG_TITLE_CHANGE             = "Cambio realizado"
+
+    val DIALOG_SELECTOR_USER            = "USER"
+    val DIALOG_SELECTOR_EMAIL           = "EMAIL"
+    val DIALOG_SELECTOR_PASS            = "PASS"
 
     /**
      * Abre una vista nueva en otra 'pestaña'.

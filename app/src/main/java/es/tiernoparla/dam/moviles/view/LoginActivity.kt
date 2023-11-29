@@ -1,7 +1,12 @@
 package es.tiernoparla.dam.moviles.view
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +22,12 @@ import es.tiernoparla.dam.moviles.view.utils.ViewUtil
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_view)
+
+        val rootView: View = findViewById<View>(android.R.id.content)
 
         val appController: Controller       = AppController(this)
 
@@ -40,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
         val MSG_ERROR_DATABASE: String      = "Ha ocurrido un error inesperado con la base de datos."
         val MSG_ERROR_PASSWORD: String      = "La contraseña no es correcta."
         val MSG_SIGNUP: String              = "El usuario se ha registrado."
+        val DIALOG_TITLE_WELCOME            = "Bienvenido"
 
         var viewState: Boolean              = false     // 'false' = LogIn Activity, 'true' = SignUp Activity.
 
@@ -60,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                             ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
                         }
                         ServerState.STATE_SUCCESS -> {
-                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_WELCOME, MSG_SIGNUP).show()
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, DIALOG_TITLE_WELCOME, MSG_SIGNUP).show()
                         }
                     }
                 } else {
@@ -90,6 +99,15 @@ class LoginActivity : AppCompatActivity() {
             }
 
             viewState = !viewState
+        }
+
+        rootView.setOnTouchListener { _: Any, event: MotionEvent ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                return@setOnTouchListener true
+            }
+            return@setOnTouchListener false
         }
     }
 }
