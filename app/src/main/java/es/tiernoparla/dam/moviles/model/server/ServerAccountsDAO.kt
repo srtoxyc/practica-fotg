@@ -11,7 +11,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 
 class ServerAccountsDAO() : ServerDAO {
-    private val URL = "https://login-server-dev-qndx.1.ie-1.fl0.io"
+    private val URL = "https://login-server-szcx.2.ie-1.fl0.io"
 
     private suspend fun fetch(url: String): String {
         val client = HttpClient()
