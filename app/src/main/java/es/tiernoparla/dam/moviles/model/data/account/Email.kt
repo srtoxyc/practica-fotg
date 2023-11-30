@@ -2,6 +2,11 @@ package es.tiernoparla.dam.moviles.model.data
 
 import java.util.*
 
+/**
+ * Representación de un correo electrónico.
+ * @param strigifiedEmail Email como cadena de caracteres entera, sin separar identificador de servicio.
+ * @author Iván Vicente Morales
+ */
 data class Email(
     private var stringifiedEmail: String,
 ) {

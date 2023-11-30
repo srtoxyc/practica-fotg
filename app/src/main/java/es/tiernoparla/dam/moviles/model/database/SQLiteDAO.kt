@@ -12,6 +12,14 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+/**
+ * Objeto de acceso a datos de la base de datos local.
+ * @param context Contexto de la aplicación Android.
+ * @see Context
+ * @see SQLiteOpenHelper
+ * @see AssetManager
+ * @author Iván Vicente Morales
+ */
 class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_VERSION  = 1
@@ -27,46 +35,35 @@ class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context,
         val file = File(databaseDir)
         if (!file.exists()) file.mkdir()
     }
-
-    /**
-     * Executes when the DAO is initialized.
-     */
     override fun onCreate(db: SQLiteDatabase) {
         // Nothing, as we do not want to create or insert any data at the initialization.
     }
 
-    /**
-     * Executes when the DAO is updated.
-     */
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         copyDatabase()
     }
 
-    /**
-     * Returns a writable instance of the database.
-     */
     override fun getWritableDatabase(): SQLiteDatabase {
         if (!doesDatabaseExist()) copyDatabase()
         return super.getWritableDatabase()
     }
 
-    /**
-     * Returns a readable instance of the database.
-     */
     override fun getReadableDatabase(): SQLiteDatabase {
         if (!doesDatabaseExist()) copyDatabase()
         return super.getReadableDatabase()
     }
 
     /**
-     * States whether the database exists or not.
+     * Evalúa si la base de datos existe en el dispositivo Android.
+     * @author Iván Vicente Morales
      */
     private fun doesDatabaseExist(): Boolean {
         return File(databaseDir + DATABASE_NAME).exists()
     }
 
     /**
-     * Reads and opens the database.
+     * Copia la base de datos al paquete del sistema del dispositivo Android.
+     * @author Iván Vicente Morales
      */
     private fun copyDatabase() {
         try {

@@ -16,6 +16,12 @@ import es.tiernoparla.dam.moviles.model.database.DBFactory
 import es.tiernoparla.dam.moviles.model.server.ServerDAO
 import es.tiernoparla.dam.moviles.model.server.ServerFactory
 
+/**
+ * Controlador de la aplicación.
+ * @param context Contexto de la aplicación.
+ * @see Context
+ * @author Iván Vicente Morales
+ */
 class AppController(private var context: Context) : Controller {
     var dbDAO: DBDAO?           = null
     var serverDAO: ServerDAO?   = null

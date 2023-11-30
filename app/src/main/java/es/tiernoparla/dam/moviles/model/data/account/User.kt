@@ -6,6 +6,12 @@ import es.tiernoparla.dam.moviles.model.data.Email
 import es.tiernoparla.dam.moviles.model.data.Exportable
 import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
 
+/**
+ * Representación de un usuario.
+ * @param username Nombre del usuario.
+ * @param email Email del usuario como objeto.
+ * @author Iván Vicente Morales
+ */
 data class User (
     private var username: String,
     private var email: Email,

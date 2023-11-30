@@ -2,6 +2,21 @@ package es.tiernoparla.dam.moviles.model.data.game
 
 import es.tiernoparla.dam.moviles.model.data.Exportable
 
+/**
+ * Clase de datos de los personajes del juego.
+ * @param id Identificador del personaje.
+ * @param name Nombre del personaje.
+ * @param desc Descripción del personaje.
+ * @param attack Ataque del personaje.
+ * @param defense Defensa del personaje.
+ * @param accuracy Precisión del personaje.
+ * @param life Vida del personaje.
+ * @param ether Éter del personaje.
+ * @param movement Movimiento del personaje.
+ * @param img Imagen del personaje.
+ * @param ability Habilidad del personaje.
+ * @author Iván Vicente Morales
+ */
 data class GameCharacter (
     private var id: Int,
     private var name: String,

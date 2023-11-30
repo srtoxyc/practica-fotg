@@ -2,6 +2,12 @@ package es.tiernoparla.dam.moviles.model.data.game
 
 import es.tiernoparla.dam.moviles.model.data.Exportable
 
+/**
+ * Clase de datos de las habilidades del juego.
+ * @param id Identificador de la habilidad.
+ * @param name Nombre de la habilidad.
+ * @param desc Descripción de la habilidad.
+ */
 data class GameAbility(
     private var id: Int,
     private var name: String,

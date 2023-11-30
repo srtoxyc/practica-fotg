@@ -1,5 +1,10 @@
 package es.tiernoparla.dam.moviles.model.data.account
 
+/**
+ * Enumeración de los estados posibles que puede devolver el servidor.
+ * @param value Valor como número entero.
+ * @author Iván Vicente Morales
+ */
 enum class ServerState(val value: Int) {
     STATE_ERROR_USERNAME(-3),
     STATE_ERROR_EMAIL(-2),
