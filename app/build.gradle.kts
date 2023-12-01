@@ -1,5 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaTask
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -10,6 +8,10 @@ plugins {
 android {
     namespace = "es.tiernoparla.dam.moviles"
     compileSdk = 34
+
+    packaging {
+        resources.excludes.add("META-INF/*.md")
+    }
 
     defaultConfig {
         applicationId = "es.tiernoparla.dam.moviles"
@@ -31,19 +33,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
     }
-    tasks {
-        val dokkaHtml by getting(DokkaTask::class) {
-            outputDirectory.set(buildDir.resolve("./docs"))
-        }
+
+    tasks.dokkaHtml.configure {
+        outputDirectory.set(file("../docs"))
     }
 }
 
@@ -68,4 +69,6 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.4.30")
 }

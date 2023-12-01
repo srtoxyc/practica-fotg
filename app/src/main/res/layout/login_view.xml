@@ -134,6 +134,18 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/lblPasswordForgotten"
+            android:layout_width="167dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:fontFamily="@font/cinzel"
+            android:text="Forgot your password?"
+            android:textAlignment="center"
+            android:textColor="@color/golden_light"
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/lblChangeState"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
@@ -141,7 +153,9 @@
             android:text="Sign up"
             android:textAlignment="center"
             android:textColor="@color/golden_light"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
+
+
 
     </LinearLayout>
 
@@ -158,7 +172,7 @@
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/lblDeveloper"
         android:layout_width="341dp"
         android:layout_height="24dp"
         android:fontFamily="@font/cinzel"

@@ -82,6 +82,14 @@ class AppController(private var context: Context) : Controller {
         }
     }
 
+    override suspend fun modifyPasswordForgotten(user: String, email: String, newPassword: String): ServerState {
+        try {
+            return serverDAO!!.modifyPasswordForgotten(user, email, newPassword)
+        } catch(e: Exception) {
+            throw e
+        }
+    }
+
     override suspend fun refreshSession(username: String, password: String) {
         try {
             session = serverDAO!!.getSession(username, password)

@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
         val btnLogin: Button                = findViewById(R.id.btnLogin)
         val lblChangeState: TextView        = findViewById(R.id.lblChangeState)
+        val lblPasswordForgotten: TextView  = findViewById(R.id.lblPasswordForgotten)
 
         val TXT_SIGNUP: String              = "Sign up"
         val TXT_LOGIN: String               = "Log in"
@@ -90,15 +91,23 @@ class LoginActivity : AppCompatActivity() {
 
                 lblChangeState.text         = TXT_SIGNUP
                 btnLogin.text               = TXT_LOGIN
+
+                lblPasswordForgotten.visibility = TextView.VISIBLE
             } else {
                 inputLytEmail.isEnabled     = true
                 inputLytEmail.visibility    = TextInputLayout.VISIBLE
 
                 lblChangeState.text         = TXT_LOGIN
                 btnLogin.text               = TXT_SIGNUP
+
+                lblPasswordForgotten.visibility = TextView.GONE
             }
 
             viewState = !viewState
+        }
+
+        lblPasswordForgotten.setOnClickListener {
+            ViewUtil.alertForm(appController, this, this@LoginActivity, ViewUtil.DIALOG_SELECTOR_PASS_FORGOTTEN)
         }
 
         rootView.setOnTouchListener { _: Any, event: MotionEvent ->

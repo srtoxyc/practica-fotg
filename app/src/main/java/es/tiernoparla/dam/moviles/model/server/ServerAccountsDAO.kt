@@ -66,6 +66,10 @@ class ServerAccountsDAO() : ServerDAO {
         return ServerState.convertIntToServerState(this.fetch(URL + "/update/password/${user}/${oldPassword}/${newPassword}").toInt())!!
     }
 
+    override suspend fun modifyPasswordForgotten(user: String, email: String, newPassword: String): ServerState {
+        return ServerState.convertIntToServerState(this.fetch(URL + "/update/password-forgotten/${user}/${email}/${newPassword}").toInt())!!
+    }
+
     override suspend fun getSession(user: String, password: String): User? {
         val USER_NOT_FOUND: String = "null"
         val result: String = this.fetch(URL + "/session/${user}/${password}")

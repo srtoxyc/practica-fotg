@@ -62,6 +62,16 @@ interface Controller {
     suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState
 
     /**
+     * Modifica la contraseña del usuario si esta ha sido olvidada.
+     * @param user Nombre del usuario.
+     * @param email Email del usuario
+     * @param newPassword Nueva contraseña del usuario.
+     * @return Estado de la modificación de la contraseña del usuario.
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
+    suspend fun modifyPasswordForgotten(user: String, email: String, newPassword: String): ServerState
+
+    /**
      * Establece el equipo de un usuario (los IDs).
      * @param user Nombre del usuario.
      * @param team Lista de identificadores de los personajes que conforman el equipo del usuario.

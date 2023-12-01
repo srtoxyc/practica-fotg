@@ -18,8 +18,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://dl.bintray.com/kotlin/ktor")
-        maven("https://dl.bintray.com/kotlin/dokka")
     }
 }
 

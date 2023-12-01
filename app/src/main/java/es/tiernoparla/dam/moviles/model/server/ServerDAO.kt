@@ -43,7 +43,7 @@ interface ServerDAO {
 
     /**
      * Modifica el email del usuario.
-     * @param user Nombre del usuario
+     * @param user Nombre del usuario.
      * @param password
      * @return Estado de la modificación del email.
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
@@ -52,13 +52,23 @@ interface ServerDAO {
 
     /**
      * Modifica la contraseña del usuario.
-     * @param user Nombre del usuario
+     * @param user Nombre del usuario.
      * @param oldPassword Anterior contraseña del usuario.
      * @param newPassword Nueva contraseña del usuario.
      * @return Estado de la modificación de la contraseña del usuario.
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState
+
+    /**
+     * Modifica la contraseña del usuario si esta ha sido olvidada.
+     * @param user Nombre del usuario.
+     * @param email Email del usuario
+     * @param newPassword Nueva contraseña del usuario.
+     * @return Estado de la modificación de la contraseña del usuario.
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
+    suspend fun modifyPasswordForgotten(user: String, email: String, newPassword: String): ServerState
 
     /**
      * Devuelve la sesión de la cuenta que haga login.

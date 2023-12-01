@@ -12,7 +12,6 @@ lifecycle-livedata-ktx = "2.6.1"
 lifecycle-viewmodel-ktx = "2.6.1"
 navigation-fragment-ktx = "2.6.0"
 navigation-ui-ktx = "2.6.0"
-okhttp = "4.9.0"
 gridlayout = "1.0.0"
 
 [libraries]
@@ -27,7 +26,6 @@ lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-lived
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 androidx-gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
 
 
