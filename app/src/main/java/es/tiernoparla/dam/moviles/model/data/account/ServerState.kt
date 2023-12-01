@@ -3,7 +3,7 @@ package es.tiernoparla.dam.moviles.model.data.account
 /**
  * Enumeración de los estados posibles que puede devolver el servidor.
  * @param value Valor como número entero.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 enum class ServerState(val value: Int) {
     STATE_ERROR_USERNAME(-3),

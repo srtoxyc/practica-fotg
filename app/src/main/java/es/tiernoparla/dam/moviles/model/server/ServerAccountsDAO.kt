@@ -13,7 +13,7 @@ import io.ktor.client.request.get
 /**
  * Objeto de acceso a un servidor.
  * @see <a href="https://gy-coding.github.io/login-server/">Server Docs</a>
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 class ServerAccountsDAO() : ServerDAO {
     private val URL = "https://login-server-szcx.2.ie-1.fl0.io"
@@ -23,7 +23,7 @@ class ServerAccountsDAO() : ServerDAO {
      * @param url
      * @return Respuesta
      * @see HttpClient
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     private suspend fun fetch(url: String): String {
         val client = HttpClient()
@@ -39,7 +39,7 @@ class ServerAccountsDAO() : ServerDAO {
      * Separa una cadena de caracteres en base al delimitador ";".
      * @param string
      * @return Lista inmutable de las cadenas de caracteres resultantes de la separación.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     private fun tokenize(string: String): List<String> {
         val DELIM: String = ";"

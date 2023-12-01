@@ -4,7 +4,7 @@ import android.content.Context
 
 /**
  * Singleton que controla las instancias de objetos de acceso a servidores.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 object ServerFactory {
     public val MODE_TEST = 0;
@@ -14,7 +14,7 @@ object ServerFactory {
      * Devuelve una instancia de un objeto de acceso a datos dependiendo del modo que se le proporcione.
      * @param mode Modo de la factoría.
      * @return Instancia de un objeto de acceso a datos.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     public fun getDAO(mode: Int): ServerDAO? {
         return when(mode) {

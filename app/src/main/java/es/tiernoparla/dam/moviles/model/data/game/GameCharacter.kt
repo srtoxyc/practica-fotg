@@ -15,7 +15,7 @@ import es.tiernoparla.dam.moviles.model.data.Exportable
  * @param movement Movimiento del personaje.
  * @param img Imagen del personaje.
  * @param ability Habilidad del personaje.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 data class GameCharacter (
     private var id: Int,

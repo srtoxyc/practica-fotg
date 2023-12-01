@@ -186,6 +186,13 @@ class MainActivity : AppCompatActivity() {
 
 
     /* ============# PRIVATE FUNCTIONS #============ */
+
+    /**
+     * Construye la lista de personajes del equipo del usuario en la pantalla de selección del equipo y de perfil.
+     * @param imageSize Tamaño de la imagen, siguiendo una relación de aspecto 1:1.
+     * @param textSize Tamaño del texto del nombre del personaje.
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun buildCharactersTeam(imageSize: Int, textSize: Int) {
         val DEFAULT_CHARACTER_TAG                       = "0"
 
@@ -230,6 +237,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Construye la lista de personajes del equipo del usuario en la pantalla de selección de la colección.
+     * @param imageSize Tamaño de la imagen, siguiendo una relación de aspecto 1:1.
+     * @param textSize Tamaño del texto del nombre del personaje.
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun buildCharactersCollection(imageSize: Int, textSize: Int) {
         val collectionListGenerator: CharacterListGenerator = CharacterListGenerator(this, this.appController!!, imageSize, textSize)
 
@@ -240,6 +253,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Realiza la acción pertinente cuando se da click a la imagen de un personaje del equipo en la lista de la pantalla de selección del equipo.
+     * @param imageID Identificador numérico de la imagen en la lista.
+     * @param team Lista mutable de ImageView del equipo del usuario en la pantalla de selección de equipo.
+     * @param teamProfile Lista mutable de ImageView del equipo del usuario en la pantalla de perfil.
+     * @param table Tabla que contendrá los elementos.
+     * @see ImageView
+     * @see TableLayout
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun teamImageEvent(imageID: Int, team: MutableList<ImageView>, teamProfile: MutableList<ImageView>, tableTeam: TableLayout) {
         val DEFAULT_CHARACTER_TAG       = "0"
 
@@ -272,6 +295,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Evento de modificación del nombre del usuario utilizando un AlertDialog.
+     * @param inputField1 Campo 1 del formulario de modificación.
+     * @param inputField2 Campo 2 del formulario de modificación.
+     * @param alertDialog Diálogo de alerta a mostrar por pantalla.
+     * @see EditText
+     * @see AlertDialog
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private suspend fun modifyUserEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
         val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
         val MSG_ERROR_EMAIL         = "El email de la sesión no es correcto."
@@ -304,6 +336,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Evento de modificación del correo electrónico del usuario utilizando un AlertDialog.
+     * @param inputField1 Campo 1 del formulario de modificación.
+     * @param inputField2 Campo 2 del formulario de modificación.
+     * @param alertDialog Diálogo de alerta a mostrar por pantalla.
+     * @see EditText
+     * @see AlertDialog
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private suspend fun modifyEmailEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
         val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
         val MSG_ERROR_EMAIL         = "El email no es correcto."
@@ -336,6 +377,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Evento de modificación de la contraseña del usuario utilizando un AlertDialog.
+     * @param inputField1 Campo 1 del formulario de modificación.
+     * @param inputField2 Campo 2 del formulario de modificación.
+     * @param alertDialog Diálogo de alerta a mostrar por pantalla.
+     * @see EditText
+     * @see AlertDialog
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private suspend fun modifyPassEvent(inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
         val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
         val MSG_ERROR_EMAIL         = "El email de la sesión no es correcto."
@@ -368,8 +418,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private suspend fun modifyPassForgottenEvent(inputField1: EditText, inputField2: EditText, inputField3: EditText, alertDialog: AlertDialog) {}
+
+    /**
+     * Crea un diálogo de alerta.
+     * @param context Contexto sobre el que se mostrará el diálogo de alerta.
+     * @param selector Selector del diálogo de alerta que se pide mostrar.
+     * @see Context
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     fun alertForm(context: Context, selector: String) {
         val SELECTOR_ERR_MSG    = "Wrong selector used to display the form alert."
+        val HINT_USERNAME       = "Username"
+        val HINT_EMAIL          = "Email"
         val HINT_NEW_USERNAME   = "New Username"
         val HINT_NEW_EMAIL      = "New Email"
         val HINT_OLD_PASSWORD   = "Old Password"
@@ -381,6 +442,8 @@ class MainActivity : AppCompatActivity() {
 
         val inputField1         = dialogView.findViewById<EditText>(R.id.inputField1)
         val inputField2         = dialogView.findViewById<EditText>(R.id.inputField2)
+        val inputField3         = dialogView.findViewById<EditText>(R.id.inputField3)
+
         val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
         val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
 
@@ -424,6 +487,21 @@ class MainActivity : AppCompatActivity() {
                 btnConfirm.setOnClickListener {
                     lifecycleScope.launch {
                         modifyPassEvent(inputField1, inputField2, alertDialog)
+                    }
+
+                    alertDialog.dismiss()
+                }
+            }
+            ViewUtil.DIALOG_SELECTOR_PASS_FORGOTTEN -> {
+                inputField1.hint = SpannableStringBuilder(HINT_USERNAME);
+                inputField2.hint = SpannableStringBuilder(HINT_EMAIL);
+                inputField3.hint = SpannableStringBuilder(HINT_NEW_PASSWORD);
+
+                btnConfirm.setOnClickListener {
+                    lifecycleScope.launch {
+                        inputField3.visibility = EditText.VISIBLE
+                        modifyPassForgottenEvent(inputField1, inputField2, inputField3, alertDialog)
+                        inputField3.visibility = EditText.GONE
                     }
 
                     alertDialog.dismiss()

@@ -1,7 +1,10 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("org.jetbrains.dokka") version "1.9.10"
 }
 
 android {
@@ -36,6 +39,11 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    tasks {
+        val dokkaHtml by getting(DokkaTask::class) {
+            outputDirectory.set(buildDir.resolve("./docs"))
+        }
     }
 }
 

@@ -10,7 +10,7 @@ import es.tiernoparla.dam.moviles.model.data.game.GameCharacter
 
 /**
  * Interfaz de los controladores de aplicación.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 interface Controller {
     /**
@@ -18,7 +18,7 @@ interface Controller {
      * @param user Nombre del usuario.
      * @param password
      * @return Si el usuario puede o no puede acceder a la cuenta. No dará acceso si los parámetros de login son incorrectos o si ocurre un error en la comunicación con la base de datos.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun checkLogin(user: String, password: String): Boolean
 
@@ -28,7 +28,7 @@ interface Controller {
      * @param email Email del usuario.
      * @param password
      * @return Estado del registro del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun signUp(user: String, email: Email, password: String): ServerState
 
@@ -38,7 +38,7 @@ interface Controller {
      * @param newUsername Nuevo nombre del usuario.
      * @param password
      * @return Estado de la modificación del nombre del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun modifyUser(username: String, newUsername: String, password: String): ServerState
 
@@ -47,7 +47,7 @@ interface Controller {
      * @param user Nombre del usuario
      * @param password
      * @return Estado de la modificación del email.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun modifyEmail(user: String, newEmail: Email, password: String): ServerState
 
@@ -57,7 +57,7 @@ interface Controller {
      * @param oldPassword Anterior contraseña del usuario.
      * @param newPassword Nueva contraseña del usuario.
      * @return Estado de la modificación de la contraseña del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState
 
@@ -66,12 +66,21 @@ interface Controller {
      * @param user Nombre del usuario.
      * @param team Lista de identificadores de los personajes que conforman el equipo del usuario.
      * @return Estado de la modificación del equipo del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun setTeam(user: String, team: MutableList<GameCharacter?>): ServerState
 
+    /**
+     * Refresca la sesión actual de la aplicación.
+     * @param username Nombre del usuario.
+     * @param password
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     suspend fun refreshSession(username: String, password: String)
 
+    /**
+     *
+     */
     fun getCharacter(id: Int): GameCharacter
 
     fun listCharacters(): MutableList<GameCharacter>

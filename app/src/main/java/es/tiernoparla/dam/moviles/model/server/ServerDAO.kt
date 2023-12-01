@@ -9,7 +9,7 @@ import es.tiernoparla.dam.moviles.model.database.DBDAO
 /**
  * Interfaz de objeto de acceso a un servidor.
  * @see <a href="https://gy-coding.github.io/login-server/">Server Docs</a>
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 interface ServerDAO {
     /**
@@ -17,7 +17,7 @@ interface ServerDAO {
      * @param user Nombre del usuario.
      * @param password
      * @return Si el usuario puede o no puede acceder a la cuenta. No dará acceso si los parámetros de login son incorrectos o si ocurre un error en la comunicación con la base de datos.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun checkLogin(user: String, password: String): Boolean
 
@@ -27,7 +27,7 @@ interface ServerDAO {
      * @param email Email del usuario.
      * @param password
      * @return Estado del registro del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun signUp(user: String, email: Email, password: String): ServerState
 
@@ -37,7 +37,7 @@ interface ServerDAO {
      * @param newUsername Nuevo nombre del usuario.
      * @param password
      * @return Estado de la modificación del nombre del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun modifyUser(username: String, newUsername: String, password: String): ServerState
 
@@ -46,7 +46,7 @@ interface ServerDAO {
      * @param user Nombre del usuario
      * @param password
      * @return Estado de la modificación del email.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun modifyEmail(user: String, newEmail: Email, password: String): ServerState
 
@@ -56,7 +56,7 @@ interface ServerDAO {
      * @param oldPassword Anterior contraseña del usuario.
      * @param newPassword Nueva contraseña del usuario.
      * @return Estado de la modificación de la contraseña del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun modifyPassword(user: String, oldPassword: String, newPassword: String): ServerState
 
@@ -65,7 +65,7 @@ interface ServerDAO {
      * @param user Nombre del usuario.
      * @param password
      * @return Usuario que está iniciado.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun getSession(user: String, password: String): User?
 
@@ -73,7 +73,7 @@ interface ServerDAO {
      * Devuelve los IDs del equipo completo del usuario.
      * @param user Nombre del usuario.
      * @return IDs del equipo completo del usuario compactos en una cadena de caracteres.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun getTeam(user: String, dbDAO: DBDAO): MutableList<GameCharacter?>
 
@@ -82,7 +82,7 @@ interface ServerDAO {
      * @param user Nombre del usuario.
      * @param team Lista de identificadores de los personajes que conforman el equipo del usuario.
      * @return Estado de la modificación del equipo del usuario.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     suspend fun setTeam(user: String, team: MutableList<GameCharacter?>): ServerState
 }

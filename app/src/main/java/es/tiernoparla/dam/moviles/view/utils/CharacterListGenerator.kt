@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
  * @param appController Objeto controlador de la app (MVC).
  * @param imageSize Tamaño de la imagen (relación de aspecto 1:1) de cada personaje de la lista.
  * @param textSize Tamaño del texto del nombre de cada personaje.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  * @see Context
  * @see TableLayout
  * @see TableRow
@@ -47,6 +47,15 @@ class CharacterListGenerator(
     private var countItemsRow: Int     = 0
     private var tableRow: TableRow?    = null
 
+    /**
+     * Aplica un event listener a cada imagen de la colección de personajes del equipo en la pantalla de selección de equipo.
+     * @param imgCharacter ImagenView del personaje.
+     * @param team Lista mutable de ImageView del equipo del usuario en la pantalla de selección de equipo.
+     * @param teamProfile Lista mutable de ImageView del equipo del usuario en la pantalla de perfil.
+     * @param character Personaje del juego.
+     * @see ImageView
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun applyTeamListener(imgCharacter: ImageView, team: MutableList<ImageView>, teamProfile: MutableList<ImageView>, character: GameCharacter) {
         val ERR_TITLE: String       = "Full team"
         val ERR_MSG: String         = "Your team is already full."
@@ -72,6 +81,13 @@ class CharacterListGenerator(
         }
     }
 
+    /**
+     * Aplica un event listener a cada imagen de la colección de personajes del equipo en la pantalla de colección de personajes.
+     * @param imgCharacter ImagenView del personaje.
+     * @param character Personaje del juego.
+     * @see ImageView
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun applyCollectionListener(imgCharacter: ImageView, character: GameCharacter) {
         imgCharacter.setOnClickListener {
             AppController.characterSelected = character
@@ -79,6 +95,11 @@ class CharacterListGenerator(
         }
     }
 
+    /**
+     * Genera una fila de una tabla.
+     * @see TableRow
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun generateTableRow(): TableRow {
         val tableRow = TableRow(this.context)
 
@@ -91,6 +112,11 @@ class CharacterListGenerator(
         return tableRow
     }
 
+    /**
+     * Genera un layout lineal.
+     * @see LinearLayout
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun generateLayout(): LinearLayout {
         val charactersLayout = LinearLayout(this.context)
 
@@ -106,6 +132,11 @@ class CharacterListGenerator(
         return charactersLayout
     }
 
+    /**
+     * Genera un layout de frames.
+     * @see FrameLayout
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun generateFrame(): FrameLayout {
         val frameCharacter = FrameLayout(this.context)
 
@@ -117,6 +148,11 @@ class CharacterListGenerator(
         return frameCharacter
     }
 
+    /**
+     * Genera una vista.
+     * @see View
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun generateView(): View {
         val viewCharacter = View(this.context)
 
@@ -129,6 +165,11 @@ class CharacterListGenerator(
         return viewCharacter
     }
 
+    /**
+     * Genera una imagen.
+     * @see ImageView
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun generateImage(character: GameCharacter): ImageView {
         val imgCharacter        = ImageView(this.context)
 
@@ -146,6 +187,11 @@ class CharacterListGenerator(
         return imgCharacter
     }
 
+    /**
+     * Genera una vista de texto.
+     * @see TextView
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     private fun generateText(character: GameCharacter): TextView {
         val nameCharacter = TextView(this.context)
 
@@ -169,6 +215,16 @@ class CharacterListGenerator(
         return nameCharacter
     }
 
+    /**
+     * Monta la lista del equipo del usuario en la pantalla del perfil.
+     * @param table Tabla que contendrá los elementos.
+     * @param team Lista mutable de ImageView del equipo del usuario en la pantalla de selección de equipo.
+     * @param teamProfile Lista mutable de ImageView del equipo del usuario en la pantalla de perfil.
+     * @param character Personaje del juego.
+     * @see ImageView
+     * @see TableLayout
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     public fun mountListTeam(table: TableLayout, team: MutableList<ImageView>, teamProfile: MutableList<ImageView>, character: GameCharacter) {
         val layout: LinearLayout    = this.generateLayout()
         val frame: FrameLayout      = this.generateFrame()
@@ -196,6 +252,13 @@ class CharacterListGenerator(
         this.countItemsRow++
     }
 
+    /**
+     * Monta la lista del equipo del usuario en la pantalla de la colección de personajes.
+     * @param table Tabla que contendrá los elementos.
+     * @param character Personaje del juego.
+     * @see TableLayout
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
+     */
     public fun mountListCollection(table: TableLayout, character: GameCharacter) {
         val layout: LinearLayout    = this.generateLayout()
         val frame: FrameLayout      = this.generateFrame()

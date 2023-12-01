@@ -18,7 +18,7 @@ import java.io.IOException
  * @see Context
  * @see SQLiteOpenHelper
  * @see AssetManager
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 class SQLiteDAO(private var context: Context) : DBDAO, SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {

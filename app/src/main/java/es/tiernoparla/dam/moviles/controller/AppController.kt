@@ -20,7 +20,7 @@ import es.tiernoparla.dam.moviles.model.server.ServerFactory
  * Controlador de la aplicación.
  * @param context Contexto de la aplicación.
  * @see Context
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 class AppController(private var context: Context) : Controller {
     var dbDAO: DBDAO?           = null
@@ -28,7 +28,7 @@ class AppController(private var context: Context) : Controller {
 
     companion object {
         var session: User?                      = null
-        var characterSelected: GameCharacter?   = null      // Serves as a bridge between MainActivity and CharacterActivity to pass the character selected.
+        var characterSelected: GameCharacter?   = null
     }
 
     init {

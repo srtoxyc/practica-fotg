@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/lytDialog"
-        android:layout_width="372dp"
-        android:layout_height="268dp"
+        android:layout_width="373dp"
+        android:layout_height="381dp"
         android:background="@color/dialogBG"
         android:backgroundTintMode="screen"
         android:gravity="center"
@@ -44,9 +44,19 @@
             android:id="@+id/inputField2"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="Field 2"
             android:inputType="text" />
+
+        <EditText
+            android:id="@+id/inputField3"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Field 3"
+            android:inputType="text"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/lytButtons"

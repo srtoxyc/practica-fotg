@@ -5,7 +5,7 @@ import java.util.*
 /**
  * Representación de un correo electrónico.
  * @param strigifiedEmail Email como cadena de caracteres entera, sin separar identificador de servicio.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 data class Email(
     private var stringifiedEmail: String,

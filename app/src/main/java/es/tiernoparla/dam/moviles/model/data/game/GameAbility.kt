@@ -7,6 +7,7 @@ import es.tiernoparla.dam.moviles.model.data.Exportable
  * @param id Identificador de la habilidad.
  * @param name Nombre de la habilidad.
  * @param desc Descripción de la habilidad.
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 data class GameAbility(
     private var id: Int,

@@ -4,7 +4,7 @@ import android.content.Context
 
 /**
  * Singleton que controla las instancias de objetos de acceso a la base de datos local.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 object DBFactory {
     public val MODE_TEST = 0;
@@ -16,7 +16,7 @@ object DBFactory {
      * @param context Contexto de la aplicación de Android.
      * @return Instancia de un objeto de acceso a datos.
      * @see Context
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     public fun getDAO(mode: Int, context: Context): DBDAO? {
         return when(mode) {

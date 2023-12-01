@@ -18,7 +18,7 @@ import es.tiernoparla.dam.moviles.data.User
 
 /**
  * Singleton que provee de múltiples funcionalidades básicas de controladores de vista.
- * @author Iván Vicente Morales
+ * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
  */
 object ViewUtil {
     val DIALOG_TITLE_ERROR              = "Error"
@@ -27,12 +27,13 @@ object ViewUtil {
     val DIALOG_SELECTOR_USER            = "USER"
     val DIALOG_SELECTOR_EMAIL           = "EMAIL"
     val DIALOG_SELECTOR_PASS            = "PASS"
+    val DIALOG_SELECTOR_PASS_FORGOTTEN  = "PASS_FORGOTTEN"
 
     /**
      * Abre una vista nueva en otra 'pestaña'.
      * @param context Contexto desde el cual se efectuará la apertura de la nueva vista.
      * @param activityClass Controlador de la vista que será abierta.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      * @see Context
      * @see AppCompatActivity
      */
@@ -43,7 +44,7 @@ object ViewUtil {
     /**
      * Cierra la vista actual, volviendo a la anterior.
      * @param activity Actividad actual que va a ser cerrada.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      * @see AppCompatActivity
      */
     fun closeView(activity: AppCompatActivity) {
@@ -58,7 +59,7 @@ object ViewUtil {
      * @param title Título del diálogo.
      * @param msg Mensaje del diálogo.
      * @return Diálogo de alerta listo para ser mostrado.
-     * @author Iván Vicente Morales
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      * @see Context
      */
     fun alertConfirm(context: Context, logo: Int, title: String, msg: String): AlertDialog {
@@ -78,6 +79,7 @@ object ViewUtil {
      * @param viewGroup Contenedor de vista sobre el que buscará.
      * @param tag Etiqueta del elemento a buscar.
      * @return Elemento encontrado, o null si no existe.
+     * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     fun <T : View> findViewByTag(viewGroup: ViewGroup, tag: String): T? {
         for (i in 0 until viewGroup.childCount) {
