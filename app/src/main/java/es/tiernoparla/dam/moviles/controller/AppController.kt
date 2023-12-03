@@ -92,7 +92,9 @@ class AppController(private var context: Context) : Controller {
 
     override suspend fun refreshSession(username: String, password: String) {
         try {
-            session = serverDAO!!.getSession(username, password)
+            val newSession: User? = serverDAO!!.getSession(username, password)
+            session!!.setUsername(newSession!!.getUsername())
+            session!!.setEmail(newSession!!.getEmail())
         } catch(e: Exception) {
             throw e
         }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.text.InputType
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,9 @@ object ViewUtil {
     val DIALOG_SELECTOR_EMAIL           = "EMAIL"
     val DIALOG_SELECTOR_PASS            = "PASS"
     val DIALOG_SELECTOR_PASS_FORGOTTEN  = "PASS_FORGOTTEN"
+
+    val MSG_WRONG_CHARS                 = "Alguno de los caracteres especiales utilizados no son válidos."
+    val MSG_EMPTY                       = "Completa todos los campos."
 
     /**
      * Abre una vista nueva en otra 'pestaña'.
@@ -93,34 +97,71 @@ object ViewUtil {
      * @see AlertDialog
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
-    private suspend fun modifyUserEvent(appController: Controller?, context: Context, inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
-        val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
-        val MSG_ERROR_EMAIL         = "El email de la sesión no es correcto."
-        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
-        val MSG_ERROR_PASSWORD      = "La contraseña no es correcta."
-        val MSG_ERROR_SUCCESS       = "Nombre de usuario cambiado correctamente."
+    private suspend fun modifyUserEvent(
+        appController: Controller?,
+        context: Context,
+        inputField1: EditText,
+        inputField2: EditText,
+        alertDialog: AlertDialog
+    ) {
+        val MSG_ERROR_USERNAME = "El nombre de usuario de la sesión no es correcto."
+        val MSG_ERROR_EMAIL = "El email de la sesión no es correcto."
+        val MSG_ERROR_DATABASE = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD = "La contraseña no es correcta."
+        val MSG_ERROR_SUCCESS = "Nombre de usuario cambiado correctamente."
 
-        when(appController!!.modifyUser(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
+        when (appController!!.modifyUser(
+            AppController.session!!.getUsername(),
+            inputField1.getText().toString(),
+            inputField2.getText().toString()
+        )) {
             ServerState.STATE_ERROR_USERNAME -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo,ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_USERNAME
+                ).show()
             }
+
             ServerState.STATE_ERROR_EMAIL -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+                alertConfirm(context, R.drawable.logo, DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
             }
+
             ServerState.STATE_ERROR_DATABASE -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_DATABASE
+                ).show()
             }
+
             ServerState.STATE_ERROR_PASSWORD -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_PASSWORD
+                ).show()
             }
+
             ServerState.STATE_SUCCESS -> {
-                appController!!.refreshSession(inputField1.getText().toString(), inputField2.getText().toString())
+                appController.refreshSession(
+                    inputField1.getText().toString(),
+                    inputField2.getText().toString()
+                )
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_CHANGE, MSG_ERROR_SUCCESS).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_CHANGE,
+                    MSG_ERROR_SUCCESS
+                ).show()
             }
         }
     }
@@ -136,34 +177,71 @@ object ViewUtil {
      * @see AlertDialog
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
-    private suspend fun modifyEmailEvent(appController: Controller?, context: Context, inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
-        val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
-        val MSG_ERROR_EMAIL         = "El email no es correcto."
-        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
-        val MSG_ERROR_PASSWORD      = "La contraseña no es correcta."
-        val MSG_ERROR_SUCCESS       = "Email cambiado correctamente."
+    private suspend fun modifyEmailEvent(
+        appController: Controller?,
+        context: Context,
+        inputField1: EditText,
+        inputField2: EditText,
+        alertDialog: AlertDialog
+    ) {
+        val MSG_ERROR_USERNAME = "El nombre de usuario de la sesión no es correcto."
+        val MSG_ERROR_EMAIL = "El email no es correcto."
+        val MSG_ERROR_DATABASE = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD = "La contraseña no es correcta."
+        val MSG_ERROR_SUCCESS = "Email cambiado correctamente."
 
-        when(appController!!.modifyEmail(AppController.session!!.getUsername(), Email(inputField1.getText().toString()), inputField2.getText().toString())) {
+        when (appController!!.modifyEmail(
+            AppController.session!!.getUsername(),
+            Email(inputField1.getText().toString()),
+            inputField2.getText().toString()
+        )) {
             ServerState.STATE_ERROR_USERNAME -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_USERNAME
+                ).show()
             }
+
             ServerState.STATE_ERROR_EMAIL -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+                alertConfirm(context, R.drawable.logo, DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
             }
+
             ServerState.STATE_ERROR_DATABASE -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_DATABASE
+                ).show()
             }
+
             ServerState.STATE_ERROR_PASSWORD -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_PASSWORD
+                ).show()
             }
+
             ServerState.STATE_SUCCESS -> {
-                appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
+                appController.refreshSession(
+                    AppController.session!!.getUsername(),
+                    inputField2.getText().toString()
+                )
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_CHANGE, MSG_ERROR_SUCCESS).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_CHANGE,
+                    MSG_ERROR_SUCCESS
+                ).show()
             }
         }
     }
@@ -179,34 +257,71 @@ object ViewUtil {
      * @see AlertDialog
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
-    private suspend fun modifyPassEvent(appController: Controller?, context: Context, inputField1: EditText, inputField2: EditText, alertDialog: AlertDialog) {
-        val MSG_ERROR_USERNAME      = "El nombre de usuario de la sesión no es correcto."
-        val MSG_ERROR_EMAIL         = "El email de la sesión no es correcto."
-        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
-        val MSG_ERROR_PASSWORD      = "La anterior contraseña no es correcta."
-        val MSG_ERROR_SUCCESS       = "Contraseña cambiada correctamente."
+    private suspend fun modifyPassEvent(
+        appController: Controller?,
+        context: Context,
+        inputField1: EditText,
+        inputField2: EditText,
+        alertDialog: AlertDialog
+    ) {
+        val MSG_ERROR_USERNAME = "El nombre de usuario de la sesión no es correcto."
+        val MSG_ERROR_EMAIL = "El email de la sesión no es correcto."
+        val MSG_ERROR_DATABASE = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD = "La anterior contraseña no es correcta."
+        val MSG_ERROR_SUCCESS = "Contraseña cambiada correctamente."
 
-        when(appController!!.modifyPassword(AppController.session!!.getUsername(), inputField1.getText().toString(), inputField2.getText().toString())) {
+        when (appController!!.modifyPassword(
+            AppController.session!!.getUsername(),
+            inputField1.getText().toString(),
+            inputField2.getText().toString()
+        )) {
             ServerState.STATE_ERROR_USERNAME -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_USERNAME
+                ).show()
             }
+
             ServerState.STATE_ERROR_EMAIL -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+                alertConfirm(context, R.drawable.logo, DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
             }
+
             ServerState.STATE_ERROR_DATABASE -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_DATABASE
+                ).show()
             }
+
             ServerState.STATE_ERROR_PASSWORD -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_PASSWORD
+                ).show()
             }
+
             ServerState.STATE_SUCCESS -> {
-                appController!!.refreshSession(AppController.session!!.getUsername(), inputField2.getText().toString())
+                appController.refreshSession(
+                    AppController.session!!.getUsername(),
+                    inputField2.getText().toString()
+                )
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_CHANGE, MSG_ERROR_SUCCESS).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_CHANGE,
+                    MSG_ERROR_SUCCESS
+                ).show()
             }
         }
     }
@@ -223,33 +338,68 @@ object ViewUtil {
      * @see AlertDialog
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
-    private suspend fun modifyPassForgottenEvent(appController: Controller?, context: Context, inputField1: EditText, inputField2: EditText, inputField3: EditText, alertDialog: AlertDialog) {
-        val MSG_ERROR_USERNAME      = "El nombre de usuario no es correcto."
-        val MSG_ERROR_EMAIL         = "El email no es correcto."
-        val MSG_ERROR_DATABASE      = "Ha ocurrido un error inesperado con la base de datos."
-        val MSG_ERROR_PASSWORD      = "La contraseña no es correcta."
-        val MSG_ERROR_SUCCESS       = "Contraseña cambiada correctamente."
+    private suspend fun modifyPassForgottenEvent(
+        appController: Controller?,
+        context: Context,
+        inputField1: EditText,
+        inputField2: EditText,
+        inputField3: EditText,
+        alertDialog: AlertDialog
+    ) {
+        val MSG_ERROR_USERNAME = "El nombre de usuario no es correcto."
+        val MSG_ERROR_EMAIL = "El email no es correcto."
+        val MSG_ERROR_DATABASE = "Ha ocurrido un error inesperado con la base de datos."
+        val MSG_ERROR_PASSWORD = "La contraseña no es correcta."
+        val MSG_ERROR_SUCCESS = "Contraseña cambiada correctamente."
 
-        when(appController!!.modifyPasswordForgotten(inputField1.getText().toString(), inputField2.getText().toString(), inputField3.getText().toString())) {
+        when (appController!!.modifyPasswordForgotten(
+            inputField1.getText().toString(),
+            inputField2.getText().toString(),
+            inputField3.getText().toString()
+        )) {
             ServerState.STATE_ERROR_USERNAME -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_USERNAME
+                ).show()
             }
+
             ServerState.STATE_ERROR_EMAIL -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+                alertConfirm(context, R.drawable.logo, DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
             }
+
             ServerState.STATE_ERROR_DATABASE -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_DATABASE
+                ).show()
             }
+
             ServerState.STATE_ERROR_PASSWORD -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_ERROR,
+                    MSG_ERROR_PASSWORD
+                ).show()
             }
+
             ServerState.STATE_SUCCESS -> {
                 alertDialog.dismiss()
-                ViewUtil.alertConfirm(context, R.drawable.logo, ViewUtil.DIALOG_TITLE_CHANGE, MSG_ERROR_SUCCESS).show()
+                alertConfirm(
+                    context,
+                    R.drawable.logo,
+                    DIALOG_TITLE_CHANGE,
+                    MSG_ERROR_SUCCESS
+                ).show()
             }
         }
     }
@@ -263,30 +413,35 @@ object ViewUtil {
      * @see Context
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
-    public fun alertForm(appController: Controller?, view: AppCompatActivity, context: Context, selector: String) {
-        val SELECTOR_ERR_MSG    = "Wrong selector used to display the form alert."
-        val TITLE_USERNAME      = "Change Username"
-        val TITLE_EMAIL         = "Change Email"
-        val TITLE_PASSWORD      = "Change Password"
-        val HINT_USERNAME       = "Username"
-        val HINT_EMAIL          = "Email"
-        val HINT_NEW_USERNAME   = "New Username"
-        val HINT_NEW_EMAIL      = "New Email"
-        val HINT_OLD_PASSWORD   = "Old Password"
-        val HINT_NEW_PASSWORD   = "New Password"
-        val HINT_PASSWORD       = "Password"
+    public fun alertForm(
+        appController: Controller?,
+        view: AppCompatActivity,
+        context: Context,
+        selector: String
+    ) {
+        val SELECTOR_ERR_MSG = "Wrong selector used to display the form alert."
+        val TITLE_USERNAME = "Cambiar nombre"
+        val TITLE_EMAIL = "Cambiar Email"
+        val TITLE_PASSWORD = "Cambiar contraseña"
+        val HINT_USERNAME = "Nombre de Usuario"
+        val HINT_EMAIL = "Email"
+        val HINT_NEW_USERNAME = "Nuevo nombre"
+        val HINT_NEW_EMAIL = "Nuevo Email"
+        val HINT_OLD_PASSWORD = "Anterior contraseña"
+        val HINT_NEW_PASSWORD = "Nueva contraseña"
+        val HINT_PASSWORD = "Contraseña"
 
-        val inflater            = LayoutInflater.from(context)
-        val dialogView: View    = inflater.inflate(R.layout.dialog_view, null)
+        val inflater = LayoutInflater.from(context)
+        val dialogView: View = inflater.inflate(R.layout.dialog_view, null)
 
-        val lblTitle            = dialogView.findViewById<TextView>(R.id.lblTitle)
+        val lblTitle = dialogView.findViewById<TextView>(R.id.lblTitle)
 
-        val inputField1         = dialogView.findViewById<EditText>(R.id.inputField1)
-        val inputField2         = dialogView.findViewById<EditText>(R.id.inputField2)
-        val inputField3         = dialogView.findViewById<EditText>(R.id.inputField3)
+        val inputField1 = dialogView.findViewById<EditText>(R.id.inputField1)
+        val inputField2 = dialogView.findViewById<EditText>(R.id.inputField2)
+        val inputField3 = dialogView.findViewById<EditText>(R.id.inputField3)
 
-        val btnCancel           = dialogView.findViewById<Button>(R.id.btnCancel)
-        val btnConfirm          = dialogView.findViewById<Button>(R.id.btnConfirm)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnConfirm = dialogView.findViewById<Button>(R.id.btnConfirm)
 
         val alertDialog = AlertDialog.Builder(context)
             .setView(dialogView)
@@ -297,28 +452,93 @@ object ViewUtil {
 
         when (selector) {
             DIALOG_SELECTOR_USER -> {
-                lblTitle.text    = TITLE_USERNAME
+                lblTitle.text = TITLE_USERNAME
                 inputField1.hint = SpannableStringBuilder(HINT_NEW_USERNAME)
                 inputField2.hint = SpannableStringBuilder(HINT_PASSWORD)
 
                 btnConfirm.setOnClickListener {
                     view.lifecycleScope.launch {
-                        modifyUserEvent(appController, context, inputField1, inputField2, alertDialog)
+                        if(inputField1.text.toString().contains(Regex("[/\\\\]")) || inputField2.text.toString().contains(Regex("[/\\\\]")) || inputField3.text.toString().contains(Regex("[/\\\\]"))) {
+                            alertConfirm(
+                                view,
+                                R.drawable.logo,
+                                DIALOG_TITLE_ERROR,
+                                MSG_WRONG_CHARS
+                            ).show()
+                        } else if(inputField1.text.toString().isBlank() || inputField2.text.toString().isBlank()) {
+                            alertConfirm(
+                                view,
+                                R.drawable.logo,
+                                DIALOG_TITLE_ERROR,
+                                MSG_EMPTY
+                            ).show()
+                        } else {
+                            modifyUserEvent(
+                                appController,
+                                context,
+                                inputField1,
+                                inputField2,
+                                alertDialog
+                            )
+
+                            view.findViewById<TextView>(R.id.lblUser).text =
+                                AppController.session!!.getUsername()
+                            view.findViewById<TextView>(R.id.lblEmail).text =
+                                AppController.session!!.getEmail().toString()
+                            view.findViewById<TextView>(R.id.lblRole).text =
+                                String.format("Rol: %s", AppController.session!!.getRole())
+                            view.findViewById<TextView>(R.id.lblUserTeamTitleProfile).text =
+                                String.format("Equipo de %s", AppController.session!!.getUsername())
+                        }
                     }
 
                     alertDialog.dismiss()
-
                 }
             }
 
             DIALOG_SELECTOR_EMAIL -> {
-                lblTitle.text    = TITLE_EMAIL
+                lblTitle.text = TITLE_EMAIL
                 inputField1.hint = SpannableStringBuilder(HINT_NEW_EMAIL);
                 inputField2.hint = SpannableStringBuilder(HINT_PASSWORD);
 
                 btnConfirm.setOnClickListener {
                     view.lifecycleScope.launch {
-                        modifyEmailEvent(appController, context, inputField1, inputField2, alertDialog)
+                        if (inputField1.text.toString()
+                                .contains(Regex("[/\\\\]")) || inputField2.text.toString()
+                                .contains(Regex("[/\\\\]")) || inputField3.text.toString()
+                                .contains(Regex("[/\\\\]"))
+                        ) {
+                            alertConfirm(
+                                view,
+                                R.drawable.logo,
+                                DIALOG_TITLE_ERROR,
+                                MSG_WRONG_CHARS
+                            ).show()
+                        } else if(inputField1.text.toString().isBlank() || inputField2.text.toString().isBlank()) {
+                            alertConfirm(
+                                view,
+                                R.drawable.logo,
+                                DIALOG_TITLE_ERROR,
+                                MSG_EMPTY
+                            ).show()
+                        } else {
+                            modifyEmailEvent(
+                                appController,
+                                context,
+                                inputField1,
+                                inputField2,
+                                alertDialog
+                            )
+
+                            view.findViewById<TextView>(R.id.lblUser).text =
+                                AppController.session!!.getUsername()
+                            view.findViewById<TextView>(R.id.lblEmail).text =
+                                AppController.session!!.getEmail().toString()
+                            view.findViewById<TextView>(R.id.lblRole).text =
+                                String.format("Rol: %s", AppController.session!!.getRole())
+                            view.findViewById<TextView>(R.id.lblUserTeamTitleProfile).text =
+                                String.format("Equipo de %s", AppController.session!!.getUsername())
+                        }
                     }
 
                     alertDialog.dismiss()
@@ -326,13 +546,48 @@ object ViewUtil {
             }
 
             DIALOG_SELECTOR_PASS -> {
-                lblTitle.text    = TITLE_PASSWORD
+                lblTitle.text = TITLE_PASSWORD
                 inputField1.hint = SpannableStringBuilder(HINT_OLD_PASSWORD)
                 inputField2.hint = SpannableStringBuilder(HINT_NEW_PASSWORD)
 
                 btnConfirm.setOnClickListener {
                     view.lifecycleScope.launch {
-                        modifyPassEvent(appController, context, inputField1, inputField2, alertDialog)
+                        if (inputField1.text.toString()
+                                .contains(Regex("[/\\\\]")) || inputField2.text.toString()
+                                .contains(Regex("[/\\\\]")) || inputField3.text.toString()
+                                .contains(Regex("[/\\\\]"))
+                        ) {
+                            alertConfirm(
+                                view,
+                                R.drawable.logo,
+                                DIALOG_TITLE_ERROR,
+                                MSG_WRONG_CHARS
+                            ).show()
+                        } else if(inputField1.text.toString().isBlank() || inputField2.text.toString().isBlank()) {
+                            alertConfirm(
+                                view,
+                                R.drawable.logo,
+                                DIALOG_TITLE_ERROR,
+                                MSG_EMPTY
+                            ).show()
+                        } else {
+                            modifyPassEvent(
+                                appController,
+                                context,
+                                inputField1,
+                                inputField2,
+                                alertDialog
+                            )
+
+                            view.findViewById<TextView>(R.id.lblUser).text =
+                                AppController.session!!.getUsername()
+                            view.findViewById<TextView>(R.id.lblEmail).text =
+                                AppController.session!!.getEmail().toString()
+                            view.findViewById<TextView>(R.id.lblRole).text =
+                                String.format("Rol: %s", AppController.session!!.getRole())
+                            view.findViewById<TextView>(R.id.lblUserTeamTitleProfile).text =
+                                String.format("Equipo de %s", AppController.session!!.getUsername())
+                        }
                     }
 
                     alertDialog.dismiss()
@@ -340,7 +595,7 @@ object ViewUtil {
             }
 
             DIALOG_SELECTOR_PASS_FORGOTTEN -> {
-                lblTitle.text    = TITLE_PASSWORD
+                lblTitle.text = TITLE_PASSWORD
                 inputField1.hint = SpannableStringBuilder(HINT_USERNAME)
                 inputField2.hint = SpannableStringBuilder(HINT_EMAIL)
                 inputField3.hint = SpannableStringBuilder(HINT_NEW_PASSWORD)
@@ -348,20 +603,47 @@ object ViewUtil {
                 inputField3.visibility = EditText.VISIBLE
 
                 btnConfirm.setOnClickListener {
-                    view.lifecycleScope.launch {
-                        modifyPassForgottenEvent(appController, context, inputField1, inputField2, inputField3, alertDialog)
+                    if (inputField1.text.toString()
+                            .contains(Regex("[/\\\\]")) || inputField2.text.toString()
+                            .contains(Regex("[/\\\\]")) || inputField3.text.toString()
+                            .contains(Regex("[/\\\\]"))
+                    ) {
+                        alertConfirm(
+                            view,
+                            R.drawable.logo,
+                            DIALOG_TITLE_ERROR,
+                            MSG_WRONG_CHARS
+                        ).show()
+                    } else if(inputField1.text.toString().isBlank() || inputField2.text.toString().isBlank() ||  inputField3.text.toString().isBlank()) {
+                        alertConfirm(
+                            view,
+                            R.drawable.logo,
+                            DIALOG_TITLE_ERROR,
+                            MSG_EMPTY
+                        ).show()
+                    } else {
+                        view.lifecycleScope.launch {
+                            modifyPassForgottenEvent(
+                                appController,
+                                context,
+                                inputField1,
+                                inputField2,
+                                inputField3,
+                                alertDialog
+                            )
+                        }
+
+                        inputField3.visibility = EditText.GONE
+
+                        alertDialog.dismiss()
                     }
-
-                    inputField3.visibility = EditText.GONE
-
-                    alertDialog.dismiss()
                 }
             }
 
             else -> alertConfirm(
                 context,
                 R.drawable.logo,
-                ViewUtil.DIALOG_TITLE_ERROR,
+                DIALOG_TITLE_ERROR,
                 SELECTOR_ERR_MSG
             ).show()
         }

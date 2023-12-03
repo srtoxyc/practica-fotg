@@ -43,7 +43,7 @@
 
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/cinzel"
-                android:hint="USER"
+                android:hint="USUARIO"
 
                 android:textColor="@color/white"
                 tools:layout_editor_absolutY="100dp"
@@ -115,7 +115,7 @@
                 android:password="true"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/cinzel"
-                android:hint="PASSWORD"
+                android:hint="CONTRASEÑA"
 
                 android:textColor="@color/white"
                 tools:layout_editor_absolutY="100dp"
@@ -125,10 +125,10 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="165dp"
+            android:layout_width="198dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cinzel"
-            android:text="Login"
+            android:text="Iniciar Sesión"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -140,7 +140,7 @@
             android:layout_marginTop="7dp"
             android:layout_marginBottom="7dp"
             android:fontFamily="@font/cinzel"
-            android:text="Forgot your password?"
+            android:text="¿Olvidó su contraseña?"
             android:textAlignment="center"
             android:textColor="@color/golden_light"
             android:textSize="12sp" />
@@ -150,7 +150,7 @@
             android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cinzel"
-            android:text="Sign up"
+            android:text="Registrarse"
             android:textAlignment="center"
             android:textColor="@color/golden_light"
             android:textSize="14sp" />

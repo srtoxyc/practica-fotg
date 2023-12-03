@@ -43,42 +43,54 @@ class LoginActivity : AppCompatActivity() {
 
         val TXT_SIGNUP: String              = "Sign up"
         val TXT_LOGIN: String               = "Log in"
+
         val MSG_ERROR_LOGIN: String         = "Nombre de usuario o contraseña incorrectos."
         val MSG_ERROR_USERNAME: String      = "El nombre de usuario no es correcto."
         val MSG_ERROR_EMAIL: String         = "El email no es correcto."
         val MSG_ERROR_DATABASE: String      = "Ha ocurrido un error inesperado con la base de datos."
         val MSG_ERROR_PASSWORD: String      = "La contraseña no es correcta."
         val MSG_SIGNUP: String              = "El usuario se ha registrado."
+
         val DIALOG_TITLE_WELCOME            = "Bienvenido"
 
         var viewState: Boolean              = false     // 'false' = LogIn Activity, 'true' = SignUp Activity.
 
         btnLogin.setOnClickListener {
             lifecycleScope.launch {
-                if(viewState) {
-                    when(appController.signUp(inputUser.text.toString(), Email(inputEmail.text.toString()), inputPass.text.toString())) {
-                        ServerState.STATE_ERROR_USERNAME -> {
-                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
-                        }
-                        ServerState.STATE_ERROR_EMAIL -> {
-                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
-                        }
-                        ServerState.STATE_ERROR_DATABASE -> {
-                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
-                        }
-                        ServerState.STATE_ERROR_PASSWORD -> {
-                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
-                        }
-                        ServerState.STATE_SUCCESS -> {
-                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, DIALOG_TITLE_WELCOME, MSG_SIGNUP).show()
-                        }
-                    }
+                if(inputUser.text.toString().contains(Regex("[/\\\\]")) || inputEmail.text.toString().contains(Regex("[/\\\\]")) || inputPass.text.toString().contains(Regex("[/\\\\]"))) {
+                    ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, ViewUtil.MSG_WRONG_CHARS).show()
+                } else if(inputUser.text.toString().isBlank() || inputPass.text.toString().isBlank()) {
+                    ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, ViewUtil.MSG_EMPTY).show()
                 } else {
-                    if(appController.checkLogin(inputUser.text.toString(), inputPass.text.toString())) {
-                        ViewUtil.openView(this@LoginActivity, LoadingActivity::class.java)
-                        overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
+                    if(viewState) {
+                        if(inputUser.text.toString().isBlank() || inputPass.text.toString().isBlank() || inputEmail.text.toString().isBlank()) {
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, ViewUtil.MSG_EMPTY).show()
+                        } else {
+                            when(appController.signUp(inputUser.text.toString(), Email(inputEmail.text.toString()), inputPass.text.toString())) {
+                                ServerState.STATE_ERROR_USERNAME -> {
+                                    ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_USERNAME).show()
+                                }
+                                ServerState.STATE_ERROR_EMAIL -> {
+                                    ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_EMAIL).show()
+                                }
+                                ServerState.STATE_ERROR_DATABASE -> {
+                                    ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_DATABASE).show()
+                                }
+                                ServerState.STATE_ERROR_PASSWORD -> {
+                                    ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_PASSWORD).show()
+                                }
+                                ServerState.STATE_SUCCESS -> {
+                                    ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo, DIALOG_TITLE_WELCOME, MSG_SIGNUP).show()
+                                }
+                            }
+                        }
                     } else {
-                        ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo,ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_LOGIN).show()
+                        if(appController.checkLogin(inputUser.text.toString(), inputPass.text.toString())) {
+                            ViewUtil.openView(this@LoginActivity, LoadingActivity::class.java)
+                            overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
+                        } else {
+                            ViewUtil.alertConfirm(this@LoginActivity, R.drawable.logo,ViewUtil.DIALOG_TITLE_ERROR, MSG_ERROR_LOGIN).show()
+                        }
                     }
                 }
             }

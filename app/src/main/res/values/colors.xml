@@ -18,4 +18,5 @@
     <color name="life">#15CD00</color>
     <color name="ether">#6200FF</color>
     <color name="movement">#066D87</color>
+    <color name="logout">#811E1E</color>
 </resources>

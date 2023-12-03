@@ -101,8 +101,8 @@ class MainActivity : AppCompatActivity() {
 
         lblUser.text                = AppController.session!!.getUsername()
         lblEmail.text               = AppController.session!!.getEmail().toString()
-        lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
-        lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
+        lblRole.text                = String.format("Rol: %s", AppController.session!!.getRole())
+        lblUserTeam.text            = String.format("Equipo de %s", AppController.session!!.getUsername())
 
         btnSaveTeam.setOnClickListener {
             lifecycleScope.launch {
@@ -127,30 +127,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnModifyUser.setOnClickListener {
-            ViewUtil.alertForm(this.appController, this, this@MainActivity, ViewUtil.DIALOG_SELECTOR_USER)
-
-            lblUser.text                = AppController.session!!.getUsername()
-            lblEmail.text               = AppController.session!!.getEmail().toString()
-            lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
-            lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
+            ViewUtil.alertForm(this@MainActivity.appController, this@MainActivity, this@MainActivity, ViewUtil.DIALOG_SELECTOR_USER)
         }
 
         btnModifyEmail.setOnClickListener {
             ViewUtil.alertForm(this.appController, this, this@MainActivity, ViewUtil.DIALOG_SELECTOR_EMAIL)
-
-            lblUser.text                = AppController.session!!.getUsername()
-            lblEmail.text               = AppController.session!!.getEmail().toString()
-            lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
-            lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
         }
 
         btnModifyPass.setOnClickListener {
             ViewUtil.alertForm(this.appController, this, this@MainActivity, ViewUtil.DIALOG_SELECTOR_PASS)
-
-            lblUser.text                = AppController.session!!.getUsername()
-            lblEmail.text               = AppController.session!!.getEmail().toString()
-            lblRole.text                = String.format("Role: %s", AppController.session!!.getRole())
-            lblUserTeam.text            = String.format("%s's Team", AppController.session!!.getUsername())
         }
 
         btnLogOut.setOnClickListener {

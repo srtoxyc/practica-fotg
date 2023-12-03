@@ -2,11 +2,15 @@
  * Copyright 2014-2023 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@import url('./font-jb-sans-auto.css');
-@import url('https://fonts.googleapis.com/css?family=JetBrains+Mono');
+ @import url('https://fonts.googleapis.com/css?family=Cinzel');
+ @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond');
+ @import url('https://fonts.googleapis.com/css?family=Cinzel:700');
 
 /* --- root styles --- */
 :root {
+    --fotg-golden: #9e7c40;
+    --fotg-golden-link: #c29a56;
+
     --default-gray: #f4f4f4;
     --default-font-color: black;
     --header-font-color: var(--default-font-color);
@@ -19,7 +23,7 @@
     --footer-padding-top: 48px;
     --footer-background: var(--default-gray);
     --footer-font-color: var(--average-color);
-    --footer-go-to-top-color: white;
+    --footer-go-to-top-color: var(--fotg-golden);
 
     --horizontal-spacing-for-content: 16px;
     --bottom-spacing: 16px;
@@ -49,8 +53,10 @@
     --active-section-color: #7F52FF;
     --inactive-section-color: rgba(25, 25, 28, .7);
 
-    --sidebar-width: 280px;
+    --sidebar-width: 340px;
     --sidemenu-section-active-color: #7F52FF;
+
+    
 }
 
 html {
@@ -84,13 +90,14 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family: 'Cinzel', Serif;
 }
 /* /--- root styles --- */
 
 /* --- global tags styles --- */
 body, table {
     background: var(--background-color);
-    font-family: var(--default-font-family);
+    font-family: 'Cormorant Garamond', Serif;
     font-style: normal;
     font-weight: normal;
     font-size: var(--default-font-size);
@@ -102,6 +109,10 @@ h1 {
     font-size: 40px;
     line-height: 48px;
     letter-spacing: -1px;
+
+    color: var(--fotg-golden);
+
+    font-family: 'Cinzel', Serif;
 }
 
 h2 {
@@ -122,6 +133,7 @@ p, ul, ol, table, pre, dl {
 
 a {
     text-decoration: none;
+    font-size: 15px;
 }
 
 u {
@@ -214,8 +226,8 @@ td:first-child {
 
 /* ---dark theme --- */
 .theme-dark {
-    --background-color: #27282c;
-    --color-dark: #3d3d41;
+    --background-color: #121212;
+    --color-dark: #202020;
     --default-font-color: hsla(0, 0%, 100%, 0.8);
     --border-color: hsla(0, 0%, 100%, 0.2);
     --code-background: hsla(0, 0%, 100%, 0.05);
@@ -231,9 +243,9 @@ td:first-child {
     --inactive-section-color: hsla(0, 0%, 100%, 0.4);
 
     --navigation-highlight-color: rgba(255, 255, 255, 0.05);
-    --footer-background: hsla(0, 0%, 100%, 0.05);
+    --footer-background: var(--background-color);
     --footer-font-color: hsla(0, 0%, 100%, 0.6);
-    --footer-go-to-top-color: var(--footer-font-color);
+    --footer-go-to-top-color: var(--color-dark);
 
     --sidemenu-section-active-color: var(--color-dark);
 }
@@ -526,6 +538,8 @@ td:first-child {
     background-color: transparent;
     color: var(--inactive-section-color);
     border-bottom: 1px solid var(--inactive-tab-border-color);
+    font-family: 'Cormorant Garamond';
+    font-size: 20px;
 }
 
 .platform-hinted > .platform-bookmarks-row {
@@ -1189,6 +1203,7 @@ td.content {
 
 .inline-flex {
     display: inline-flex;
+    font-size: 18px;
 }
 
 .platform-hinted {
@@ -1454,8 +1469,12 @@ div.runnablesample {
 .library-name--link {
     display: flex;
     align-items: center;
-    color: #fff;
+    color: var(--fotg-golden-link);
+    font-family: 'Cinzel', Serif;
+    font-size: 20px;
     font-weight: 530;
+    gap: 10px;
+    
 }
 
 .library-name--link::before {

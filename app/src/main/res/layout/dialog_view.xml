@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:ems="10"
+            android:fontFamily="@font/cinzel"
             android:hint="Field 1"
             android:inputType="text" />
 
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:ems="10"
+            android:fontFamily="@font/cinzel"
             android:hint="Field 2"
             android:inputType="text" />
 
@@ -54,6 +56,7 @@
             android:layout_width="242dp"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:fontFamily="@font/cinzel"
             android:hint="Field 3"
             android:inputType="text"
             android:visibility="gone" />
@@ -72,7 +75,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
-                android:text="Cancel" />
+                android:fontFamily="@font/cinzel"
+                android:text="Cancelar"
+                android:textAlignment="center"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btnConfirm"
@@ -80,7 +86,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="30dp"
-                android:text="Confirm" />
+                android:fontFamily="@font/cinzel"
+                android:text="Confirmar"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

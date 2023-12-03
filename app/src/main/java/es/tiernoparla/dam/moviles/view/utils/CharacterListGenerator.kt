@@ -57,8 +57,8 @@ class CharacterListGenerator(
      * @author Iván Vicente Morales (<a href="https://github.com/srtoxyc">@srtoxyc</a>)
      */
     private fun applyTeamListener(imgCharacter: ImageView, team: MutableList<ImageView>, teamProfile: MutableList<ImageView>, character: GameCharacter) {
-        val ERR_TITLE: String       = "Full team"
-        val ERR_MSG: String         = "Your team is already full."
+        val ERR_TITLE: String       = "Equipo completo"
+        val ERR_MSG: String         = "Tu equipo ya está completo."
 
         imgCharacter.setOnClickListener {
             if(User.getTeamElementsCount() < User.TEAM_MAX_SIZE) {

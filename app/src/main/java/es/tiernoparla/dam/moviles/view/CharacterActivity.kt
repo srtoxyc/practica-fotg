@@ -47,7 +47,7 @@ class CharacterActivity : AppCompatActivity() {
         lblLife.text            = characterSelected!!.getLife().toString()
         lblEther.text           = characterSelected!!.getEther().toString()
         lblMovement.text        = characterSelected!!.getMovement().toString()
-        lblAbilityTitle.text    = String.format("%s's Ability", characterSelected!!.getName())
+        lblAbilityTitle.text    = String.format("Habilidad de %s", characterSelected!!.getName())
         lblAbility.text         = characterSelected!!.getAbility().getName()
         lblAbilityDesc.text     = characterSelected!!.getAbility().getDesc()
     }
